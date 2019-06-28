@@ -1,0 +1,16 @@
+*.gem
+*.swp
+*~
+.#*
+.DS_Store
+.idea
+.project
+.rubocop-https---relaxed-ruby-style-rubocop-yml
+.sass-cache
+Gemfile.lock
+\#*
+coverage
+nbproject
+pkg
+spec/dummy
+tmp
