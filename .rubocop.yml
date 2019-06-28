@@ -1,0 +1,7 @@
+inherit_from:
+  - https://relaxed.ruby.style/rubocop.yml
+
+AllCops:
+  Exclude:
+    - 'bin/rake'
+    - 'spec/dummy/**/*'
