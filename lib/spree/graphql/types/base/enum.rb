@@ -3,7 +3,9 @@
 module Spree
   module Graphql
     module Types
-      class BaseScalar < GraphQL::Schema::Scalar
+      module Base
+        class Enum < GraphQL::Schema::Enum
+        end
       end
     end
   end
