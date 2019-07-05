@@ -30,3 +30,18 @@ task :test_app do
   ENV['LIB_NAME'] = 'solidus_graphql_api'
   Rake::Task['extension:test_app'].invoke
 end
+
+namespace :dev do
+  desc 'Setup development app'
+  task :setup do
+    Rake::Task['test_app'].invoke
+    puts "Setting up dummy development database..."
+
+    sh "bin/rails db:drop db:setup spree_sample:load VERBOSE=false RAILS_ENV=development"
+  end
+
+  desc 'Start development app'
+  task :start do
+    sh "./spec/dummy/bin/rails s", verbose: false
+  end
+end
