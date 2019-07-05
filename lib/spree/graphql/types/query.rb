@@ -3,7 +3,7 @@
 module Spree
   module Graphql
     module Types
-      class QueryType < Types::BaseObject
+      class Query < Types::Base::Object
         # TODO: remove me
         field :test_field, String, null: false,
           description: "An example field added by the generator"

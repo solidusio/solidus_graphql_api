@@ -3,8 +3,9 @@
 module Spree
   module Graphql
     module Types
-      module BaseInterface
-        include GraphQL::Schema::Interface
+      module Base
+        class Scalar < GraphQL::Schema::Scalar
+        end
       end
     end
   end
