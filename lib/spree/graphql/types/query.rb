@@ -3,7 +3,7 @@
 module Spree
   module Graphql
     module Types
-      class QueryType < Types::BaseObject
+      class Query < Types::Base::Object
       end
     end
   end

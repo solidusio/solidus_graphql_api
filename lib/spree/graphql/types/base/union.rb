@@ -3,7 +3,9 @@
 module Spree
   module Graphql
     module Types
-      class BaseUnion < GraphQL::Schema::Union
+      module Base
+        class Union < GraphQL::Schema::Union
+        end
       end
     end
   end

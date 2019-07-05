@@ -3,7 +3,7 @@
 module Spree
   module Graphql
     module Types
-      class BaseObject < GraphQL::Schema::Object
+      class Mutation < Types::Base::Object
       end
     end
   end
