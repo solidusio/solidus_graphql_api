@@ -3,7 +3,7 @@
 module Spree
   module Graphql
     class Schema < GraphQL::Schema
-      query(Types::QueryType)
+      query Types::Query
     end
   end
 end
