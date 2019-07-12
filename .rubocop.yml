@@ -5,3 +5,7 @@ AllCops:
   Exclude:
     - 'bin/rake'
     - 'spec/dummy/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*_spec.rb'
