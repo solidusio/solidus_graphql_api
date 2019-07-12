@@ -8,6 +8,9 @@ begin
   require 'spree/testing_support/extension_rake'
   require 'rubocop/rake_task'
   require 'rspec/core/rake_task'
+  require 'graphql/rake_task'
+
+  GraphQL::RakeTask.new(schema_name: 'Spree::Graphql::Schema')
 
   RSpec::Core::RakeTask.new(:spec)
 
@@ -29,6 +32,17 @@ desc 'Generates a dummy app for testing'
 task :test_app do
   ENV['LIB_NAME'] = 'solidus_graphql_api'
   Rake::Task['extension:test_app'].invoke
+end
+
+namespace :graphql do
+  desc 'Dumps GraphQL schema as IDL and JSON.'
+  task :dump do
+    Rake::Task[:first_run].invoke
+
+    require File.expand_path('spec/dummy/config/environment.rb', __dir__)
+
+    Rake::Task['graphql:schema:dump'].invoke
+  end
 end
 
 namespace :dev do

@@ -1,0 +1,6 @@
+type Query {
+  """
+  An example field added by the generator
+  """
+  testField: String!
+}
