@@ -3,6 +3,15 @@
 require 'spec_helper'
 
 RSpec.describe Spree::Graphql::Schema do
+  it 'current schema is identical to desired schema' do
+    desired_schema = File.read("#{SolidusGraphqlApi::Engine.root}/spec/desired_schema.graphql")
+    current_schema = Spree::Graphql::Schema.to_definition
+
+    result = GraphQL::SchemaComparator.compare(current_schema, desired_schema)
+
+    expect(result.identical?).to be_truthy, result.changes.map(&:message).join("\n")
+  end
+
   describe '.id_from_object' do
     subject { described_class.id_from_object(object, nil, nil) }
 
