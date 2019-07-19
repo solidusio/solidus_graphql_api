@@ -130,9 +130,4 @@ type Query {
     """
     ids: [ID!]!
   ): [Node]!
-
-  """
-  An example field added by the generator
-  """
-  testField: String!
 }
