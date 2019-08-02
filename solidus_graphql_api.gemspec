@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'graphiql-rails', '~> 1.7.0'
   s.add_dependency 'graphql', '~> 1.9.7'
-  s.add_dependency 'solidus_core', '>= 2.7'
+  s.add_dependency 'solidus_core', '>= 2.5'
 
   s.add_development_dependency 'byebug', '~> 11.0.1'
   s.add_development_dependency 'database_cleaner', '~> 1.7.0'

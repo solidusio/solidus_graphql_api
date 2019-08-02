@@ -1,83 +1,22 @@
 version: 2.1
 
 orbs:
-  test-orb:
-    executors:
-      base:
-        parameters: &parameters
-          ruby_version:
-            type: string
-            default: "2.5.0"
-        docker:
-          - image: &ruby_image circleci/ruby:<<parameters.ruby_version>>-node
-        environment: &environment
-          RAILS_ENV: test
-
-      postgres:
-        parameters:
-          <<: *parameters
-          version:
-            type: string
-            default: "9.4.11"
-        docker:
-          - image: *ruby_image
-          - image: circleci/postgres:<<parameters.version>>
-        environment:
-          <<: *environment
-          DB: postgres
-          DATABASE_URL: postgresql://root@127.0.0.1/circle_test?pool=5
-
-      mysql:
-        parameters:
-          <<: *parameters
-          version:
-            type: string
-            default: "5.7"
-        docker:
-          - image: *ruby_image
-          - image: circleci/mysql:<<parameters.version>>-ram
-        environment:
-          <<: *environment
-          DB: mysql
-          DATABASE_URL: mysql2://root@127.0.0.1/circle_test?pool=5
-
-    commands:
-      setup:
-        steps:
-          - checkout
-          - run:
-              name: Bundle Install
-              command: bundle install --path vendor/bundle
-          - run:
-              name: Prepare Test App
-              command: bundle exec rake first_run
-
-      test:
-        steps:
-          - run:
-              name: Run Tests
-              command: bundle exec rspec --format progress --format RspecJunitFormatter -o /tmp/test-results/rspec.xml
-          - store_test_results:
-              path: /tmp/test-results
-
-    jobs:
-      build:
-        parameters:
-          db:
-            type: executor
-          solidus_branch:
-            type: string
-            default: "master"
-        executor: << parameters.db >>
-        environment:
-          SOLIDUS_BRANCH: <<parameters.solidus_branch>>
-        steps:
-          - setup
-          - test
+  solidusio_extensions: solidusio/extensions@volatile
 
 jobs:
-  verify_schema:
-    executor: test-orb/base
+  run-specs-with-postgres:
+    executor: solidusio_extensions/postgres
+    steps:
+      - solidusio_extensions/run-tests
+
+  run-specs-with-mysql:
+    executor: solidusio_extensions/mysql
+    steps:
+      - solidusio_extensions/run-tests
+
+  verify-schema:
+    docker:
+      - image: circleci/ruby:2.5.0-node
     steps:
       - checkout
       - run:
@@ -88,34 +27,8 @@ jobs:
           command: rm Gemfile && schema_comparator verify "`git show master:schema.graphql`" schema.graphql
 
 workflows:
-  build:
+  "Run specs on supported Solidus versions":
     jobs:
-      - verify_schema
-
-      - test-orb/build:
-          name: ruby-2.5_solidus-2.7_postgres
-          db:
-            name: test-orb/postgres
-            ruby_version: "2.5.0"
-          solidus_branch: v2.7
-
-      - test-orb/build:
-          name: ruby-2.5_solidus-2.8_postgres
-          db:
-            name: test-orb/postgres
-            ruby_version: "2.5.0"
-          solidus_branch: v2.8
-
-      - test-orb/build:
-          name: ruby-2.6_solidus-2.7_mysql
-          db:
-            name: test-orb/mysql
-            ruby_version: "2.6.0"
-          solidus_branch: v2.7
-
-      - test-orb/build:
-          name: ruby-2.6_solidus-2.8_mysql
-          db:
-            name: test-orb/mysql
-            ruby_version: "2.6.0"
-          solidus_branch: v2.8
+      - verify-schema
+      - run-specs-with-postgres
+      - run-specs-with-mysql
