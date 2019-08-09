@@ -1,3 +1,7 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/1629331b266450721936/maintainability)](https://codeclimate.com/github/nebulab/solidus_graphql_api-1/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/1629331b266450721936/test_coverage)](https://codeclimate.com/github/nebulab/solidus_graphql_api-1/test_coverage)
+[![CircleCI](https://circleci.com/gh/nebulab/solidus_graphql_api-1.svg?style=svg)](https://circleci.com/gh/nebulab/solidus_graphql_api-1)
+
 SolidusGraphqlApi
 =================
 
