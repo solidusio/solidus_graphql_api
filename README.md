@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/nebulab/solidus_graphql_api-1.svg?style=svg)](https://circleci.com/gh/nebulab/solidus_graphql_api-1)
+
 SolidusGraphqlApi
 =================
 
