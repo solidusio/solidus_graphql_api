@@ -8,6 +8,13 @@ jobs:
     executor: solidusio_extensions/postgres
     steps:
       - solidusio_extensions/run-tests
+      - run:
+          name: Install & Upload test coverage to Code Climate
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+            ./cc-test-reporter format-coverage -t simplecov -o ./coverage/codeclimate.json
+            ./cc-test-reporter upload-coverage
 
   run-specs-with-mysql:
     executor: solidusio_extensions/mysql
