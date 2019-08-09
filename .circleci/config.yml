@@ -1,0 +1,34 @@
+version: 2.1
+
+orbs:
+  solidusio_extensions: solidusio/extensions@volatile
+
+jobs:
+  run-specs-with-postgres:
+    executor: solidusio_extensions/postgres
+    steps:
+      - solidusio_extensions/run-tests
+
+  run-specs-with-mysql:
+    executor: solidusio_extensions/mysql
+    steps:
+      - solidusio_extensions/run-tests
+
+  verify-schema:
+    docker:
+      - image: circleci/ruby:2.5.0-node
+    steps:
+      - checkout
+      - run:
+          name: Install GraphQL::SchemaComparator
+          command: gem install graphql-schema_comparator
+      - run:
+          name: Run Verify
+          command: rm Gemfile && schema_comparator verify "`git show master:schema.graphql`" schema.graphql
+
+workflows:
+  "Run specs on supported Solidus versions":
+    jobs:
+      - verify-schema
+      - run-specs-with-postgres
+      - run-specs-with-mysql
