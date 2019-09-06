@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
     `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   end
 
+  s.add_dependency 'batch-loader', '~> 1.4.1'
   s.add_dependency 'graphiql-rails', '~> 1.7.0'
   s.add_dependency 'graphql', '~> 1.9.7'
   s.add_dependency 'solidus_core', '>= 2.5'
