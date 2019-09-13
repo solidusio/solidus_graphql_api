@@ -9,6 +9,14 @@ module Spree
 
         # Fetches a list of objects given a list of UUIDs
         field :nodes, field: GraphQL::Relay::Node.plural_field
+
+        field :countries, Types::Country.connection_type,
+              null: false,
+              description: 'Supported Countries.'
+
+        def countries
+          Spree::Country.all
+        end
       end
     end
   end
