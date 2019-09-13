@@ -4,10 +4,10 @@ require 'spec_helper'
 
 RSpec.describe Spree::Graphql::Schema do
   it 'current schema is identical to desired schema' do
-    desired_schema = File.read("#{SolidusGraphqlApi::Engine.root}/spec/desired_schema.graphql")
+    expected_schema = File.read("#{SolidusGraphqlApi::Engine.root}/spec/expected_schema.graphql")
     current_schema = Spree::Graphql::Schema.to_definition
 
-    result = GraphQL::SchemaComparator.compare(current_schema, desired_schema)
+    result = GraphQL::SchemaComparator.compare(current_schema, expected_schema)
 
     expect(result.identical?).to be_truthy, result.changes.map(&:message).join("\n")
   end
