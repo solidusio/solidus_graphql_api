@@ -1,0 +1,15 @@
+query {
+  countries {
+    nodes {
+      id
+      isoName
+      iso
+      iso3
+      name
+      numcode
+      statesRequired
+      createdAt
+      updatedAt
+    }
+  }
+}
