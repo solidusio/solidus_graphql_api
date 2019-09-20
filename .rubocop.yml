@@ -3,6 +3,9 @@ inherit_from:
 
 AllCops:
   Exclude:
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
+    - '.git/**/*'
     - 'bin/rake'
     - 'spec/dummy/**/*'
 
