@@ -5,15 +5,12 @@ module Spree
     skip_before_action :verify_authenticity_token
 
     def execute
-      variables = ensure_hash(params[:variables])
-      query = params[:query]
-      operation_name = params[:operationName]
-      context = {
-        # Query context goes here, for example:
-        # current_user: current_user,
-      }
-      result = Graphql::Schema.execute(query, variables: variables, context: context, operation_name: operation_name)
-      render json: result
+      render json: Graphql::Schema.execute(
+        params[:query],
+        variables: ensure_hash(params[:variables]),
+        context: { current_user: current_user },
+        operation_name: params[:operationName]
+      )
     rescue StandardError => e
       raise e unless Rails.env.development?
 
@@ -45,6 +42,16 @@ module Spree
       logger.error error.backtrace.join("\n")
 
       render json: { error: { message: error.message, backtrace: error.backtrace }, data: {} }, status: 500
+    end
+
+    def current_user
+      @current_user ||= Spree.user_class.find_by(spree_api_key: bearer_token.to_s)
+    end
+
+    def bearer_token
+      pattern = /^Bearer /
+      header = request.headers["Authorization"]
+      header.gsub(pattern, '') if header.present? && header.match(pattern)
     end
   end
 end
