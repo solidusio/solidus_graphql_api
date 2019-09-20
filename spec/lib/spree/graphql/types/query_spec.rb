@@ -4,4 +4,5 @@ require 'spec_helper'
 
 RSpec.describe Spree::Graphql::Types::Query do
   it { expect(described_class.method_defined?(:countries)).to be_truthy }
+  it { expect(described_class.method_defined?(:taxonomies)).to be_truthy }
 end
