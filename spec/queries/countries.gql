@@ -10,6 +10,14 @@ query {
       statesRequired
       createdAt
       updatedAt
+      states {
+        nodes {
+          name
+          abbr
+          createdAt
+          updatedAt
+        }
+      }
     }
   }
 }
