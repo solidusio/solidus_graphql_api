@@ -5,14 +5,12 @@ module Spree
     skip_before_action :verify_authenticity_token
 
     def execute
-      variables = ensure_hash(params[:variables])
-      query = params[:query]
-      operation_name = params[:operationName]
-      context = {
-        current_user: current_user,
-      }
-      result = Graphql::Schema.execute(query, variables: variables, context: context, operation_name: operation_name)
-      render json: result
+      render json: Graphql::Schema.execute(
+        params[:query],
+        variables: ensure_hash(params[:variables]),
+        context: { current_user: current_user },
+        operation_name: params[:operationName]
+      )
     rescue StandardError => e
       raise e unless Rails.env.development?
 
