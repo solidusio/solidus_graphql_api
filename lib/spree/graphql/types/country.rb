@@ -15,6 +15,10 @@ module Spree
         field :states_required, Boolean, null: false
         field :created_at, GraphQL::Types::ISO8601DateTime, null: true
         field :updated_at, GraphQL::Types::ISO8601DateTime, null: true
+
+        def states
+          Spree::Queries::StatesQuery.new(object).call
+        end
       end
     end
   end
