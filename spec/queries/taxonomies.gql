@@ -1,0 +1,10 @@
+query {
+  taxonomies {
+    nodes {
+      id
+      name
+      createdAt
+      updatedAt
+    }
+  }
+}
