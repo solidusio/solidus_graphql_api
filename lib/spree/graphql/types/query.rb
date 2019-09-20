@@ -14,8 +14,16 @@ module Spree
               null: false,
               description: 'Supported Countries.'
 
+        field :taxonomies, Types::Taxonomy.connection_type,
+              null: false,
+              description: 'Supported Taxonomies.'
+
         def countries
           Spree::Queries::CountriesQuery.new.call
+        end
+
+        def taxonomies
+          Spree::Queries::TaxonomiesQuery.new.call
         end
       end
     end
