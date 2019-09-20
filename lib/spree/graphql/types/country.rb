@@ -11,6 +11,7 @@ module Spree
         field :iso3, String, null: false
         field :name, String, null: false
         field :numcode, Integer, null: false
+        field :states, Types::State.connection_type, null: false
         field :states_required, Boolean, null: false
         field :created_at, GraphQL::Types::ISO8601DateTime, null: true
         field :updated_at, GraphQL::Types::ISO8601DateTime, null: true
