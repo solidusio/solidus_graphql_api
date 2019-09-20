@@ -15,7 +15,7 @@ module Spree
               description: 'Supported Countries.'
 
         def countries
-          Spree::Country.all
+          Spree::Queries::CountriesQuery.new.call
         end
       end
     end
