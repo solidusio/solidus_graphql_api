@@ -3,7 +3,37 @@ version: 2.1
 orbs:
   solidusio_extensions: solidusio/extensions@volatile
 
+commands:
+  bundle:
+    description: 'Install and cache gems'
+    steps:
+      - restore_cache:
+          keys:
+            - v1-bundle-{{ checksum "solidus_graphql_api.gemspec" }}-{{ checksum "Gemfile" }}
+            - v1-bundle-{{ checksum "solidus_graphql_api.gemspec" }}
+            - v1-bundle-
+      - run: bundle check || bundle install
+      - save_cache:
+          key: v1-bundle-{{ checksum "solidus_graphql_api.gemspec" }}-{{ checksum "Gemfile" }}
+          paths:
+            - ~/project/vendor/bundle
+
 jobs:
+  verify-schema-updated:
+    docker:
+      - image: circleci/ruby:2.5.0-node
+        environment:
+          BUNDLE_PATH: vendor/bundle
+    steps:
+      - checkout
+      - bundle
+      - run:
+          name: Check if Schema is up-to-date
+          command: |
+            mv schema.graphql old_schema.graphql
+            bundle exec rake schema:idl
+            diff old_schema.graphql schema.graphql
+
   run-specs-with-postgres:
     executor: solidusio_extensions/postgres
     steps:
@@ -21,7 +51,7 @@ jobs:
     steps:
       - solidusio_extensions/run-tests
 
-  verify-schema:
+  schema-breaking-change-detection:
     docker:
       - image: circleci/ruby:2.5.0-node
     steps:
@@ -30,12 +60,19 @@ jobs:
           name: Install GraphQL::SchemaComparator
           command: gem install graphql-schema_comparator
       - run:
-          name: Run Verify
+          name: Schema Breaking Change detection
           command: rm Gemfile && schema_comparator verify "`git show master:schema.graphql`" schema.graphql
 
 workflows:
   "Run specs on supported Solidus versions":
     jobs:
-      - verify-schema
-      - run-specs-with-postgres
-      - run-specs-with-mysql
+      - verify-schema-updated
+      - schema-breaking-change-detection:
+          requires:
+            - verify-schema-updated
+      - run-specs-with-postgres:
+          requires:
+            - verify-schema-updated
+      - run-specs-with-mysql:
+          requires:
+            - verify-schema-updated
