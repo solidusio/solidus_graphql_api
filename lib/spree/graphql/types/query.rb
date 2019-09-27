@@ -14,8 +14,16 @@ module Spree
               null: false,
               description: 'Supported Countries.'
 
+        field :orders, Types::Order.connection_type,
+              null: false,
+              description: 'Customer Orders.'
+
         def countries
           Spree::Queries::CountriesQuery.new.call
+        end
+
+        def orders
+          Spree::Queries::OrdersQuery.new(user: context[:current_user]).call
         end
       end
     end
