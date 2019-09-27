@@ -6,8 +6,6 @@ module Spree
       class Order < Base::RelayNode
         description 'Order.'
 
-        #"user_id"=>nil, "bill_address_id"=>2, "ship_address_id"=>1, "created_by_id"=>nil, "approver_id"=>nil, "canceler_id"=>nil, "store_id"=>1,
-
         field :approved_at, GraphQL::Types::ISO8601DateTime, null: true
         field :approver_name, String, null: true
         field :canceled_at, GraphQL::Types::ISO8601DateTime, null: true
