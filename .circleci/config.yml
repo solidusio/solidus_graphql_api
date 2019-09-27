@@ -20,6 +20,12 @@ jobs:
     executor: solidusio_extensions/mysql
     steps:
       - solidusio_extensions/run-tests
+      - run:
+          name: Check if Schema is up-to-date
+          command: |
+            mv schema.graphql old_schema.graphql
+            bundle exec rake schema:idl
+            diff old_schema.graphql schema.graphql
 
   verify-schema:
     docker:
