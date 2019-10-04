@@ -12,6 +12,10 @@ module Spree
         field :option_values, Types::OptionValue.connection_type, null: false
         field :created_at, GraphQL::Types::ISO8601DateTime, null: true
         field :updated_at, GraphQL::Types::ISO8601DateTime, null: true
+
+        def option_values
+          Spree::Queries::OptionType::OptionValuesQuery.new(option_type: object).call
+        end
       end
     end
   end
