@@ -1,0 +1,34 @@
+query {
+  orders {
+    nodes {
+      id
+      approved_at
+      approver_name
+      canceled_at
+      channel
+      completed_at
+      confirmation_delivered
+      created_at
+      currency
+      email
+      frontend_viewable
+      guest_token
+      item_count
+      last_ip_address
+      number
+      payment_state
+      shipment_state
+      special_instructions
+      state
+      updated_at
+      item_total
+      total
+      adjustment_total
+      payment_total
+      shipment_total
+      additional_tax_total
+      promo_total
+      included_tax_total
+    }
+  }
+}

@@ -9,11 +9,12 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - v1-bundle-{{ checksum "Gemfile.lock" }}
+            - v1-bundle-{{ checksum "solidus_graphql_api.gemspec" }}-{{ checksum "Gemfile" }}
+            - v1-bundle-{{ checksum "solidus_graphql_api.gemspec" }}
             - v1-bundle-
-      - run: bundle check || bundle install && bundle clean --force
+      - run: bundle check || bundle install
       - save_cache:
-          key: v1-bundle-{{ checksum "Gemfile.lock" }}
+          key: v1-bundle-{{ checksum "solidus_graphql_api.gemspec" }}-{{ checksum "Gemfile" }}
           paths:
             - ~/project/vendor/bundle
 
