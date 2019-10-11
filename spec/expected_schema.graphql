@@ -328,6 +328,7 @@ type Taxon implements Node {
   metaKeywords: String
   metaTitle: String
   name: String!
+  parentTaxon: Taxon
   permalink: String!
   updatedAt: ISO8601DateTime
 }

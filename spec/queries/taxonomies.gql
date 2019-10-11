@@ -28,6 +28,9 @@ query {
               metaDescription
               metaKeywords
               iconUrl
+              parentTaxon {
+                id
+              }
             }
           }
           createdAt

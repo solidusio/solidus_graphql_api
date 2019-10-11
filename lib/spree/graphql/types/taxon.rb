@@ -14,11 +14,16 @@ module Spree
         field :meta_keywords, String, null: true
         field :meta_title, String, null: true
         field :name, String, null: false
+        field :parent_taxon, Types::Taxon, null: true
         field :permalink, String, null: false
         field :updated_at, GraphQL::Types::ISO8601DateTime, null: true
 
         def icon_url
           object.icon.url
+        end
+
+        def parent_taxon
+          Spree::Queries::Taxon::ParentTaxonQuery.new(taxon: object).call
         end
 
         def children

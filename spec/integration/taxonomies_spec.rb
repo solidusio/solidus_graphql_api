@@ -8,6 +8,7 @@ RSpec.describe "Taxonomies" do
     let(:root_taxon_nodes) { taxonomy_nodes.map(&:rootTaxon) }
     let(:taxon_nodes) { taxonomy_nodes.map { |taxonomy_node| taxonomy_node.taxons.nodes }.flatten }
     let(:child_nodes) { taxon_nodes.map { |taxon_node| taxon_node.children.nodes }.flatten }
+    let(:parent_taxon_nodes) { child_nodes.map(&:parentTaxon) }
 
     before do
       taxonomies = create_list(:taxonomy, 2)
@@ -23,5 +24,7 @@ RSpec.describe "Taxonomies" do
     it { expect(child_nodes).to be_present }
 
     it { expect(root_taxon_nodes).to be_present }
+
+    it { expect(parent_taxon_nodes).to be_present }
   end
 end

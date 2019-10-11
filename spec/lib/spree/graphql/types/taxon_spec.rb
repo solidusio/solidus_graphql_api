@@ -17,4 +17,14 @@ RSpec.describe Spree::Graphql::Types::Taxon do
 
     it { expect(query_object).to receive(:call) }
   end
+
+  describe '#parent_taxon' do
+    before { allow(Spree::Queries::Taxon::ParentTaxonQuery).to receive(:new).and_return(query_object) }
+
+    after { subject.parent_taxon }
+
+    it { expect(Spree::Queries::Taxon::ParentTaxonQuery).to receive(:new).with(taxon: taxon) }
+
+    it { expect(query_object).to receive(:call) }
+  end
 end
