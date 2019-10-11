@@ -13,12 +13,17 @@ module Spree
         field :meta_keywords, String, null: true
         field :meta_title, String, null: true
         field :name, String, null: false
+        field :option_types, Types::OptionType.connection_type, null: false
         field :slug, String, null: false
         field :updated_at, GraphQL::Types::ISO8601DateTime, null: true
         field :variants, Types::Variant.connection_type, null: false
 
         def master_variant
           Spree::Queries::Product::MasterVariantQuery.new(product: object).call
+        end
+
+        def option_types
+          Spree::Queries::Product::OptionTypesQuery.new(product: object).call
         end
 
         def variants

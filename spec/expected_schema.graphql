@@ -265,6 +265,27 @@ type Product implements Node {
  metaKeywords: String
  metaTitle: String
  name: String!
+ optionTypes(
+   """
+   Returns the elements in the list that come after the specified cursor.
+   """
+   after: String
+
+   """
+   Returns the elements in the list that come before the specified cursor.
+   """
+   before: String
+
+   """
+   Returns the first _n_ elements from the list.
+   """
+   first: Int
+
+   """
+   Returns the last _n_ elements from the list.
+   """
+   last: Int
+ ): OptionTypeConnection!
  slug: String!
  updatedAt: ISO8601DateTime
  variants(
@@ -655,4 +676,72 @@ type VariantEdge {
  The item at the end of the edge.
  """
  node: Variant
+}
+
+"""
+OptionType Type.
+"""
+type OptionType implements Node {
+ createdAt: ISO8601DateTime
+ id: ID!
+ name: String!
+ optionValues(
+   """
+   Returns the elements in the list that come after the specified cursor.
+   """
+   after: String
+
+   """
+   Returns the elements in the list that come before the specified cursor.
+   """
+   before: String
+
+   """
+   Returns the first _n_ elements from the list.
+   """
+   first: Int
+
+   """
+   Returns the last _n_ elements from the list.
+   """
+   last: Int
+ ): OptionValueConnection!
+ position: Int!
+ presentation: String!
+ updatedAt: ISO8601DateTime
+}
+
+"""
+The connection type for OptionType.
+"""
+type OptionTypeConnection {
+ """
+ A list of edges.
+ """
+ edges: [OptionTypeEdge]
+
+ """
+ A list of nodes.
+ """
+ nodes: [OptionType]
+
+ """
+ Information to aid in pagination.
+ """
+ pageInfo: PageInfo!
+}
+
+"""
+An edge in a connection.
+"""
+type OptionTypeEdge {
+ """
+ A cursor for use in pagination.
+ """
+ cursor: String!
+
+ """
+ The item at the end of the edge.
+ """
+ node: OptionType
 }

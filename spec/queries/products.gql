@@ -11,6 +11,26 @@ query {
       metaKeywords
       metaTitle
       name
+      optionTypes {
+        nodes {
+          createdAt
+          id
+          name
+          optionValues {
+            nodes {
+              createdAt
+              id
+              name
+              position
+              presentation
+              updatedAt
+            }
+          }
+          position
+          presentation
+          updatedAt
+        }
+      }
       slug
       updatedAt
       variants {
