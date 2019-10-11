@@ -5,6 +5,7 @@ require 'spec_helper'
 RSpec.describe "Taxonomies" do
   include_examples 'query is successful', :taxonomies do
     let(:taxonomy_nodes) { subject.data.taxonomies.nodes }
+    let(:root_taxon_nodes) { taxonomy_nodes.map(&:rootTaxon) }
     let(:taxon_nodes) { taxonomy_nodes.map { |taxonomy_node| taxonomy_node.taxons.nodes }.flatten }
     let(:child_nodes) { taxon_nodes.map { |taxon_node| taxon_node.children.nodes }.flatten }
 
@@ -20,5 +21,7 @@ RSpec.describe "Taxonomies" do
     it { expect(taxon_nodes).to be_present }
 
     it { expect(child_nodes).to be_present }
+
+    it { expect(root_taxon_nodes).to be_present }
   end
 end

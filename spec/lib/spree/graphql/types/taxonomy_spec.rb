@@ -17,4 +17,14 @@ RSpec.describe Spree::Graphql::Types::Taxonomy do
 
     it { expect(query_object).to receive(:call) }
   end
+
+  describe '#root_taxon' do
+    before { allow(Spree::Queries::Taxonomy::RootTaxonQuery).to receive(:new).and_return(query_object) }
+
+    after { subject.root_taxon }
+
+    it { expect(Spree::Queries::Taxonomy::RootTaxonQuery).to receive(:new).with(taxonomy: taxonomy) }
+
+    it { expect(query_object).to receive(:call) }
+  end
 end

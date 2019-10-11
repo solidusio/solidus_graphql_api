@@ -235,6 +235,7 @@ type Taxonomy implements Node {
   createdAt: ISO8601DateTime
   id: ID!
   name: String!
+  rootTaxon: Taxon
   taxons(
     """
     Returns the elements in the list that come after the specified cursor.

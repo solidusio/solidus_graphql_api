@@ -5,6 +5,9 @@ query {
       name
       createdAt
       updatedAt
+      rootTaxon {
+        id
+      }
       taxons {
         nodes {
           id
