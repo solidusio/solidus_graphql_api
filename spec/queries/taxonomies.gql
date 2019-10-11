@@ -5,6 +5,38 @@ query {
       name
       createdAt
       updatedAt
+      rootTaxon {
+        id
+      }
+      taxons {
+        nodes {
+          id
+          name
+          permalink
+          description
+          metaTitle
+          metaDescription
+          metaKeywords
+          iconUrl
+          children {
+            nodes {
+              id
+              name
+              permalink
+              description
+              metaTitle
+              metaDescription
+              metaKeywords
+              iconUrl
+              parentTaxon {
+                id
+              }
+            }
+          }
+          createdAt
+          updatedAt
+        }
+      }
     }
   }
 }
