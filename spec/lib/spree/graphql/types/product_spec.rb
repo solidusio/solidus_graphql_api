@@ -8,6 +8,18 @@ RSpec.describe Spree::Graphql::Types::Product do
 
   subject { described_class.send(:new, product, {}) }
 
+  describe '#master_variant' do
+    before do
+      allow(Spree::Queries::Product::MasterVariantQuery).to receive(:new).and_return(query_object)
+    end
+
+    after { subject.master_variant }
+
+    it { expect(Spree::Queries::Product::MasterVariantQuery).to receive(:new).with(product: product) }
+
+    it { expect(query_object).to receive(:call) }
+  end
+
   describe '#variants' do
     before do
       allow(Spree::Queries::Product::VariantsQuery).to receive(:new).and_return(query_object)

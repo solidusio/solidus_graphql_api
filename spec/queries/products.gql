@@ -4,6 +4,9 @@ query {
       createdAt
       description
       id
+      masterVariant {
+        id
+      }
       metaDescription
       metaKeywords
       metaTitle

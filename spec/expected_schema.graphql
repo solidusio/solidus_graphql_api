@@ -260,6 +260,7 @@ type Product implements Node {
  createdAt: ISO8601DateTime
  description: String
  id: ID!
+ masterVariant: Variant!
  metaDescription: String
  metaKeywords: String
  metaTitle: String

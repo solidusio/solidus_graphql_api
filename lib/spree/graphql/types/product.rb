@@ -8,6 +8,7 @@ module Spree
 
         field :created_at, GraphQL::Types::ISO8601DateTime, null: true
         field :description, String, null: true
+        field :master_variant, Types::Variant, null: false
         field :meta_description, String, null: true
         field :meta_keywords, String, null: true
         field :meta_title, String, null: true
@@ -15,6 +16,10 @@ module Spree
         field :slug, String, null: false
         field :updated_at, GraphQL::Types::ISO8601DateTime, null: true
         field :variants, Types::Variant.connection_type, null: false
+
+        def master_variant
+          Spree::Queries::Product::MasterVariantQuery.new(product: object).call
+        end
 
         def variants
           Spree::Queries::Product::VariantsQuery.new(product: object).call
