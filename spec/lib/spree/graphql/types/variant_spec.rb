@@ -8,6 +8,18 @@ RSpec.describe Spree::Graphql::Types::Variant do
 
   subject { described_class.send(:new, variant, {}) }
 
+  describe '#default_price' do
+    before do
+      allow(Spree::Queries::Variant::DefaultPriceQuery).to receive(:new).and_return(query_object)
+    end
+
+    after { subject.default_price }
+
+    it { expect(Spree::Queries::Variant::DefaultPriceQuery).to receive(:new).with(variant: variant) }
+
+    it { expect(query_object).to receive(:call) }
+  end
+
   describe '#option_values' do
     before do
       allow(Spree::Queries::Variant::OptionValuesQuery).to receive(:new).and_return(query_object)

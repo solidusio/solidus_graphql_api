@@ -7,6 +7,7 @@ module Spree
         description 'Variant.'
 
         field :created_at, GraphQL::Types::ISO8601DateTime, null: true
+        field :default_price, Types::Price, null: false
         field :depth, String, null: true
         field :height, String, null: true
         field :is_master, Boolean, null: false
@@ -17,6 +18,10 @@ module Spree
         field :updated_at, GraphQL::Types::ISO8601DateTime, null: true
         field :weight, String, null: false
         field :width, String, null: true
+
+        def default_price
+          Spree::Queries::Variant::DefaultPriceQuery.new(variant: object).call
+        end
 
         def option_values
           Spree::Queries::Variant::OptionValuesQuery.new(variant: object).call
