@@ -10,6 +10,54 @@ query {
       name
       slug
       updatedAt
+      variants {
+        nodes {
+          createdAt
+          defaultPrice {
+            amount
+            countryIso
+            createdAt
+            currency
+            currencySymbol
+            displayAmount
+            displayCountry
+            id
+            updatedAt
+          }
+          depth
+          height
+          id
+          isMaster
+          optionValues {
+            nodes {
+              createdAt
+              id
+              name
+              position
+              presentation
+              updatedAt
+            }
+          }
+          position
+          prices {
+            nodes {
+              amount
+              countryIso
+              createdAt
+              currency
+              currencySymbol
+              displayAmount
+              displayCountry
+              id
+              updatedAt
+            }
+          }
+          sku
+          updatedAt
+          weight
+          width
+        }
+      }
     }
   }
 }

@@ -14,6 +14,11 @@ module Spree
         field :name, String, null: false
         field :slug, String, null: false
         field :updated_at, GraphQL::Types::ISO8601DateTime, null: true
+        field :variants, Types::Variant.connection_type, null: false
+
+        def variants
+          Spree::Queries::Product::VariantsQuery.new(product: object).call
+        end
       end
     end
   end

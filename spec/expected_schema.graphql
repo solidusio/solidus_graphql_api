@@ -266,6 +266,27 @@ type Product implements Node {
  name: String!
  slug: String!
  updatedAt: ISO8601DateTime
+ variants(
+   """
+   Returns the elements in the list that come after the specified cursor.
+   """
+   after: String
+
+   """
+   Returns the elements in the list that come before the specified cursor.
+   """
+   before: String
+
+   """
+   Returns the first _n_ elements from the list.
+   """
+   first: Int
+
+   """
+   Returns the last _n_ elements from the list.
+   """
+   last: Int
+ ): VariantConnection!
 }
 
 """
@@ -429,6 +450,183 @@ type TaxonConnection {
 }
 
 """
+OptionValue.
+"""
+type OptionValue implements Node {
+ createdAt: ISO8601DateTime
+ id: ID!
+ name: String!
+ position: String!
+ presentation: String!
+ updatedAt: ISO8601DateTime
+}
+
+"""
+The connection type for OptionValue.
+"""
+type OptionValueConnection {
+ """
+ A list of edges.
+ """
+ edges: [OptionValueEdge]
+
+ """
+ A list of nodes.
+ """
+ nodes: [OptionValue]
+
+ """
+ Information to aid in pagination.
+ """
+ pageInfo: PageInfo!
+}
+
+"""
+An edge in a connection.
+"""
+type OptionValueEdge {
+ """
+ A cursor for use in pagination.
+ """
+ cursor: String!
+
+ """
+ The item at the end of the edge.
+ """
+ node: OptionValue
+}
+
+
+"""
+Price.
+"""
+type Price implements Node {
+ amount: String!
+ countryIso: String
+ createdAt: ISO8601DateTime
+ currency: String!
+ currencySymbol: String!
+ displayAmount: String!
+ displayCountry: String!
+ id: ID!
+ updatedAt: ISO8601DateTime
+}
+
+"""
+The connection type for Price.
+"""
+type PriceConnection {
+ """
+ A list of edges.
+ """
+ edges: [PriceEdge]
+
+ """
+ A list of nodes.
+ """
+ nodes: [Price]
+
+ """
+ Information to aid in pagination.
+ """
+ pageInfo: PageInfo!
+}
+
+"""
+An edge in a connection.
+"""
+type PriceEdge {
+ """
+ A cursor for use in pagination.
+ """
+ cursor: String!
+
+ """
+ The item at the end of the edge.
+ """
+ node: Price
+}
+
+"""
+Variant.
+"""
+type Variant implements Node {
+ createdAt: ISO8601DateTime
+ defaultPrice: Price!
+ depth: String
+ height: String
+ id: ID!
+ isMaster: Boolean!
+ optionValues(
+   """
+   Returns the elements in the list that come after the specified cursor.
+   """
+   after: String
+
+   """
+   Returns the elements in the list that come before the specified cursor.
+   """
+   before: String
+
+   """
+   Returns the first _n_ elements from the list.
+   """
+   first: Int
+
+   """
+   Returns the last _n_ elements from the list.
+   """
+   last: Int
+ ): OptionValueConnection!
+ position: Int!
+ prices(
+   """
+   Returns the elements in the list that come after the specified cursor.
+   """
+   after: String
+
+   """
+   Returns the elements in the list that come before the specified cursor.
+   """
+   before: String
+
+   """
+   Returns the first _n_ elements from the list.
+   """
+   first: Int
+
+   """
+   Returns the last _n_ elements from the list.
+   """
+   last: Int
+ ): PriceConnection!
+ sku: String!
+ updatedAt: ISO8601DateTime
+ weight: String!
+ width: String
+}
+
+"""
+The connection type for Variant.
+"""
+type VariantConnection {
+ """
+ A list of edges.
+ """
+ edges: [VariantEdge]
+
+ """
+ A list of nodes.
+ """
+ nodes: [Variant]
+
+ """
+ Information to aid in pagination.
+ """
+ pageInfo: PageInfo!
+}
+
+"""
 An edge in a connection.
 """
 type TaxonEdge {
@@ -441,4 +639,19 @@ type TaxonEdge {
   The item at the end of the edge.
   """
   node: Taxon
+}
+
+"""
+An edge in a connection.
+"""
+type VariantEdge {
+ """
+ A cursor for use in pagination.
+ """
+ cursor: String!
+
+ """
+ The item at the end of the edge.
+ """
+ node: Variant
 }
