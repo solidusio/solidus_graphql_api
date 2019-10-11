@@ -1,0 +1,15 @@
+query {
+  products {
+    nodes {
+      createdAt
+      description
+      id
+      metaDescription
+      metaKeywords
+      metaTitle
+      name
+      slug
+      updatedAt
+    }
+  }
+}

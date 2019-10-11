@@ -14,12 +14,20 @@ module Spree
               null: false,
               description: 'Supported Countries.'
 
+        field :products, Types::Product.connection_type,
+              null: false,
+              description: 'Supported Products.'
+
         field :taxonomies, Types::Taxonomy.connection_type,
               null: false,
               description: 'Supported Taxonomies.'
 
         def countries
           Spree::Queries::CountriesQuery.new.call
+        end
+
+        def products
+          Spree::Queries::ProductsQuery.new.call
         end
 
         def taxonomies
