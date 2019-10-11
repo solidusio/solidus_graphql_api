@@ -17,7 +17,7 @@ module Spree
         field :updated_at, GraphQL::Types::ISO8601DateTime, null: true
 
         def states
-          Spree::Queries::Country::StatesQuery.new(object).call
+          Spree::Queries::Country::StatesQuery.new(country: object).call
         end
       end
     end

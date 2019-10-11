@@ -6,7 +6,7 @@ module Spree
       class StatesQuery
         attr_reader :country
 
-        def initialize(country)
+        def initialize(country:)
           @country = country
         end
 
