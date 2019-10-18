@@ -1,0 +1,5 @@
+query {
+  productBySlug(slug: "slug") {
+    id
+  }
+}

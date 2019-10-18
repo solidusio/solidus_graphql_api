@@ -18,6 +18,12 @@ module Spree
               null: false,
               description: 'Supported Products.'
 
+        field :product_by_slug, Types::Product,
+              null: true,
+              description: 'Find a product by its slug.' do
+                argument :slug, String, required: true
+              end
+
         field :taxonomies, Types::Taxonomy.connection_type,
               null: false,
               description: 'Supported Taxonomies.'
@@ -28,6 +34,10 @@ module Spree
 
         def products
           Spree::Queries::ProductsQuery.new.call
+        end
+
+        def product_by_slug(slug:)
+          Spree::Queries::ProductBySlugQuery.new.call(slug: slug)
         end
 
         def taxonomies
