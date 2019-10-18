@@ -493,6 +493,11 @@ type Query {
   ): [Node]!
 
   """
+  Find a product by its slug.
+  """
+  productBySlug(slug: String!): Product
+
+  """
   Supported Products.
   """
   products(
