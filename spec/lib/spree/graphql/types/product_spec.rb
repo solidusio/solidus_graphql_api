@@ -32,6 +32,16 @@ RSpec.describe Spree::Graphql::Types::Product do
     it { expect(query_object).to receive(:call) }
   end
 
+  describe '#product_properties' do
+    before do
+      allow(Spree::Queries::Product::ProductPropertiesQuery).to receive(:new).with(product: product).and_return(query_object)
+    end
+
+    after { subject.product_properties }
+
+    it { expect(query_object).to receive(:call) }
+  end
+
   describe '#variants' do
     before do
       allow(Spree::Queries::Product::VariantsQuery).to receive(:new).and_return(query_object)

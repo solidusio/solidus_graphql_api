@@ -14,6 +14,7 @@ module Spree
         field :meta_title, String, null: true
         field :name, String, null: false
         field :option_types, Types::OptionType.connection_type, null: false
+        field :product_properties, Types::ProductProperty.connection_type, null: false
         field :slug, String, null: false
         field :updated_at, GraphQL::Types::ISO8601DateTime, null: true
         field :variants, Types::Variant.connection_type, null: false
@@ -24,6 +25,10 @@ module Spree
 
         def option_types
           Spree::Queries::Product::OptionTypesQuery.new(product: object).call
+        end
+
+        def product_properties
+          Spree::Queries::Product::ProductPropertiesQuery.new(product: object).call
         end
 
         def variants
