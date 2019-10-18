@@ -10,7 +10,7 @@ module Spree
         field :position, Int, null: false
         field :property, Types::Property, null: true
         field :updated_at, GraphQL::Types::ISO8601DateTime, null: true
-        field :value, String, null: false
+        field :value, String, null: true
 
         def property
           Spree::Queries::ProductProperty::PropertyQuery.new(product_property: object).call
