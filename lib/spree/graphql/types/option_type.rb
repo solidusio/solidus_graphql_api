@@ -4,7 +4,9 @@ module Spree
   module Graphql
     module Types
       class OptionType < Base::RelayNode
-        description 'Option Type.'
+        graphql_name 'OptionType'
+
+        description 'OptionType Type.'
 
         field :name, String, null: false
         field :presentation, String, null: false
