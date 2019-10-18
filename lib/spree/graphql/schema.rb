@@ -5,7 +5,7 @@ module Spree
     class Schema < GraphQL::Schema
       query Types::Query
 
-      use BatchLoader::GraphQL
+      use ::BatchLoader::GraphQL
 
       # Relay Object Identification:
       class << self

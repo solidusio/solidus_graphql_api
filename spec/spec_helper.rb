@@ -17,6 +17,7 @@ require File.expand_path('dummy/config/environment.rb', __dir__)
 require 'solidus_support/extension/rails_helper.rb'
 
 require "graphql/schema_comparator"
+require 'with_model'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -30,4 +31,6 @@ RSpec.configure do |config|
   config.before(:each) do
     BatchLoader::Executor.clear_current
   end
+
+  config.extend WithModel
 end
