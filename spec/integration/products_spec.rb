@@ -6,6 +6,7 @@ RSpec.describe "Products" do
   include_examples 'query is successful', :products do
     let(:product_nodes) { subject.data.products.nodes }
     let(:master_variant_nodes) { product_nodes.map(&:masterVariant) }
+    let(:master_variant_images_nodes) { master_variant_nodes.map(&:images) }
     let(:option_type_nodes) { product_nodes.map { |product_node| product_node.optionTypes.nodes }.flatten }
     let(:option_value_nodes) { option_type_nodes.map { |option_type| option_type.optionValues.nodes }.flatten }
     let(:product_properties_nodes) { product_nodes.map { |product_node| product_node.productProperties.nodes }.flatten }
@@ -28,6 +29,8 @@ RSpec.describe "Products" do
     it { expect(product_nodes).to be_present }
 
     it { expect(master_variant_nodes).to be_present }
+
+    it { expect(master_variant_images_nodes).to be_present }
 
     it { expect(option_type_nodes).to be_present }
 
