@@ -15,6 +15,7 @@ require File.expand_path('dummy/config/environment.rb', __dir__)
 
 # Requires factories and other useful helpers defined in spree_core.
 require 'solidus_support/extension/rails_helper.rb'
+require 'pry'
 
 require "graphql/schema_comparator"
 require 'with_model'
