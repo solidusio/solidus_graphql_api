@@ -21,7 +21,7 @@ commands:
 jobs:
   verify-schema-updated:
     docker:
-      - image: circleci/ruby:2.5.0-node
+      - image: circleci/ruby:2.5.6-node
         environment:
           BUNDLE_PATH: vendor/bundle
     steps:
@@ -53,7 +53,7 @@ jobs:
 
   schema-breaking-change-detection:
     docker:
-      - image: circleci/ruby:2.5.0-node
+      - image: circleci/ruby:2.5.6-node
     steps:
       - checkout
       - run:
