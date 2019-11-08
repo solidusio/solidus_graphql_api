@@ -11,11 +11,7 @@ module Spree
         end
 
         def call
-          BatchLoader::GraphQL.for(country.id).batch(default_value: []) do |country_ids, loader|
-            Spree::State.where(country_id: country_ids).each do |state|
-              loader.call(state.country_id) { |memo| memo << state }
-            end
-          end
+          Spree::Graphql::BatchLoader.for(country, :states)
         end
       end
     end

@@ -11,11 +11,7 @@ module Spree
         end
 
         def call
-          BatchLoader::GraphQL.for(product.id).batch(default_value: []) do |product_ids, loader|
-            Spree::ProductProperty.where(product_id: product_ids).each do |product_property|
-              loader.call(product_property.product_id) { |memo| memo << product_property }
-            end
-          end
+          Spree::Graphql::BatchLoader.for(product, :product_properties)
         end
       end
     end

@@ -7,5 +7,5 @@ RSpec.describe Spree::Queries::Product::MasterVariantQuery do
 
   let!(:variants) { create_list(:variant, 2, product: product) }
 
-  it { expect(described_class.new(product: product).call).to eq(product.master) }
+  it { expect(described_class.new(product: product).call.sync).to eq(product.master) }
 end

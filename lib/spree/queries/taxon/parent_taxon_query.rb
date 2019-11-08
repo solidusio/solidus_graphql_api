@@ -11,11 +11,7 @@ module Spree
         end
 
         def call
-          BatchLoader::GraphQL.for(taxon.parent_id).batch do |parent_taxon_ids, loader|
-            Spree::Taxon.where(id: parent_taxon_ids).each do |parent_taxon|
-              loader.call(parent_taxon.id, parent_taxon)
-            end
-          end
+          Spree::Graphql::BatchLoader.for(taxon, :parent)
         end
       end
     end

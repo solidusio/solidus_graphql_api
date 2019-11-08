@@ -11,11 +11,7 @@ module Spree
         end
 
         def call
-          BatchLoader::GraphQL.for(address.country_id).batch do |country_ids, loader|
-            Spree::Country.where(id: country_ids).each do |country|
-              loader.call(country.id, country)
-            end
-          end
+          Spree::Graphql::BatchLoader.for(address, :country)
         end
       end
     end

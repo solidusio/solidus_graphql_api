@@ -24,14 +24,15 @@ Gem::Specification.new do |s|
   s.add_dependency 'graphql', '~> 1.9.7'
   s.add_dependency 'solidus_core', '>= 2.5'
 
-  s.add_development_dependency 'byebug', '~> 11.0.1'
   s.add_development_dependency 'database_cleaner', '~> 1.7.0'
   s.add_development_dependency 'factory_bot', '~> 5.0.2'
   s.add_development_dependency 'ffaker', '~> 2.11.0'
   s.add_development_dependency 'graphql-schema_comparator', '~> 0.6.1'
+  s.add_development_dependency 'pry', '~> 0.12.2'
   s.add_development_dependency 'rspec-rails', '~> 3.8.2'
   s.add_development_dependency 'rubocop', '~> 0.72.0'
   s.add_development_dependency 'rubocop-rspec', '~> 1.33.0'
   s.add_development_dependency 'simplecov', '~> 0.16.1'
   s.add_development_dependency 'sqlite3', '~> 1.4.1'
+  s.add_development_dependency 'with_model', '~> 2.1.2'
 end
