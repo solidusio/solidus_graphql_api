@@ -13,7 +13,7 @@ RSpec.describe Spree::GraphqlController do
     end
 
     it 'passes the right user in the context' do
-      expect(Spree::Graphql::Schema).to receive(:execute).with(
+      expect(SolidusGraphqlApi::Schema).to receive(:execute).with(
         nil, hash_including(context: context)
       )
     end

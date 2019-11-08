@@ -73,7 +73,7 @@ private
 
 def setup_graphql_rake_tasks
   require 'graphql/rake_task'
-  GraphQL::RakeTask.new(schema_name: 'Spree::Graphql::Schema')
+  GraphQL::RakeTask.new(schema_name: 'SolidusGraphqlApi::Schema')
 
   Rake::Task[:first_run].invoke
 

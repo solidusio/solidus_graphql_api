@@ -5,7 +5,7 @@ module Spree
     skip_before_action :verify_authenticity_token
 
     def execute
-      render json: Graphql::Schema.execute(
+      render json: SolidusGraphqlApi::Schema.execute(
         params[:query],
         variables: ensure_hash(params[:variables]),
         context: { current_user: current_user },
