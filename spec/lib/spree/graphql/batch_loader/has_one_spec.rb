@@ -10,13 +10,13 @@ RSpec.describe Spree::Graphql::BatchLoader::HasOne do
     )
   end
 
-  with_model :Article do
+  with_model :Article, scope: :all do
     model do
       has_one :image
     end
   end
 
-  with_model :Image do
+  with_model :Image, scope: :all do
     table do |t|
       t.belongs_to :article
     end
