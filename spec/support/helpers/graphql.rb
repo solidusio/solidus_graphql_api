@@ -2,9 +2,12 @@
 
 module Helpers
   module Graphql
-    def execute_query(query)
+    def execute_query(query, context:)
       JSON.parse(
-        Spree::Graphql::Schema.execute(File.read("spec/queries/#{query}.gql")).to_json,
+        Spree::Graphql::Schema.execute(
+          File.read("spec/queries/#{query}.gql"),
+          context: context
+        ).to_json,
         object_class: OpenStruct
       )
     end
