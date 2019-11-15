@@ -28,6 +28,10 @@ module Spree
               null: false,
               description: 'Supported Taxonomies.'
 
+        field :current_user, Types::User,
+              null: true,
+              description: 'Current logged User.'
+
         def countries
           Spree::Queries::CountriesQuery.new.call
         end
@@ -42,6 +46,10 @@ module Spree
 
         def taxonomies
           Spree::Queries::TaxonomiesQuery.new.call
+        end
+
+        def current_user
+          context[:current_user]
         end
       end
     end
