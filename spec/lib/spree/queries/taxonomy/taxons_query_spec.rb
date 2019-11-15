@@ -7,5 +7,5 @@ RSpec.describe Spree::Queries::Taxonomy::TaxonsQuery do
 
   let(:taxonomy) { create(:taxonomy, taxons: taxons) }
 
-  it { expect(described_class.new(taxonomy: taxonomy).call.sync).to eq(taxons) }
+  it { expect(described_class.new(taxonomy: taxonomy).call.sync).to match_array(taxons) }
 end

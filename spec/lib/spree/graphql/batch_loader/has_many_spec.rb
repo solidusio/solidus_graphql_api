@@ -10,13 +10,13 @@ RSpec.describe Spree::Graphql::BatchLoader::HasMany do
     )
   end
 
-  with_model :Article do
+  with_model :Article, scope: :all do
     model do
       has_many :comments
     end
   end
 
-  with_model :Comment do
+  with_model :Comment, scope: :all do
     table do |t|
       t.belongs_to :article
     end

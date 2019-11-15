@@ -14,13 +14,13 @@ RSpec.describe Spree::Graphql::BatchLoader::BelongsTo do
   let(:options) { {} }
 
   context 'with a regular association' do
-    with_model :Article do
+    with_model :Article, scope: :all do
       model do
         has_many :comments
       end
     end
 
-    with_model :Comment do
+    with_model :Comment, scope: :all do
       table do |t|
         t.belongs_to :article
       end
@@ -39,7 +39,7 @@ RSpec.describe Spree::Graphql::BatchLoader::BelongsTo do
   end
 
   context 'with a polymorphic association' do
-    with_model :Image do
+    with_model :Image, scope: :all do
       table do |t|
         t.integer :imageable_id
         t.string :imageable_type
@@ -50,7 +50,7 @@ RSpec.describe Spree::Graphql::BatchLoader::BelongsTo do
       end
     end
 
-    with_model :Article do
+    with_model :Article, scope: :all do
       model do
         has_many :images, as: :imageable
       end

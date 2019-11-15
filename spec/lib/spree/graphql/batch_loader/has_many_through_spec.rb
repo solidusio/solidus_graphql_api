@@ -10,14 +10,14 @@ RSpec.describe Spree::Graphql::BatchLoader::HasManyThrough do
     )
   end
 
-  with_model :Article do
+  with_model :Article, scope: :all do
     model do
       has_many :comments
       has_many :comment_authors, through: :comments, source: :author
     end
   end
 
-  with_model :Comment do
+  with_model :Comment, scope: :all do
     table do |t|
       t.belongs_to :article
       t.belongs_to :author
@@ -29,7 +29,7 @@ RSpec.describe Spree::Graphql::BatchLoader::HasManyThrough do
     end
   end
 
-  with_model :Author do
+  with_model :Author, scope: :all do
     model do
       has_many :comments
     end
