@@ -1,0 +1,11 @@
+query {
+  currentUser {
+    email
+    signInCount
+    currentSignInAt
+    lastSignInAt
+    login
+    createdAt
+    updatedAt
+  }
+}
