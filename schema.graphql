@@ -473,6 +473,11 @@ type Query {
   ): CountryConnection!
 
   """
+  Current logged User.
+  """
+  currentUser: User
+
+  """
   Fetches an object given its ID.
   """
   node(
@@ -732,6 +737,20 @@ type TaxonomyEdge {
   The item at the end of the edge.
   """
   node: Taxonomy
+}
+
+"""
+User.
+"""
+type User implements Node {
+  createdAt: ISO8601DateTime
+  currentSignInAt: ISO8601DateTime
+  email: String!
+  id: ID!
+  lastSignInAt: ISO8601DateTime
+  login: String
+  signInCount: Int!
+  updatedAt: ISO8601DateTime
 }
 
 """
