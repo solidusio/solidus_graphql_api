@@ -8,7 +8,7 @@ module Spree
       render json: SolidusGraphqlApi::Schema.execute(
         params[:query],
         variables: ensure_hash(params[:variables]),
-        context: { current_user: current_user },
+        context: SolidusGraphqlApi::Context.new(request: request).to_h,
         operation_name: params[:operationName]
       )
     rescue StandardError => e
@@ -42,16 +42,6 @@ module Spree
       logger.error error.backtrace.join("\n")
 
       render json: { error: { message: error.message, backtrace: error.backtrace }, data: {} }, status: 500
-    end
-
-    def current_user
-      @current_user ||= Spree.user_class.find_by(spree_api_key: bearer_token.to_s)
-    end
-
-    def bearer_token
-      pattern = /^Bearer /
-      header = request.headers["Authorization"]
-      header.gsub(pattern, '') if header.present? && header.match(pattern)
     end
   end
 end
