@@ -8,6 +8,7 @@ RSpec.describe SolidusGraphqlApi::Context do
   let(:headers) do
     headers_hash = {}
     headers_hash['Authorization'] = "Bearer #{authorization_token}" if defined?(authorization_token) && authorization_token
+    headers_hash['X-Spree-Order-Token'] = order_token if defined?(order_token) && order_token
     headers_hash
   end
 
@@ -18,6 +19,7 @@ RSpec.describe SolidusGraphqlApi::Context do
 
     let(:current_user) { Spree::User.new }
     let(:current_ability) { Spree::Ability.new(nil) }
+    let(:order_token) { "order_token" }
 
     before do
       allow(schema_context).to receive(:current_user).and_return(current_user)
@@ -31,6 +33,9 @@ RSpec.describe SolidusGraphqlApi::Context do
 
     it { is_expected.to have_key(:current_ability) }
     it { expect(subject[:current_ability]).to eq current_ability }
+
+    it { is_expected.to have_key(:order_token) }
+    it { expect(subject[:order_token]).to eq order_token }
   end
 
   describe '#current_user' do
@@ -84,5 +89,13 @@ RSpec.describe SolidusGraphqlApi::Context do
         it { expect(Spree::Ability).to receive(:new).with(user) }
       end
     end
+  end
+
+  describe '#order_token' do
+    subject { schema_context.order_token }
+
+    let(:order_token) { "order_token" }
+
+    it { is_expected.to eq order_token }
   end
 end
