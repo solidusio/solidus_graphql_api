@@ -5,7 +5,7 @@ module Helpers
     def execute_query(query, context:)
       JSON.parse(
         SolidusGraphqlApi::Schema.execute(
-          File.read("spec/queries/#{query}.gql"),
+          File.read("spec/support/queries/#{query}.gql"),
           context: context
         ).to_json,
         object_class: OpenStruct
