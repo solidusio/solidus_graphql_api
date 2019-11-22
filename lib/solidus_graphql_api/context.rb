@@ -13,11 +13,16 @@ module SolidusGraphqlApi
     end
 
     def to_h
-      { current_user: current_user }
+      { current_user: current_user,
+        current_ability: current_ability }
     end
 
     def current_user
       @current_user ||= Spree.user_class.find_by(spree_api_key: bearer_token)
+    end
+
+    def current_ability
+      @current_ability ||= Spree::Ability.new(current_user)
     end
 
     private
