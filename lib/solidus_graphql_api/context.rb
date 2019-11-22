@@ -15,6 +15,7 @@ module SolidusGraphqlApi
     def to_h
       { current_user: current_user,
         current_ability: current_ability,
+        current_store: current_store,
         order_token: order_token }
     end
 
@@ -28,6 +29,10 @@ module SolidusGraphqlApi
 
     def order_token
       @order_token ||= headers["X-Spree-Order-Token"]
+    end
+
+    def current_store
+      @current_store ||= Spree::Config.current_store_selector_class.new(request).store
     end
 
     private

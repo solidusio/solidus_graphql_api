@@ -19,6 +19,7 @@ RSpec.describe SolidusGraphqlApi::Context do
 
     let(:current_user) { Spree::User.new }
     let(:current_ability) { Spree::Ability.new(nil) }
+    let!(:default_store) { create(:store, default: true) }
     let(:order_token) { "order_token" }
 
     before do
@@ -33,6 +34,9 @@ RSpec.describe SolidusGraphqlApi::Context do
 
     it { is_expected.to have_key(:current_ability) }
     it { expect(subject[:current_ability]).to eq current_ability }
+
+    it { is_expected.to have_key(:current_store) }
+    it { expect(subject[:current_store]).to eq default_store }
 
     it { is_expected.to have_key(:order_token) }
     it { expect(subject[:order_token]).to eq order_token }
@@ -89,6 +93,14 @@ RSpec.describe SolidusGraphqlApi::Context do
         it { expect(Spree::Ability).to receive(:new).with(user) }
       end
     end
+  end
+
+  describe '#current_store' do
+    subject { schema_context.current_store }
+
+    let!(:default_store) { create(:store, default: true) }
+
+    it { is_expected.to eq default_store }
   end
 
   describe '#order_token' do
