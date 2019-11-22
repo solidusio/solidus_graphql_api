@@ -101,7 +101,7 @@ module SolidusGraphqlApi
     def default_options
       return @default_options if @default_options
 
-      key_components = [object.class, object.id, reflection.name, options.inspect]
+      key_components = [object.class, reflection.name, options.inspect]
       key = Digest::MD5.hexdigest(key_components.join)
 
       @default_options ||= { key: key }.freeze
