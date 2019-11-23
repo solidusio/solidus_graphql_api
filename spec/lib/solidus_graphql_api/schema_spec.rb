@@ -3,8 +3,8 @@
 require 'spec_helper'
 
 RSpec.describe SolidusGraphqlApi::Schema do
-  it 'current schema is identical to desired schema' do
-    expected_schema = File.read("#{SolidusGraphqlApi::Engine.root}/spec/expected_schema.graphql")
+  it 'current schema is identical to expected schema' do
+    expected_schema = File.read("#{SolidusGraphqlApi::Engine.root}/spec/support/expected_schema.graphql")
     current_schema = SolidusGraphqlApi::Schema.to_definition
 
     result = GraphQL::SchemaComparator.compare(current_schema, expected_schema)
