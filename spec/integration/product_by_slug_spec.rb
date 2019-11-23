@@ -2,13 +2,21 @@
 
 require 'spec_helper'
 
-RSpec.describe "ProductBySlug" do
-  include_examples 'query is successful', :product_by_slug do
-    let!(:product) { create(:product) }
-    let(:variables) { Hash[slug: product.slug] }
+RSpec.describe "productBySlug" do
+  subject { execute_query(:product_by_slug, variables: variables) }
 
-    let(:product_id) { SolidusGraphqlApi::Schema.id_from_object(product, Spree::Product, {}) }
+  let!(:product) { create(:product) }
+  let(:variables) { Hash[slug: slug] }
 
-    it { expect(subject.data.productBySlug.id).to eq product_id }
+  context 'when requested product does not exists' do
+    let(:slug) { 'wrongslug' }
+
+    it { expect(subject.data.productBySlug).to be_nil }
+  end
+
+  context 'when requested product exists' do
+    let(:slug) { product.slug }
+
+    it { expect(subject.data.productBySlug.id).to eq product.id }
   end
 end
