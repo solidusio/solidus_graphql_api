@@ -1,5 +1,5 @@
-query {
-  productBySlug(slug: "slug") {
+query($slug: String!) {
+  productBySlug(slug: $slug) {
     id
   }
 }
