@@ -2,7 +2,7 @@
 
 module Helpers
   module Graphql
-    def execute_query(query, variables: {}, context:, decode_ids: true, object_class: OpenStruct)
+    def execute_query(query, variables: {}, context: {}, decode_ids: true, object_class: OpenStruct)
       query_result = SolidusGraphqlApi::Schema.execute(
         File.read("spec/support/queries/#{query}.gql"),
         variables: variables,
