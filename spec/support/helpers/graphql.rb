@@ -2,7 +2,7 @@
 
 module Helpers
   module Graphql
-    def execute_query(query, variables: {}, context:, decode_ids: true)
+    def execute_query(query, variables: {}, context:, decode_ids: true, object_class: OpenStruct)
       query_result = SolidusGraphqlApi::Schema.execute(
         File.read("spec/support/queries/#{query}.gql"),
         variables: variables,
@@ -11,7 +11,7 @@ module Helpers
 
       query_result = decode_field_ids(query_result.to_h) if decode_ids
 
-      JSON.parse(query_result.to_json, object_class: OpenStruct)
+      JSON.parse(query_result.to_json, object_class: object_class)
     end
 
     def decode_field_ids(field)
