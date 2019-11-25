@@ -20,7 +20,6 @@ Gem::Specification.new do |s|
   end
 
   s.add_dependency 'batch-loader', '~> 1.4.1'
-  s.add_dependency 'graphiql-rails', '~> 1.7.0'
   s.add_dependency 'graphql', '~> 1.9.7'
   s.add_dependency 'solidus_core', '>= 2.5'
 
