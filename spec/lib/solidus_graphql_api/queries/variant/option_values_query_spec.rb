@@ -7,5 +7,5 @@ RSpec.describe SolidusGraphqlApi::Queries::Variant::OptionValuesQuery do
 
   let!(:option_values) { create_list(:option_value, 2, variants: [variant]) }
 
-  it { expect(described_class.new(variant: variant).call.sync).to eq(option_values) }
+  it { expect(described_class.new(variant: variant).call.sync).to match_array(option_values) }
 end

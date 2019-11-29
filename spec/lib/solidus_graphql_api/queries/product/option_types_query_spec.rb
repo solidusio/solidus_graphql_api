@@ -7,5 +7,5 @@ RSpec.describe SolidusGraphqlApi::Queries::Product::OptionTypesQuery do
 
   let!(:option_types) { create_list(:option_type, 2, products: [product]) }
 
-  it { expect(described_class.new(product: product).call.sync).to eq(option_types) }
+  it { expect(described_class.new(product: product).call.sync).to match_array(option_types) }
 end

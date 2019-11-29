@@ -7,5 +7,5 @@ RSpec.describe SolidusGraphqlApi::Queries::Country::StatesQuery do
 
   let!(:states) { create_list(:state, 2, country: country) }
 
-  it { expect(described_class.new(country: country).call.sync).to eq(states) }
+  it { expect(described_class.new(country: country).call.sync).to match_array(states) }
 end

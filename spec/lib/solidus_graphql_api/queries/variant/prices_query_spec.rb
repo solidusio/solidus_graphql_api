@@ -9,5 +9,5 @@ RSpec.describe SolidusGraphqlApi::Queries::Variant::PricesQuery do
 
   let!(:variant_prices) { [variant.default_price] + prices }
 
-  it { expect(described_class.new(variant: variant).call.sync).to eq(variant_prices) }
+  it { expect(described_class.new(variant: variant).call.sync).to match_array(variant_prices) }
 end
