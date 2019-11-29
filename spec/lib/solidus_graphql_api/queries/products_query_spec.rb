@@ -7,5 +7,5 @@ RSpec.describe SolidusGraphqlApi::Queries::ProductsQuery do
 
   let!(:products) { create_list(:product, 2) }
 
-  it { is_expected.to eq(products) }
+  it { is_expected.to match_array(products) }
 end

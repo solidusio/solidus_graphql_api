@@ -7,5 +7,5 @@ RSpec.describe SolidusGraphqlApi::Queries::TaxonomiesQuery do
 
   let!(:taxonomies) { create_list(:taxonomy, 2) }
 
-  it { is_expected.to eq(taxonomies) }
+  it { is_expected.to match_array(taxonomies) }
 end

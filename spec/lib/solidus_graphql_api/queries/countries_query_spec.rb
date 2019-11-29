@@ -7,5 +7,5 @@ RSpec.describe SolidusGraphqlApi::Queries::CountriesQuery do
 
   let!(:countries) { create_list(:country, 2) }
 
-  it { is_expected.to eq(countries) }
+  it { is_expected.to match_array(countries) }
 end
