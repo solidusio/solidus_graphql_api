@@ -580,6 +580,11 @@ type Query {
   ): CountryConnection!
 
   """
+  Current Store.
+  """
+  currentStore: Store
+
+  """
   Current logged User.
   """
   currentUser: User
@@ -704,6 +709,25 @@ type StateEdge {
   The item at the end of the edge.
   """
   node: State
+}
+
+"""
+Store.
+"""
+type Store implements Node {
+  cartTaxCountryIso: String
+  code: String
+  createdAt: ISO8601DateTime
+  default: Boolean!
+  defaultCurrency: String
+  id: ID!
+  mailFromAddress: String
+  metaDescription: String
+  metaKeywords: String
+  name: String
+  seoTitle: String
+  updatedAt: ISO8601DateTime
+  url: String
 }
 
 """
