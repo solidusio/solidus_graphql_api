@@ -9,6 +9,7 @@ module SolidusGraphqlApi
       field :default_price, Price, null: false
       field :depth, String, null: true
       field :height, String, null: true
+      field :images, Types::Image.connection_type, null: false
       field :is_master, Boolean, null: false
       field :option_values, OptionValue.connection_type, null: false
       field :position, Int, null: false
@@ -20,6 +21,10 @@ module SolidusGraphqlApi
 
       def default_price
         Queries::Variant::DefaultPriceQuery.new(variant: object).call
+      end
+
+      def images
+        Queries::Variant::ImagesQuery.new(variant: object).call
       end
 
       def option_values

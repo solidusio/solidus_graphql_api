@@ -20,6 +20,18 @@ RSpec.describe SolidusGraphqlApi::Types::Variant do
     it { expect(query_object).to receive(:call) }
   end
 
+  describe '#images' do
+    before do
+      allow(SolidusGraphqlApi::Queries::Variant::ImagesQuery).to receive(:new).and_return(query_object)
+    end
+
+    after { subject.images }
+
+    it { expect(SolidusGraphqlApi::Queries::Variant::ImagesQuery).to receive(:new).with(variant: variant) }
+
+    it { expect(query_object).to receive(:call) }
+  end
+
   describe '#option_values' do
     before do
       allow(SolidusGraphqlApi::Queries::Variant::OptionValuesQuery).to receive(:new).and_return(query_object)
