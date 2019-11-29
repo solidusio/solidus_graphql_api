@@ -31,6 +31,10 @@ module SolidusGraphqlApi
             null: true,
             description: 'Current logged User.'
 
+      field :current_store, Types::Store,
+            null: true,
+            description: 'Current Store.'
+
       def countries
         Queries::CountriesQuery.new.call
       end
@@ -49,6 +53,10 @@ module SolidusGraphqlApi
 
       def current_user
         context[:current_user]
+      end
+
+      def current_store
+        context[:current_store]
       end
     end
   end
