@@ -1,0 +1,16 @@
+query {
+  currentStore {
+    cartTaxCountryIso
+    code
+    createdAt
+    defaultCurrency
+    default
+    mailFromAddress
+    metaDescription
+    metaKeywords
+    name
+    seoTitle
+    updatedAt
+    url
+  }
+}
