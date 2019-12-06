@@ -17,4 +17,8 @@ when 'postgresql'
   gem 'pg', '~> 0.21'
 end
 
+# Add your own local gems
+local_gemfile = File.expand_path('.Gemfile', __dir__)
+instance_eval File.read local_gemfile if File.exist? local_gemfile
+
 gemspec
