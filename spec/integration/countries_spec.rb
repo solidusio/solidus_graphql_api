@@ -2,18 +2,18 @@
 
 require 'spec_helper'
 
-RSpec.describe "Countries" do
-  include_examples 'query is successful', :countries do
-    let(:country_nodes) { subject.data.countries.nodes }
-    let(:state_nodes) { country_nodes.map { |c| c.states.nodes }.flatten }
-
-    before do
-      create_list(:state, 2)
-      create_list(:state, 2, country_iso: 'IT')
+RSpec.describe_query :countries do
+  connection_field :countries, query: :countries, freeze_date: true do
+    context 'when countries does not exists' do
+      it { expect(subject.data.countries.nodes).to be_empty }
     end
 
-    it { expect(country_nodes).to be_present }
+    context 'when countries exists' do
+      let!(:country) { create(:country, id: 1) }
 
-    it { expect(state_nodes).to be_present }
+      before { create(:country, id: 2, iso: 'IT') }
+
+      it { is_expected.to match_response(:countries) }
+    end
   end
 end
