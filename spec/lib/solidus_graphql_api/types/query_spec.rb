@@ -5,7 +5,6 @@ require 'spec_helper'
 RSpec.describe SolidusGraphqlApi::Types::Query do
   subject { described_class.send(:new, {}, {}) }
 
-  it { expect(described_class.method_defined?(:countries)).to be_truthy }
   it { expect(described_class.method_defined?(:taxonomies)).to be_truthy }
 
   describe '#products' do
