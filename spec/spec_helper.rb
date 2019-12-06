@@ -15,6 +15,7 @@ require 'pry'
 
 require "graphql/schema_comparator"
 require 'with_model'
+require 'timecop'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
