@@ -2,11 +2,22 @@
 
 require 'spec_helper'
 
-RSpec.describe "Current Store" do
-  include_examples 'query is successful', :currentStore do
-    let(:store) { create(:store) }
-    let(:context) { Hash[current_store: store] }
+RSpec.describe_query :currentStore, query: :current_store, freeze_date: true do
+  let!(:store) do
+    create(:store,
+           cart_tax_country_iso: 'US',
+           code: 'spree',
+           default_currency: 'USD',
+           meta_description: 'store description',
+           meta_keywords: 'store, metaKeywords',
+           name: 'Spree Test Store',
+           seo_title: 'Store Title',
+           url: 'www.example.com')
+  end
 
-    it { expect(subject.data.currentStore).to_not be_nil }
+  let(:query_context) { Hash[current_store: store] }
+
+  field :currentStore do
+    it { is_expected.to match_response(:current_store) }
   end
 end
