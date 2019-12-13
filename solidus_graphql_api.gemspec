@@ -33,5 +33,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rubocop-rspec', '~> 1.33.0'
   s.add_development_dependency 'simplecov', '~> 0.16.1'
   s.add_development_dependency 'sqlite3', '~> 1.4.1'
+  s.add_development_dependency 'timecop', '~> 0.9.1'
   s.add_development_dependency 'with_model', '~> 2.1.2'
 end

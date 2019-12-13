@@ -1,23 +1,15 @@
 query {
   countries {
     nodes {
+      createdAt
       id
-      isoName
       iso
       iso3
+      isoName
       name
       numcode
       statesRequired
-      createdAt
       updatedAt
-      states {
-        nodes {
-          name
-          abbr
-          createdAt
-          updatedAt
-        }
-      }
     }
   }
 }

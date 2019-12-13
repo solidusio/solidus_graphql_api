@@ -1,0 +1,16 @@
+query {
+  countries {
+    nodes {
+      id
+      states {
+        nodes {
+          abbr
+          createdAt
+          id
+          name
+          updatedAt
+        }
+      }
+    }
+  }
+}
