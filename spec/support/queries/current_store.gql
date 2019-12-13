@@ -3,8 +3,8 @@ query {
     cartTaxCountryIso
     code
     createdAt
-    defaultCurrency
     default
+    defaultCurrency
     mailFromAddress
     metaDescription
     metaKeywords
