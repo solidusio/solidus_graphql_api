@@ -1,0 +1,5 @@
+bump:
+  recurse: false
+  file: 'lib/solidus_graphql_api/version.rb'
+  message: Bump SolidusGraphqlApi to %{version}
+  tag: true

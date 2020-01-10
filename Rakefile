@@ -1,34 +1,15 @@
 # frozen_string_literal: true
 
-require 'bundler'
+require 'solidus_dev_support/rake_tasks'
+SolidusDevSupport::RakeTasks.install
 
-Bundler::GemHelper.install_tasks
+require 'rubocop/rake_task'
+RuboCop::RakeTask.new
 
-begin
-  require 'spree/testing_support/extension_rake'
-  require 'rubocop/rake_task'
-  require 'rspec/core/rake_task'
-
-  RSpec::Core::RakeTask.new(:spec)
-
-  RuboCop::RakeTask.new
-
-  task default: %i(first_run rubocop spec)
-rescue LoadError
-  puts 'no rspec available'
-end
+task default: %w[first_run rubocop extension:specs]
 
 task :first_run do
-  if Dir['spec/dummy'].empty?
-    Rake::Task[:test_app].invoke
-    Dir.chdir('../../')
-  end
-end
-
-desc 'Generates a dummy app for testing'
-task :test_app do
-  ENV['LIB_NAME'] = 'solidus_graphql_api'
-  Rake::Task['extension:test_app'].invoke
+  Rake::Task['extension:test_app'].invoke if Dir['spec/dummy'].empty?
 end
 
 namespace :schema do
@@ -57,7 +38,7 @@ end
 namespace :dev do
   desc 'Setup development app'
   task :setup do
-    Rake::Task['test_app'].invoke
+    Rake::Task['extension:test_app'].invoke
     puts "Setting up dummy development database..."
 
     sh "bin/rails db:drop db:setup spree_sample:load VERBOSE=false RAILS_ENV=development"
@@ -75,7 +56,7 @@ def setup_graphql_rake_tasks
   require 'graphql/rake_task'
   GraphQL::RakeTask.new(schema_name: 'SolidusGraphqlApi::Schema')
 
-  Rake::Task[:first_run].invoke
+  Rake::Task['extension:test_app'].invoke if Dir['spec/dummy'].empty?
 
   require File.expand_path('spec/dummy/config/environment.rb', __dir__)
 end

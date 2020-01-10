@@ -1,20 +1,26 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-git_source(:github) { |name| "https://github.com/#{name}.git" }
+branch = ENV.fetch('SOLIDUS_BRANCH', 'master')
+gem 'solidus', github: 'solidusio/solidus', branch: branch
 
-solidus_branch = ENV.fetch('SOLIDUS_BRANCH', 'master')
+# Needed to help Bundler figure out how to resolve dependencies,
+# otherwise it takes forever to resolve them.
+# See https://github.com/bundler/bundler/issues/6677
+gem 'rails', '>0.a'
 
-gem 'solidus', github: 'solidusio/solidus', branch: solidus_branch
 # Provides basic authentication functionality for testing parts of your engine
 gem 'solidus_auth_devise'
 
 case ENV['DB']
 when 'mysql'
-  gem 'mysql2', '~> 0.4.10'
+  gem 'mysql2'
 when 'postgresql'
-  gem 'pg', '~> 0.21'
+  gem 'pg'
+else
+  gem 'sqlite3'
 end
 
 # Add your own local gems
