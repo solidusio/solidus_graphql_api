@@ -40,4 +40,13 @@ Simply add this require statement to your spec_helper:
 require 'solidus_graphql_api/factories'
 ```
 
+Releasing
+---------
+
+Your new extension version can be released using `gem-release` like this:
+
+```shell
+bundle exec gem bump -v VERSION --tag --push --remote upstream && gem release
+```
+
 Copyright (c) 2019 [name of extension creator], released under the New BSD License

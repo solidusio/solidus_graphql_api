@@ -1,18 +1,17 @@
 # frozen_string_literal: true
 
+# Configure Rails Environment
+ENV['RAILS_ENV'] = 'test'
+
 # Run Coverage report
 require 'simplecov'
 SimpleCov.start 'rails'
 
-# Configure Rails Environment
-ENV['RAILS_ENV'] = 'test'
-
 require File.expand_path('dummy/config/environment.rb', __dir__)
 
 # Requires factories and other useful helpers defined in spree_core.
-require 'solidus_support/extension/rails_helper.rb'
+require 'solidus_dev_support/rspec/rails_helper'
 require 'pry'
-
 require "graphql/schema_comparator"
 require 'with_model'
 require 'timecop'

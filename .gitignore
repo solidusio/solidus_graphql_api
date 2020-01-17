@@ -3,6 +3,7 @@
 *~
 .#*
 .DS_Store
+.Gemfile
 .idea
 .project
 .sass-cache
@@ -12,5 +13,5 @@ coverage
 nbproject
 pkg
 spec/dummy
+spec/examples.txt
 tmp
-.Gemfile
