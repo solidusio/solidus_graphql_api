@@ -8,6 +8,15 @@ query {
       isoName
       name
       numcode
+      states {
+        nodes {
+          abbr
+          createdAt
+          id
+          name
+          updatedAt
+        }
+      }
       statesRequired
       updatedAt
     }
