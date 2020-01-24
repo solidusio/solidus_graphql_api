@@ -61,7 +61,7 @@ jobs:
           command: gem install graphql-schema_comparator
       - run:
           name: Schema Breaking Change detection
-          command: rm Gemfile && schema_comparator verify "`git show master:schema.graphql`" schema.graphql
+          command: rm Gemfile && schema_comparator verify "`git show origin/master:schema.graphql`" schema.graphql
 
 workflows:
   "Run specs on supported Solidus versions":
