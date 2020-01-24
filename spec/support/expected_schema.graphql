@@ -324,17 +324,6 @@ type CurrencyEdge {
 }
 
 """
-Currency.
-"""
-type Currency implements Node {
-  htmlEntity: String!
-  id: ID!
-  isoCode: String!
-  name: String!
-  symbol: String!
-}
-
-"""
 State.
 """
 type State implements Node {
