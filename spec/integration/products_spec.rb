@@ -13,8 +13,10 @@ RSpec.describe "Products" do
     let(:product_properties_property_nodes) { product_properties_nodes.map { |node| node[:property] } }
     let(:variant_nodes) { product_nodes.map { |node| node.dig(:variants, :nodes) }.flatten }
     let(:variant_default_price_nodes) { variant_nodes.map { |node| node[:defaultPrice] } }
+    let(:default_price_currency_nodes) { variant_default_price_nodes.map { |node| node[:currency] } }
     let(:variant_option_value_nodes) { variant_nodes.map { |node| node.dig(:optionValues, :nodes) }.flatten }
     let(:variant_price_nodes) { variant_nodes.map { |variant_node| variant_node.dig(:prices, :nodes) }.flatten }
+    let(:price_currency_nodes) { variant_price_nodes.map { |node| node[:currency] } }
 
     let(:product) { create(:product_with_option_types) }
 
@@ -44,8 +46,12 @@ RSpec.describe "Products" do
 
     it { expect(variant_default_price_nodes).to be_present }
 
+    it { expect(default_price_currency_nodes).to be_present }
+
     it { expect(variant_option_value_nodes).to be_present }
 
     it { expect(variant_price_nodes).to be_present }
+
+    it { expect(price_currency_nodes).to be_present }
   end
 end
