@@ -5,7 +5,7 @@ require 'spec_helper'
 RSpec.describe_query :taxonomies do
   connection_field :taxonomies, query: :taxonomies, freeze_date: true do
     context 'when taxonomies does not exists' do
-      it { expect(subject.data.taxonomies.nodes).to be_empty }
+      it { expect(subject.dig(:data, :taxonomies, :nodes)).to eq [] }
     end
 
     context 'when taxonomies exists' do
