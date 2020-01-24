@@ -1,0 +1,29 @@
+query {
+  completedOrders {
+    nodes {
+      id
+      additionalTaxTotal
+      adjustmentTotal
+      approvedAt
+      canceledAt
+      completedAt
+      confirmationDelivered
+      createdAt
+      currency
+      email
+      guestToken
+      includedTaxTotal
+      itemTotal
+      number
+      paymentState
+      paymentTotal
+      promoTotal
+      shipmentState
+      shipmentTotal
+      specialInstructions
+      state
+      total
+      updatedAt
+    }
+  }
+}

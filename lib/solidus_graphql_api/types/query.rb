@@ -13,6 +13,10 @@ module SolidusGraphqlApi
             null: false,
             description: 'Supported Countries.'
 
+      field :completed_orders, Order.connection_type,
+            null: false,
+            description: 'Customer Completed Orders.'
+
       field :products, Product.connection_type,
             null: false,
             description: 'Supported Products.'
@@ -37,6 +41,10 @@ module SolidusGraphqlApi
 
       def countries
         Queries::CountriesQuery.new.call
+      end
+
+      def completed_orders
+        Queries::CompletedOrdersQuery.new(user: context[:current_user]).call
       end
 
       def products

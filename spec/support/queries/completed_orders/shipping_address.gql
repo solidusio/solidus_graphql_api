@@ -1,0 +1,40 @@
+query {
+  completedOrders {
+    nodes {
+      id
+      shippingAddress {
+        id
+        address1
+        address2
+        alternativePhone
+        city
+        company
+        country {
+          id
+          createdAt
+          iso
+          iso3
+          isoName
+          name
+          numcode
+          updatedAt
+        }
+        id
+        createdAt
+        firstname
+        lastname
+        phone
+        state {
+          id
+          abbr
+          name
+          createdAt
+          updatedAt
+        }
+        stateName
+        updatedAt
+        zipcode
+      }
+    }
+  }
+}
