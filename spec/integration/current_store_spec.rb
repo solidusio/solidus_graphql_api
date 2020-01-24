@@ -5,6 +5,8 @@ require 'spec_helper'
 RSpec.describe_query :currentStore, query: :current_store, freeze_date: true do
   let!(:store) { create(:store, :with_defaults) }
 
+  before { Spree::Config.available_currencies = ::Money::Currency.first(2) }
+
   let(:query_context) { Hash[current_store: store] }
 
   field :currentStore do

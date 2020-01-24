@@ -3,6 +3,14 @@ query {
     cartTaxCountryIso
     code
     createdAt
+    currencies {
+      nodes {
+        htmlEntity
+        isoCode
+        name
+        symbol
+      }
+    }
     default
     defaultCurrency
     mailFromAddress
