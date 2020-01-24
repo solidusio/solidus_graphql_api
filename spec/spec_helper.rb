@@ -20,6 +20,9 @@ require 'timecop'
 # in spec/support/ and its subdirectories.
 Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].each { |f| require f }
 
+# Requires factories defined in lib/solidus_graphql_api/factories.rb
+require 'solidus_graphql_api/factories'
+
 RSpec.configure do |config|
   DEFAULT_FREEZE_DATE = "21/12/2012 12:00:00"
 

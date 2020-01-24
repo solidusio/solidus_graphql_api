@@ -11,7 +11,7 @@ module SolidusGraphqlApi
         end
 
         def call
-          SolidusGraphqlApi::BatchLoader.for(taxon, :children)
+          SolidusGraphqlApi::BatchLoader.for(taxon, :children, scope: Spree::Taxon.order(:position, :id))
         end
       end
     end

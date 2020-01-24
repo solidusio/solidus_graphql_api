@@ -2,29 +2,21 @@
 
 require 'spec_helper'
 
-RSpec.describe "Taxonomies" do
-  include_examples 'query is successful', :taxonomies do
-    let(:taxonomy_nodes) { subject.data.taxonomies.nodes }
-    let(:root_taxon_nodes) { taxonomy_nodes.map(&:rootTaxon) }
-    let(:taxon_nodes) { taxonomy_nodes.map { |taxonomy_node| taxonomy_node.taxons.nodes }.flatten }
-    let(:child_nodes) { taxon_nodes.map { |taxon_node| taxon_node.children.nodes }.flatten }
-    let(:parent_taxon_nodes) { child_nodes.map(&:parentTaxon) }
-
-    before do
-      taxonomies = create_list(:taxonomy, 2)
-      taxonomies.each do |taxonomy|
-        create(:taxon, taxonomy: taxonomy, parent: taxonomy.taxons.first)
-      end
+RSpec.describe_query :taxonomies do
+  connection_field :taxonomies, query: :taxonomies, freeze_date: true do
+    context 'when taxonomies does not exists' do
+      it { expect(subject.data.taxonomies.nodes).to be_empty }
     end
 
-    it { expect(taxonomy_nodes).to be_present }
+    context 'when taxonomies exists' do
+      let!(:brand_taxonomy) { create(:taxonomy, :with_taxon_meta, id: 1, root_taxon_id: 1) }
+      let!(:category_taxonomy) { create(:taxonomy, id: 2, name: 'Category', root_taxon_id: 2) }
 
-    it { expect(taxon_nodes).to be_present }
+      before do
+        create(:taxon, id: 3, name: 'Solidus', parent: brand_taxonomy.root, taxonomy: brand_taxonomy)
+      end
 
-    it { expect(child_nodes).to be_present }
-
-    it { expect(root_taxon_nodes).to be_present }
-
-    it { expect(parent_taxon_nodes).to be_present }
+      it { is_expected.to match_response(:taxonomies) }
+    end
   end
 end
