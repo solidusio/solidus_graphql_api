@@ -5,7 +5,7 @@ require 'spec_helper'
 RSpec.describe_query :countries do
   connection_field :countries, query: :countries, freeze_date: true do
     context 'when countries does not exists' do
-      it { expect(subject.data.countries.nodes).to be_empty }
+      it { expect(subject.dig(:data, :countries, :nodes)).to eq [] }
     end
 
     context 'when countries exists' do

@@ -6,12 +6,17 @@ module Matchers
 
     matcher :match_response do |query_result_file|
       match do |actual|
-        template = File.read("spec/support/query_results/#{query_result_file}.json.erb")
+        query_result_path = "spec/support/query_results/#{query_result_file}.json.erb"
+        template = File.read(query_result_path)
         json_result = ERB.new(template).result_with_hash(@variables || {})
 
-        @expected = JSON.parse(json_result, object_class: @object_class || OpenStruct)
+        @expected = JSON.parse(json_result, object_class: @object_class || Hash, symbolize_names: true)
 
-        actual == @expected
+        # Lets the failure message have a nice diff
+        @expected = JSON.pretty_generate @expected
+        @actual = JSON.pretty_generate actual
+
+        @actual == @expected
       end
 
       chain :with_args do |variables|
@@ -22,11 +27,8 @@ module Matchers
         @object_class = object_class
       end
 
-      failure_message_when_negated do |actual|
-        "expected that #{actual} would not be equal of #{expected}"
-      end
-
       diffable
+
       attr_reader :expected
     end
   end
