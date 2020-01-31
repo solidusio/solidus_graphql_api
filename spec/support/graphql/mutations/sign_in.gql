@@ -1,0 +1,10 @@
+mutation ($input: SignInInput!) {
+  signIn(input: $input) {
+    user {
+      id
+      email
+      spreeApiKey
+    }
+    errors
+  }
+}
