@@ -38,6 +38,7 @@ RSpec.configure do |config|
   config.alias_example_group_to :describe_query, type: :graphql_query
   config.alias_example_group_to :connection_field, type: :graphql_query
   config.alias_example_group_to :field, type: :graphql_query
+  config.alias_example_group_to :describe_mutation, type: :graphql_mutation
 
   config.before(:each) do
     BatchLoader::Executor.clear_current
