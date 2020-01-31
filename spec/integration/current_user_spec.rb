@@ -2,20 +2,20 @@
 
 require 'spec_helper'
 
-RSpec.describe "Current User" do
-  include_examples 'query is successful', :currentUser do
-    let(:user) { create(:user_with_addresses) }
-    let(:address_nodes) { subject.dig(:data, :currentUser, :addresses, :nodes) }
-    let(:default_address) { subject.dig(:data, :currentUser, :defaultAddress) }
-    let(:ship_address) { subject.dig(:data, :currentUser, :shipAddress) }
-    let(:bill_address) { subject.dig(:data, :currentUser, :billAddress) }
-    let(:context) { Hash[current_user: user] }
+RSpec.describe_query :current_user, query: :current_user, freeze_date: true do
+  let(:user) { create(:user, id: 1, email: 'email@example.com', ship_address: ship_address, bill_address: bill_address) }
+  let(:ship_address) { create(:ship_address, id: 1, zipcode: 10_001) }
+  let(:bill_address) { create(:bill_address, id: 2, zipcode: 10_002) }
 
-    it { expect(subject.dig(:data, :currentUser)).to be_present }
+  field :currentUser do
+    context 'when context does not have current user' do
+      it { expect(subject.dig(:data, :currentUser)).to be_nil }
+    end
 
-    it { expect(address_nodes).to be_present }
-    it { expect(default_address).to be_present }
-    it { expect(ship_address).to be_present }
-    it { expect(bill_address).to be_present }
+    context 'when context have current user' do
+      let!(:query_context) { Hash[current_user: user] }
+
+      it { is_expected.to match_response(:current_user) }
+    end
   end
 end
