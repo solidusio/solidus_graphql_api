@@ -4,7 +4,7 @@ module Helpers
   module Graphql
     def execute_query(query, variables: {}, context: {}, decode_ids: true, object_class: Hash)
       query_result = SolidusGraphqlApi::Schema.execute(
-        File.read("spec/support/queries/#{query}.gql"),
+        File.read(File.join(RSpec.configuration.graphql_queries_dir, "#{query}.gql")),
         variables: variables,
         context: context
       )
