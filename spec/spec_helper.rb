@@ -25,8 +25,8 @@ require 'solidus_graphql_api/factories'
 
 RSpec.configure do |config|
   config.add_setting :default_freeze_date, default: "21/12/2012 12:00:00"
-  config.add_setting :graphql_queries_dir, default: "spec/support/queries"
-  config.add_setting :graphql_responses_dir, default: "spec/support/query_results"
+  config.add_setting :graphql_queries_dir, default: "spec/support/graphql/queries"
+  config.add_setting :graphql_responses_dir, default: "spec/support/graphql/responses"
 
   config.infer_spec_type_from_file_location!
   config.use_transactional_fixtures = false
