@@ -1137,6 +1137,7 @@ type User implements Node {
   login: String
   shipAddress: Address
   signInCount: Int!
+  spreeApiKey: String
   updatedAt: ISO8601DateTime
 }
 

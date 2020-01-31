@@ -3,7 +3,15 @@
 require 'spec_helper'
 
 RSpec.describe_query :current_user, query: :current_user, freeze_date: true do
-  let(:user) { create(:user, id: 1, email: 'email@example.com', ship_address: ship_address, bill_address: bill_address) }
+  let(:user) {
+    create(:user,
+           id: 1,
+           email: 'email@example.com',
+           spree_api_key: '123',
+           ship_address: ship_address,
+           bill_address: bill_address)
+  }
+
   let(:ship_address) { create(:ship_address, id: 1, zipcode: 10_001) }
   let(:bill_address) { create(:bill_address, id: 2, zipcode: 10_002) }
 
