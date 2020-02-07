@@ -7,4 +7,6 @@ RSpec.shared_examples 'query is successful' do |query|
   let(:variables) { Hash[] }
 
   it { expect{ subject }.to_not raise_error }
+
+  it { expect(subject[:errors]).to be_nil }
 end
