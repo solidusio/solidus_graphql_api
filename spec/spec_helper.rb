@@ -24,7 +24,10 @@ Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].each { |f| require f }
 require 'solidus_graphql_api/factories'
 
 RSpec.configure do |config|
-  DEFAULT_FREEZE_DATE = "21/12/2012 12:00:00"
+  config.add_setting :default_freeze_date, default: "21/12/2012 12:00:00"
+  config.add_setting :graphql_queries_dir, default: "spec/support/graphql/queries"
+  config.add_setting :graphql_mutations_dir, default: "spec/support/graphql/mutations"
+  config.add_setting :graphql_responses_dir, default: "spec/support/graphql/responses"
 
   config.infer_spec_type_from_file_location!
   config.use_transactional_fixtures = false
@@ -35,6 +38,7 @@ RSpec.configure do |config|
   config.alias_example_group_to :describe_query, type: :graphql_query
   config.alias_example_group_to :connection_field, type: :graphql_query
   config.alias_example_group_to :field, type: :graphql_query
+  config.alias_example_group_to :describe_mutation, type: :graphql_mutation
 
   config.before(:each) do
     BatchLoader::Executor.clear_current
@@ -44,7 +48,7 @@ RSpec.configure do |config|
     freeze_date = example.metadata[:freeze_date]
 
     if freeze_date
-      Timecop.freeze(DateTime.parse(freeze_date.is_a?(String) ? freeze_date : DEFAULT_FREEZE_DATE))
+      Timecop.freeze(DateTime.parse(freeze_date.is_a?(String) ? freeze_date : RSpec.configuration.default_freeze_date))
       example.run
       Timecop.return
     else

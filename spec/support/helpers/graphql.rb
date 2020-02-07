@@ -2,16 +2,24 @@
 
 module Helpers
   module Graphql
-    def execute_query(query, variables: {}, context: {}, decode_ids: true, object_class: Hash)
-      query_result = SolidusGraphqlApi::Schema.execute(
-        File.read("spec/support/queries/#{query}.gql"),
+    def execute(path, query_or_mutation, variables: {}, context: {}, decode_ids: true, object_class: Hash)
+      result = SolidusGraphqlApi::Schema.execute(
+        File.read(File.join(path, "#{query_or_mutation}.gql")),
         variables: variables,
         context: context
       )
 
-      query_result = decode_field_ids(query_result.to_h) if decode_ids
+      result = decode_field_ids(result.to_h) if decode_ids
 
-      JSON.parse(query_result.to_json, object_class: object_class, symbolize_names: true)
+      JSON.parse(result.to_json, object_class: object_class, symbolize_names: true)
+    end
+
+    def execute_query(*args)
+      execute(RSpec.configuration.graphql_queries_dir, *args)
+    end
+
+    def execute_mutation(*args)
+      execute(RSpec.configuration.graphql_mutations_dir, *args)
     end
 
     def decode_field_ids(field)

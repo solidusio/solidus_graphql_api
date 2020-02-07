@@ -4,13 +4,13 @@ module Matchers
   module Graphql
     extend RSpec::Matchers::DSL
 
-    matcher :match_response do |query_result_file|
+    matcher :match_response do |query_response_file|
       match do |actual|
-        query_result_path = "spec/support/query_results/#{query_result_file}.json.erb"
-        template = File.read(query_result_path)
-        json_result = ERB.new(template).result_with_hash(@variables || {})
+        query_response_path = File.join(RSpec.configuration.graphql_responses_dir, "#{query_response_file}.json.erb")
+        template = File.read(query_response_path)
+        json_response = ERB.new(template).result_with_hash(@variables || {})
 
-        @expected = JSON.parse(json_result, object_class: @object_class || Hash, symbolize_names: true)
+        @expected = JSON.parse(json_response, object_class: @object_class || Hash, symbolize_names: true)
 
         # Lets the failure message have a nice diff
         @expected = JSON.pretty_generate @expected
