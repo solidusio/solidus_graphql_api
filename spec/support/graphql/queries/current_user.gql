@@ -133,6 +133,7 @@ query {
       zipcode
     }
     signInCount
+    spreeApiKey
     updatedAt
   }
 }
