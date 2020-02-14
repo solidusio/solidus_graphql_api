@@ -1,0 +1,123 @@
+{
+  "data": {
+    "productBySlug": {
+      "createdAt": "2012-12-21T12:00:00Z",
+      "description": "As seen on TV!",
+      "id": 1,
+      "masterVariant": {
+        "createdAt": "2012-12-21T12:00:00Z",
+        "defaultPrice": {
+          "amount": "19.99",
+          "countryIso": null,
+          "createdAt": "2012-12-21T12:00:00Z",
+          "currency": {
+            "htmlEntity": "$",
+            "isoCode": "USD",
+            "name": "United States Dollar",
+            "symbol": "$"
+          },
+          "displayAmount": "$19.99",
+          "displayCountry": "Any Country",
+          "id": <%= product.master.default_price.id %>,
+          "updatedAt": "2012-12-21T12:00:00Z"
+        },
+        "depth": null,
+        "height": null,
+        "id": <%= product.master.id %>,
+        "isMaster": true,
+        "optionValues": {
+          "nodes": [
+            {
+              "createdAt": "2012-12-21T12:00:00Z",
+              "id": 1,
+              "name": "Size",
+              "position": "1",
+              "presentation": "S",
+              "updatedAt": "2012-12-21T12:00:00Z"
+            }
+          ]
+        },
+        "position": 1,
+        "prices": {
+          "nodes": [
+            {
+              "amount": "19.99",
+              "countryIso": null,
+              "createdAt": "2012-12-21T12:00:00Z",
+              "currency": {
+                "htmlEntity": "$",
+                "isoCode": "USD",
+                "name": "United States Dollar",
+                "symbol": "$"
+              },
+              "displayAmount": "$19.99",
+              "displayCountry": "Any Country",
+              "id": <%= product.master.prices.first.id %>,
+              "updatedAt": "2012-12-21T12:00:00Z"
+            }
+          ]
+        },
+        "sku": "SKU",
+        "updatedAt": "2012-12-21T12:00:00Z",
+        "weight": "0.0",
+        "width": null
+      },
+      "metaDescription": null,
+      "metaKeywords": null,
+      "metaTitle": null,
+      "name": "Product",
+      "optionTypes": {
+        "nodes": [
+          {
+            "createdAt": "2012-12-21T12:00:00Z",
+            "id": 1,
+            "name": "foo-size",
+            "optionValues": {
+              "nodes": [
+                {
+                  "createdAt": "2012-12-21T12:00:00Z",
+                  "id": 1,
+                  "name": "Size",
+                  "position": "1",
+                  "presentation": "S",
+                  "updatedAt": "2012-12-21T12:00:00Z"
+                }
+              ]
+            },
+            "position": 1,
+            "presentation": "Size",
+            "updatedAt": "2012-12-21T12:00:00Z"
+          }
+        ]
+      },
+      "productProperties": {
+        "nodes": [
+          {
+            "createdAt": "2012-12-21T12:00:00Z",
+            "position": 1,
+            "property": {
+              "createdAt": "2012-12-21T12:00:00Z",
+              "name": "baseball_cap_color",
+              "presentation": "cap color",
+              "updatedAt": "2012-12-21T12:00:00Z"
+            },
+            "updatedAt": "2012-12-21T12:00:00Z",
+            "value": null
+          }
+        ]
+      },
+      "slug": "slug",
+      "updatedAt": "2012-12-21T12:00:00Z",
+      "variants": {
+        "nodes": [
+          {
+            "id": <%= first_variant.id %>
+          },
+          {
+            "id": <%= second_variant.id %>
+          }
+        ]
+      }
+    }
+  }
+}

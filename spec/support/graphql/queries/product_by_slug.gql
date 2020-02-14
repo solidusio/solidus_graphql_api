@@ -1,5 +1,106 @@
-query {
-  productBySlug(slug: "slug") {
+query ($slug: String!) {
+  productBySlug(slug: $slug) {
+    createdAt
+    description
     id
+    masterVariant {
+      createdAt
+      defaultPrice {
+        amount
+        countryIso
+        createdAt
+        currency {
+          htmlEntity
+          isoCode
+          name
+          symbol
+        }
+        displayAmount
+        displayCountry
+        id
+        updatedAt
+      }
+      depth
+      height
+      id
+      isMaster
+      optionValues {
+        nodes {
+          createdAt
+          id
+          name
+          position
+          presentation
+          updatedAt
+        }
+      }
+      position
+      prices {
+        nodes {
+          amount
+          countryIso
+          createdAt
+          currency {
+            htmlEntity
+            isoCode
+            name
+            symbol
+          }
+          displayAmount
+          displayCountry
+          id
+          updatedAt
+        }
+      }
+      sku
+      updatedAt
+      weight
+      width
+    }
+    metaDescription
+    metaKeywords
+    metaTitle
+    name
+    optionTypes {
+      nodes {
+        createdAt
+        id
+        name
+        optionValues {
+          nodes {
+            createdAt
+            id
+            name
+            position
+            presentation
+            updatedAt
+          }
+        }
+        position
+        presentation
+        updatedAt
+      }
+    }
+    productProperties {
+      nodes {
+        createdAt
+        position
+        property {
+          createdAt
+          name
+          presentation
+          updatedAt
+        }
+        updatedAt
+        value
+      }
+    }
+    slug
+    updatedAt
+    variants {
+      nodes {
+        id
+      }
+    }
   }
 }
