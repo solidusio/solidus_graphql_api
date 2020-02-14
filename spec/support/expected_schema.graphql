@@ -1,234 +1,3 @@
-type Query {
-  """
-  Customer Completed Orders.
-  """
-  completedOrders(
-    """
-    Returns the elements in the list that come after the specified cursor.
-    """
-    after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
-    before: String
-
-    """
-    Returns the first _n_ elements from the list.
-    """
-    first: Int
-
-    """
-    Returns the last _n_ elements from the list.
-    """
-    last: Int
-  ): OrderConnection!
-
-  """
-  Supported Countries.
-  """
-  countries(
-    """
-    Returns the elements in the list that come after the specified cursor.
-    """
-    after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
-    before: String
-
-    """
-    Returns the first _n_ elements from the list.
-    """
-    first: Int
-
-    """
-    Returns the last _n_ elements from the list.
-    """
-    last: Int
-  ): CountryConnection!
-
-  """
-  Current Store.
-  """
-  currentStore: Store
-
-  """
-  Current logged User.
-  """
-  currentUser: User
-
-  """
-  Fetches an object given its ID.
-  """
-  node(
-    """
-    ID of the object.
-    """
-    id: ID!
-  ): Node
-
-  """
-  Fetches a list of objects given a list of IDs.
-  """
-  nodes(
-    """
-    IDs of the objects.
-    """
-    ids: [ID!]!
-  ): [Node]!
-
-  """
-  Find a product by its slug.
-  """
-  productBySlug(slug: String!): Product
-
-  """
-  Supported Products.
-  """
-  products(
-    """
-    Returns the elements in the list that come after the specified cursor.
-    """
-    after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
-    before: String
-
-    """
-    Returns the first _n_ elements from the list.
-    """
-    first: Int
-
-    """
-    Returns the last _n_ elements from the list.
-    """
-    last: Int
-  ): ProductConnection!
-
-  """
-  Supported Taxonomies.
-  """
-  taxonomies(
-    """
-    Returns the elements in the list that come after the specified cursor.
-    """
-    after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
-    before: String
-
-    """
-    Returns the first _n_ elements from the list.
-    """
-    first: Int
-
-    """
-    Returns the last _n_ elements from the list.
-    """
-    last: Int
-  ): TaxonomyConnection!
-}
-
-"""
-An ISO 8601-encoded datetime
-"""
-scalar ISO8601DateTime
-
-"""
-Line item.
-"""
-type LineItem implements Node {
-  additionalTaxTotal: Float!
-  adjustmentTotal: Float!
-  amount: Float!
-  createdAt: ISO8601DateTime
-  currency: String!
-  hasSufficientStock: Boolean!
-  id: ID!
-  includedTaxTotal: Float!
-  price: Float!
-  promoTotal: Float!
-  quantity: Int!
-  updatedAt: ISO8601DateTime
-  variant: Variant!
-}
-
-"""
-The connection type for LineItem.
-"""
-type LineItemConnection {
-  """
-  A list of edges.
-  """
-  edges: [LineItemEdge]
-
-  """
-  A list of nodes.
-  """
-  nodes: [LineItem]
-
-  """
-  Information to aid in pagination.
-  """
-  pageInfo: PageInfo!
-}
-
-"""
-An edge in a connection.
-"""
-type LineItemEdge {
-  """
-  A cursor for use in pagination.
-  """
-  cursor: String!
-
-  """
-  The item at the end of the edge.
-  """
-  node: LineItem
-}
-
-"""
-An object with an ID.
-"""
-interface Node {
-  """
-  ID of the object.
-  """
-  id: ID!
-}
-
-"""
-Information about pagination in a connection.
-"""
-type PageInfo {
-  """
-  When paginating forwards, the cursor to continue.
-  """
-  endCursor: String
-
-  """
-  When paginating forwards, are there more items?
-  """
-  hasNextPage: Boolean!
-
-  """
-  When paginating backwards, are there more items?
-  """
-  hasPreviousPage: Boolean!
-
-  """
-  When paginating backwards, the cursor to continue.
-  """
-  startCursor: String
-}
-
 """
 Address.
 """
@@ -403,6 +172,241 @@ type CurrencyEdge {
 }
 
 """
+An ISO 8601-encoded datetime
+"""
+scalar ISO8601DateTime
+
+"""
+Image.
+"""
+type Image implements Node {
+  alt: String
+  createdAt: ISO8601DateTime
+  filename: String!
+  id: ID!
+  largeUrl: String!
+  miniUrl: String!
+  position: Int!
+  productUrl: String!
+  smallUrl: String!
+  updatedAt: ISO8601DateTime
+}
+
+"""
+The connection type for Image.
+"""
+type ImageConnection {
+  """
+  A list of edges.
+  """
+  edges: [ImageEdge]
+
+  """
+  A list of nodes.
+  """
+  nodes: [Image]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+An edge in a connection.
+"""
+type ImageEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
+  node: Image
+}
+
+"""
+Line item.
+"""
+type LineItem implements Node {
+  additionalTaxTotal: Float!
+  adjustmentTotal: Float!
+  amount: Float!
+  createdAt: ISO8601DateTime
+  currency: String!
+  hasSufficientStock: Boolean!
+  id: ID!
+  includedTaxTotal: Float!
+  price: Float!
+  promoTotal: Float!
+  quantity: Int!
+  updatedAt: ISO8601DateTime
+  variant: Variant!
+}
+
+"""
+The connection type for LineItem.
+"""
+type LineItemConnection {
+  """
+  A list of edges.
+  """
+  edges: [LineItemEdge]
+
+  """
+  A list of nodes.
+  """
+  nodes: [LineItem]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+An edge in a connection.
+"""
+type LineItemEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
+  node: LineItem
+}
+
+"""
+An object with an ID.
+"""
+interface Node {
+  """
+  ID of the object.
+  """
+  id: ID!
+}
+
+"""
+OptionType Type.
+"""
+type OptionType implements Node {
+  createdAt: ISO8601DateTime
+  id: ID!
+  name: String!
+  optionValues(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): OptionValueConnection!
+  position: Int!
+  presentation: String!
+  updatedAt: ISO8601DateTime
+}
+
+"""
+The connection type for OptionType.
+"""
+type OptionTypeConnection {
+  """
+  A list of edges.
+  """
+  edges: [OptionTypeEdge]
+
+  """
+  A list of nodes.
+  """
+  nodes: [OptionType]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+An edge in a connection.
+"""
+type OptionTypeEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
+  node: OptionType
+}
+
+"""
+OptionValue.
+"""
+type OptionValue implements Node {
+  createdAt: ISO8601DateTime
+  id: ID!
+  name: String!
+  position: String!
+  presentation: String!
+  updatedAt: ISO8601DateTime
+}
+
+"""
+The connection type for OptionValue.
+"""
+type OptionValueConnection {
+  """
+  A list of edges.
+  """
+  edges: [OptionValueEdge]
+
+  """
+  A list of nodes.
+  """
+  nodes: [OptionValue]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+An edge in a connection.
+"""
+type OptionValueEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
+  node: OptionValue
+}
+
+"""
 Order.
 """
 type Order implements Node {
@@ -420,17 +424,6 @@ type Order implements Node {
   id: ID!
   includedTaxTotal: String!
   itemTotal: String!
-  number: String!
-  paymentState: String!
-  paymentTotal: String!
-  promoTotal: String!
-  shipmentState: String!
-  shipmentTotal: String!
-  shippingAddress: Address!
-  specialInstructions: String
-  state: String!
-  total: String!
-  updatedAt: ISO8601DateTime
   lineItems(
     """
     Returns the elements in the list that come after the specified cursor.
@@ -452,6 +445,435 @@ type Order implements Node {
     """
     last: Int
   ): LineItemConnection!
+  number: String!
+  paymentState: String!
+  paymentTotal: String!
+  promoTotal: String!
+  shipmentState: String!
+  shipmentTotal: String!
+  shippingAddress: Address!
+  specialInstructions: String
+  state: String!
+  total: String!
+  updatedAt: ISO8601DateTime
+}
+
+"""
+The connection type for Order.
+"""
+type OrderConnection {
+  """
+  A list of edges.
+  """
+  edges: [OrderEdge]
+
+  """
+  A list of nodes.
+  """
+  nodes: [Order]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+An edge in a connection.
+"""
+type OrderEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
+  node: Order
+}
+
+"""
+Information about pagination in a connection.
+"""
+type PageInfo {
+  """
+  When paginating forwards, the cursor to continue.
+  """
+  endCursor: String
+
+  """
+  When paginating forwards, are there more items?
+  """
+  hasNextPage: Boolean!
+
+  """
+  When paginating backwards, are there more items?
+  """
+  hasPreviousPage: Boolean!
+
+  """
+  When paginating backwards, the cursor to continue.
+  """
+  startCursor: String
+}
+
+"""
+Price.
+"""
+type Price implements Node {
+  amount: String!
+  countryIso: String
+  createdAt: ISO8601DateTime
+  currency: Currency!
+  displayAmount: String!
+  displayCountry: String!
+  id: ID!
+  updatedAt: ISO8601DateTime
+}
+
+"""
+The connection type for Price.
+"""
+type PriceConnection {
+  """
+  A list of edges.
+  """
+  edges: [PriceEdge]
+
+  """
+  A list of nodes.
+  """
+  nodes: [Price]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+An edge in a connection.
+"""
+type PriceEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
+  node: Price
+}
+
+"""
+Product.
+"""
+type Product implements Node {
+  createdAt: ISO8601DateTime
+  description: String
+  id: ID!
+  masterVariant: Variant!
+  metaDescription: String
+  metaKeywords: String
+  metaTitle: String
+  name: String!
+  optionTypes(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): OptionTypeConnection!
+  productProperties(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): ProductPropertyConnection!
+  slug: String!
+  updatedAt: ISO8601DateTime
+  variants(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): VariantConnection!
+}
+
+"""
+The connection type for Product.
+"""
+type ProductConnection {
+  """
+  A list of edges.
+  """
+  edges: [ProductEdge]
+
+  """
+  A list of nodes.
+  """
+  nodes: [Product]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+An edge in a connection.
+"""
+type ProductEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
+  node: Product
+}
+
+"""
+Product Property.
+"""
+type ProductProperty implements Node {
+  createdAt: ISO8601DateTime
+  id: ID!
+  position: Int!
+  property: Property
+  updatedAt: ISO8601DateTime
+  value: String
+}
+
+"""
+The connection type for ProductProperty.
+"""
+type ProductPropertyConnection {
+  """
+  A list of edges.
+  """
+  edges: [ProductPropertyEdge]
+
+  """
+  A list of nodes.
+  """
+  nodes: [ProductProperty]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+An edge in a connection.
+"""
+type ProductPropertyEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
+  node: ProductProperty
+}
+
+"""
+Property.
+"""
+type Property implements Node {
+  createdAt: ISO8601DateTime
+  id: ID!
+  name: String!
+  presentation: String!
+  updatedAt: ISO8601DateTime
+}
+
+type Query {
+  """
+  Customer Completed Orders.
+  """
+  completedOrders(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): OrderConnection!
+
+  """
+  Supported Countries.
+  """
+  countries(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): CountryConnection!
+
+  """
+  Current Store.
+  """
+  currentStore: Store
+
+  """
+  Current logged User.
+  """
+  currentUser: User
+
+  """
+  Fetches an object given its ID.
+  """
+  node(
+    """
+    ID of the object.
+    """
+    id: ID!
+  ): Node
+
+  """
+  Fetches a list of objects given a list of IDs.
+  """
+  nodes(
+    """
+    IDs of the objects.
+    """
+    ids: [ID!]!
+  ): [Node]!
+
+  """
+  Find a product by its slug.
+  """
+  productBySlug(slug: String!): Product
+
+  """
+  Supported Products.
+  """
+  products(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): ProductConnection!
+
+  """
+  Supported Taxonomies.
+  """
+  taxonomies(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): TaxonomyConnection!
 }
 
 """
@@ -501,117 +923,116 @@ type StateEdge {
 }
 
 """
-Product.
+Store.
 """
-type Product implements Node {
- createdAt: ISO8601DateTime
- description: String
- id: ID!
- masterVariant: Variant!
- metaDescription: String
- metaKeywords: String
- metaTitle: String
- name: String!
- optionTypes(
-   """
-   Returns the elements in the list that come after the specified cursor.
-   """
-   after: String
+type Store implements Node {
+  cartTaxCountryIso: String
+  code: String
+  createdAt: ISO8601DateTime
+  currencies(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
 
-   """
-   Returns the elements in the list that come before the specified cursor.
-   """
-   before: String
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
 
-   """
-   Returns the first _n_ elements from the list.
-   """
-   first: Int
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
 
-   """
-   Returns the last _n_ elements from the list.
-   """
-   last: Int
- ): OptionTypeConnection!
- productProperties(
-   """
-   Returns the elements in the list that come after the specified cursor.
-   """
-   after: String
-
-   """
-   Returns the elements in the list that come before the specified cursor.
-   """
-   before: String
-
-   """
-   Returns the first _n_ elements from the list.
-   """
-   first: Int
-
-   """
-   Returns the last _n_ elements from the list.
-   """
-   last: Int
- ): ProductPropertyConnection!
- slug: String!
- updatedAt: ISO8601DateTime
- variants(
-   """
-   Returns the elements in the list that come after the specified cursor.
-   """
-   after: String
-
-   """
-   Returns the elements in the list that come before the specified cursor.
-   """
-   before: String
-
-   """
-   Returns the first _n_ elements from the list.
-   """
-   first: Int
-
-   """
-   Returns the last _n_ elements from the list.
-   """
-   last: Int
- ): VariantConnection!
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): CurrencyConnection!
+  default: Boolean!
+  defaultCurrency: String
+  id: ID!
+  mailFromAddress: String
+  metaDescription: String
+  metaKeywords: String
+  name: String
+  seoTitle: String
+  updatedAt: ISO8601DateTime
+  url: String
 }
 
 """
-The connection type for Product.
+Taxon.
 """
-type ProductConnection {
- """
- A list of edges.
- """
- edges: [ProductEdge]
+type Taxon implements Node {
+  children(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
 
- """
- A list of nodes.
- """
- nodes: [Product]
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
 
- """
- Information to aid in pagination.
- """
- pageInfo: PageInfo!
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): TaxonConnection
+  createdAt: ISO8601DateTime
+  description: String
+  iconUrl: String
+  id: ID!
+  metaDescription: String
+  metaKeywords: String
+  metaTitle: String
+  name: String!
+  parentTaxon: Taxon
+  permalink: String!
+  updatedAt: ISO8601DateTime
+}
+
+"""
+The connection type for Taxon.
+"""
+type TaxonConnection {
+  """
+  A list of edges.
+  """
+  edges: [TaxonEdge]
+
+  """
+  A list of nodes.
+  """
+  nodes: [Taxon]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
 }
 
 """
 An edge in a connection.
 """
-type ProductEdge {
- """
- A cursor for use in pagination.
- """
- cursor: String!
+type TaxonEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
 
- """
- The item at the end of the edge.
- """
- node: Product
+  """
+  The item at the end of the edge.
+  """
+  node: Taxon
 }
 
 """
@@ -720,496 +1141,109 @@ type User implements Node {
 }
 
 """
-Store.
-"""
-type Store implements Node {
-  cartTaxCountryIso: String
-  code: String
-  createdAt: ISO8601DateTime
-  currencies(
-    """
-    Returns the elements in the list that come after the specified cursor.
-    """
-    after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
-    before: String
-
-    """
-    Returns the first _n_ elements from the list.
-    """
-    first: Int
-
-    """
-    Returns the last _n_ elements from the list.
-    """
-    last: Int
-  ): CurrencyConnection!
-  default: Boolean!
-  defaultCurrency: String
-  id: ID!
-  mailFromAddress: String
-  metaDescription: String
-  metaKeywords: String
-  name: String
-  seoTitle: String
-  updatedAt: ISO8601DateTime
-  url: String
-}
-
-"""
-Taxon.
-"""
-type Taxon implements Node {
-  children(
-    """
-    Returns the elements in the list that come after the specified cursor.
-    """
-    after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
-    before: String
-
-    """
-    Returns the first _n_ elements from the list.
-    """
-    first: Int
-
-    """
-    Returns the last _n_ elements from the list.
-    """
-    last: Int
-  ): TaxonConnection
-  createdAt: ISO8601DateTime
-  description: String
-  iconUrl: String
-  id: ID!
-  metaDescription: String
-  metaKeywords: String
-  metaTitle: String
-  name: String!
-  parentTaxon: Taxon
-  permalink: String!
-  updatedAt: ISO8601DateTime
-}
-
-"""
-The connection type for Taxon.
-"""
-type TaxonConnection {
-  """
-  A list of edges.
-  """
-  edges: [TaxonEdge]
-
-  """
-  A list of nodes.
-  """
-  nodes: [Taxon]
-
-  """
-  Information to aid in pagination.
-  """
-  pageInfo: PageInfo!
-}
-
-"""
-OptionValue.
-"""
-type OptionValue implements Node {
- createdAt: ISO8601DateTime
- id: ID!
- name: String!
- position: String!
- presentation: String!
- updatedAt: ISO8601DateTime
-}
-
-"""
-The connection type for OptionValue.
-"""
-type OptionValueConnection {
- """
- A list of edges.
- """
- edges: [OptionValueEdge]
-
- """
- A list of nodes.
- """
- nodes: [OptionValue]
-
- """
- Information to aid in pagination.
- """
- pageInfo: PageInfo!
-}
-
-"""
-An edge in a connection.
-"""
-type OptionValueEdge {
- """
- A cursor for use in pagination.
- """
- cursor: String!
-
- """
- The item at the end of the edge.
- """
- node: OptionValue
-}
-
-
-"""
-Price.
-"""
-type Price implements Node {
- amount: String!
- countryIso: String
- createdAt: ISO8601DateTime
- currency: Currency!
- displayAmount: String!
- displayCountry: String!
- id: ID!
- updatedAt: ISO8601DateTime
-}
-
-"""
-The connection type for Price.
-"""
-type PriceConnection {
- """
- A list of edges.
- """
- edges: [PriceEdge]
-
- """
- A list of nodes.
- """
- nodes: [Price]
-
- """
- Information to aid in pagination.
- """
- pageInfo: PageInfo!
-}
-
-"""
-An edge in a connection.
-"""
-type PriceEdge {
- """
- A cursor for use in pagination.
- """
- cursor: String!
-
- """
- The item at the end of the edge.
- """
- node: Price
-}
-
-"""
 Variant.
 """
 type Variant implements Node {
- createdAt: ISO8601DateTime
- defaultPrice: Price!
- depth: String
- height: String
- id: ID!
- images(
-   """
-   Returns the elements in the list that come after the specified cursor.
-   """
-   after: String
+  createdAt: ISO8601DateTime
+  defaultPrice: Price!
+  depth: String
+  height: String
+  id: ID!
+  images(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
 
-   """
-   Returns the elements in the list that come before the specified cursor.
-   """
-   before: String
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
 
-   """
-   Returns the first _n_ elements from the list.
-   """
-   first: Int
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
 
-   """
-   Returns the last _n_ elements from the list.
-   """
-   last: Int
- ): ImageConnection!
- isMaster: Boolean!
- optionValues(
-   """
-   Returns the elements in the list that come after the specified cursor.
-   """
-   after: String
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): ImageConnection!
+  isMaster: Boolean!
+  optionValues(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
 
-   """
-   Returns the elements in the list that come before the specified cursor.
-   """
-   before: String
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
 
-   """
-   Returns the first _n_ elements from the list.
-   """
-   first: Int
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
 
-   """
-   Returns the last _n_ elements from the list.
-   """
-   last: Int
- ): OptionValueConnection!
- position: Int!
- prices(
-   """
-   Returns the elements in the list that come after the specified cursor.
-   """
-   after: String
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): OptionValueConnection!
+  position: Int!
+  prices(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
 
-   """
-   Returns the elements in the list that come before the specified cursor.
-   """
-   before: String
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
 
-   """
-   Returns the first _n_ elements from the list.
-   """
-   first: Int
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
 
-   """
-   Returns the last _n_ elements from the list.
-   """
-   last: Int
- ): PriceConnection!
- sku: String!
- updatedAt: ISO8601DateTime
- weight: String!
- width: String
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): PriceConnection!
+  sku: String!
+  updatedAt: ISO8601DateTime
+  weight: String!
+  width: String
 }
 
 """
 The connection type for Variant.
 """
 type VariantConnection {
- """
- A list of edges.
- """
- edges: [VariantEdge]
-
- """
- A list of nodes.
- """
- nodes: [Variant]
-
- """
- Information to aid in pagination.
- """
- pageInfo: PageInfo!
-}
-
-"""
-An edge in a connection.
-"""
-type TaxonEdge {
   """
-  A cursor for use in pagination.
+  A list of edges.
   """
-  cursor: String!
+  edges: [VariantEdge]
 
   """
-  The item at the end of the edge.
+  A list of nodes.
   """
-  node: Taxon
+  nodes: [Variant]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
 }
 
 """
 An edge in a connection.
 """
 type VariantEdge {
- """
- A cursor for use in pagination.
- """
- cursor: String!
-
- """
- The item at the end of the edge.
- """
- node: Variant
-}
-
-"""
-OptionType Type.
-"""
-type OptionType implements Node {
- createdAt: ISO8601DateTime
- id: ID!
- name: String!
- optionValues(
-   """
-   Returns the elements in the list that come after the specified cursor.
-   """
-   after: String
-
-   """
-   Returns the elements in the list that come before the specified cursor.
-   """
-   before: String
-
-   """
-   Returns the first _n_ elements from the list.
-   """
-   first: Int
-
-   """
-   Returns the last _n_ elements from the list.
-   """
-   last: Int
- ): OptionValueConnection!
- position: Int!
- presentation: String!
- updatedAt: ISO8601DateTime
-}
-
-"""
-The connection type for OptionType.
-"""
-type OptionTypeConnection {
- """
- A list of edges.
- """
- edges: [OptionTypeEdge]
-
- """
- A list of nodes.
- """
- nodes: [OptionType]
-
- """
- Information to aid in pagination.
- """
- pageInfo: PageInfo!
-}
-
-"""
-An edge in a connection.
-"""
-type OptionTypeEdge {
- """
- A cursor for use in pagination.
- """
- cursor: String!
-
- """
- The item at the end of the edge.
- """
- node: OptionType
-}
-
-"""
-Product Property.
-"""
-type ProductProperty implements Node {
- createdAt: ISO8601DateTime
- id: ID!
- position: Int!
- property: Property
- updatedAt: ISO8601DateTime
- value: String
-}
-
-"""
-The connection type for ProductProperty.
-"""
-type ProductPropertyConnection {
- """
- A list of edges.
- """
- edges: [ProductPropertyEdge]
-
- """
- A list of nodes.
- """
- nodes: [ProductProperty]
-
- """
- Information to aid in pagination.
- """
- pageInfo: PageInfo!
-}
-
-"""
-An edge in a connection.
-"""
-type ProductPropertyEdge {
- """
- A cursor for use in pagination.
- """
- cursor: String!
-
- """
- The item at the end of the edge.
- """
- node: ProductProperty
-}
-
-"""
-Property.
-"""
-type Property implements Node {
- createdAt: ISO8601DateTime
- id: ID!
- name: String!
- presentation: String!
- updatedAt: ISO8601DateTime
-}
-
-"""
-Image.
-"""
-type Image implements Node {
-  alt: String
-  createdAt: ISO8601DateTime
-  filename: String!
-  id: ID!
-  largeUrl: String!
-  miniUrl: String!
-  position: Int!
-  productUrl: String!
-  smallUrl: String!
-  updatedAt: ISO8601DateTime
-}
-
-"""
-The connection type for Image.
-"""
-type ImageConnection {
-  """
-  A list of edges.
-  """
-  edges: [ImageEdge]
-
-  """
-  A list of nodes.
-  """
-  nodes: [Image]
-
-  """
-  Information to aid in pagination.
-  """
-  pageInfo: PageInfo!
-}
-
-"""
-An edge in a connection.
-"""
-type ImageEdge {
   """
   A cursor for use in pagination.
   """
@@ -1218,40 +1252,5 @@ type ImageEdge {
   """
   The item at the end of the edge.
   """
-  node: Image
-}
-
-"""
-The connection type for Order.
-"""
-type OrderConnection {
-  """
-  A list of edges.
-  """
-  edges: [OrderEdge]
-
-  """
-  A list of nodes.
-  """
-  nodes: [Order]
-
-  """
-  Information to aid in pagination.
-  """
-  pageInfo: PageInfo!
-}
-
-"""
-An edge in a connection.
-"""
-type OrderEdge {
-  """
-  A cursor for use in pagination.
-  """
-  cursor: String!
-
-  """
-  The item at the end of the edge.
-  """
-  node: Order
+  node: Variant
 }
