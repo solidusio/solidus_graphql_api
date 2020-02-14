@@ -1,0 +1,23 @@
+query {
+  completedOrders {
+    nodes {
+      id
+      lineItems {
+        nodes {
+          id
+          additionalTaxTotal
+          adjustmentTotal
+          amount
+          createdAt
+          currency
+          hasSufficientStock
+          includedTaxTotal
+          price
+          promoTotal
+          quantity
+          updatedAt
+        }
+      }
+    }
+  }
+}

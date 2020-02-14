@@ -12,6 +12,30 @@ RSpec.describe_query :completed_orders do
     end
 
     context 'when there are some completed orders' do
+      let(:order_1) do
+        create(
+          :completed_order_with_pending_payment,
+          id: 1,
+          user: current_user,
+          guest_token: 'fake guest token 1',
+          number: 'fake order number 1'
+        )
+      end
+      let(:order_2) do
+        create(
+          :completed_order_with_pending_payment,
+          id: 2,
+          user: current_user,
+          guest_token: 'fake guest token 2',
+          number: 'fake order number 2'
+        )
+      end
+      let!(:completed_orders) { [order_1, order_2] }
+
+      it { is_expected.to match_response('completed_orders') }
+    end
+
+    describe 'billing and shipping address fields' do
       let(:ship_address_1_country) { create :country, id: 1 }
       let(:ship_address_1_state) { create :state, id: 1, country: ship_address_1_country }
       let(:bill_address_1_country) { create :country, id: 2 }
@@ -65,8 +89,6 @@ RSpec.describe_query :completed_orders do
           :completed_order_with_pending_payment,
           id: 1,
           user: current_user,
-          guest_token: 'fake guest token 1',
-          number: 'fake order number 1',
           ship_address: ship_address_1,
           bill_address: bill_address_1
         )
@@ -76,15 +98,11 @@ RSpec.describe_query :completed_orders do
           :completed_order_with_pending_payment,
           id: 2,
           user: current_user,
-          guest_token: 'fake guest token 2',
-          number: 'fake order number 2',
           ship_address: ship_address_2,
           bill_address: bill_address_2
         )
       end
       let!(:completed_orders) { [order_1, order_2] }
-
-      it { is_expected.to match_response('completed_orders') }
 
       connection_field :shipping_address, query: 'completed_orders/shipping_address' do
         it { is_expected.to match_response('completed_orders/shipping_address') }
@@ -93,6 +111,14 @@ RSpec.describe_query :completed_orders do
       connection_field :billing_address, query: 'completed_orders/billing_address' do
         it { is_expected.to match_response('completed_orders/billing_address') }
       end
+    end
+
+    connection_field :line_items, query: 'completed_orders/line_items' do
+      let!(:order) do
+        create :completed_order_with_pending_payment, id: 1, user: current_user, line_items_count: 2
+      end
+
+      it { is_expected.to match_response('completed_orders/line_items').with_args(line_items: order.line_items) }
     end
   end
 end

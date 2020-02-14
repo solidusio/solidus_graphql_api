@@ -18,6 +18,7 @@ module SolidusGraphqlApi
       field :guest_token, String, null: true
       field :included_tax_total, String, null: false
       field :item_total, String, null: false
+      field :line_items, LineItem.connection_type, null: false
       field :number, String, null: false
       field :payment_state, String, null: false
       field :payment_total, String, null: false
@@ -32,6 +33,10 @@ module SolidusGraphqlApi
 
       def billing_address
         Queries::Order::BillingAddressQuery.new(order: object).call
+      end
+
+      def line_items
+        Queries::Order::LineItemsQuery.new(order: object).call
       end
 
       def shipping_address
