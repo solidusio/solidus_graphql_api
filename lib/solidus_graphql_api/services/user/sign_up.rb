@@ -13,7 +13,10 @@ module SolidusGraphqlApi
             password_confirmation: password_confirmation
           )
 
-          @user.save.tap { @errors = @user.errors.full_messages }
+          @user.save.tap { |result|
+            @errors = @user.errors.full_messages
+            @user = nil unless result
+          }
         end
       end
     end
