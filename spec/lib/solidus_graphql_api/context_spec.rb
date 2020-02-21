@@ -21,12 +21,14 @@ RSpec.describe SolidusGraphqlApi::Context do
     let(:current_ability) { Spree::Ability.new(nil) }
     let!(:default_store) { create(:store, default: true) }
     let(:current_order) { build(:order) }
+    let(:current_pricing_options) { Spree::Config.pricing_options_class.new }
     let(:order_token) { "order_token" }
 
     before do
       allow(schema_context).to receive(:current_user).and_return(current_user)
       allow(schema_context).to receive(:current_ability).and_return(current_ability)
       allow(schema_context).to receive(:current_order).and_return(current_order)
+      allow(schema_context).to receive(:current_pricing_options).and_return(current_pricing_options)
     end
 
     it { is_expected.to be_an(Hash) }
@@ -42,6 +44,9 @@ RSpec.describe SolidusGraphqlApi::Context do
 
     it { is_expected.to have_key(:current_order) }
     it { expect(subject[:current_order]).to eq current_order }
+
+    it { is_expected.to have_key(:current_pricing_options) }
+    it { expect(subject[:current_pricing_options]).to eq current_pricing_options }
 
     it { is_expected.to have_key(:order_token) }
     it { expect(subject[:order_token]).to eq order_token }
@@ -106,6 +111,26 @@ RSpec.describe SolidusGraphqlApi::Context do
     let!(:default_store) { create(:store, default: true) }
 
     it { is_expected.to eq default_store }
+  end
+
+  describe '#current_pricing_options' do
+    subject { schema_context.current_pricing_options }
+
+    let(:default_currency) { 'EUR' }
+    let(:country_iso) { 'IT-it' }
+    let!(:default_store) do
+      create(:store, default: true, default_currency: default_currency, cart_tax_country_iso: country_iso)
+    end
+
+    it { is_expected.to be_a Spree::Config.pricing_options_class }
+
+    it do
+      expect(Spree::Config.pricing_options_class).to receive(:new).with(
+        currency: default_currency,
+        country_iso: country_iso
+      )
+      subject
+    end
   end
 
   describe '#order_token' do

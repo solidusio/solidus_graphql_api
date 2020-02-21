@@ -17,6 +17,7 @@ module SolidusGraphqlApi
         current_ability: current_ability,
         current_store: current_store,
         current_order: current_order,
+        current_pricing_options: current_pricing_options,
         order_token: order_token }
     end
 
@@ -42,6 +43,10 @@ module SolidusGraphqlApi
       @current_order = current_order_by_current_user || current_order_by_guest_token
     end
 
+    def current_pricing_options
+      @current_pricing_options ||= pricing_options_from_context
+    end
+
     private
 
     def bearer_token
@@ -59,6 +64,13 @@ module SolidusGraphqlApi
       incomplete_orders = incomplete_orders.where(store: current_store) if current_store
 
       incomplete_orders.find_by(guest_token: order_token)
+    end
+
+    def pricing_options_from_context
+      Spree::Config.pricing_options_class.new(
+        currency: current_store&.default_currency.presence || Spree::Config[:currency],
+        country_iso: current_store&.cart_tax_country_iso.presence
+      )
     end
   end
 end
