@@ -19,7 +19,9 @@ module SolidusGraphqlApi
 
       field :products, Product.connection_type,
             null: false,
-            description: 'Supported Products.'
+            description: 'Supported Products.' do
+              argument :query, Types::InputObjects::ProductsQueryInput, required: false
+            end
 
       field :product_by_slug, Product,
             null: true,
@@ -51,8 +53,11 @@ module SolidusGraphqlApi
         Queries::CompletedOrdersQuery.new(user: context[:current_user]).call
       end
 
-      def products
-        Queries::ProductsQuery.new.call
+      def products(query: {})
+        Queries::ProductsQuery.new(
+          user: context[:current_user],
+          pricing_options: context[:current_pricing_options]
+        ).call(query: query)
       end
 
       def product_by_slug(slug:)
