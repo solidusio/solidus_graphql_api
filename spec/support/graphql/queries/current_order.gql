@@ -1,0 +1,6 @@
+query {
+  currentOrder {
+    id
+    number
+  }
+}
