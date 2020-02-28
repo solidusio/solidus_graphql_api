@@ -6,14 +6,14 @@ RSpec.describe SolidusGraphqlApi::Services::User::SignIn do
   let(:email) { "john@example.com" }
   let(:password) { "secret" }
 
+  let!(:user) { create(:user, email: "john@example.com", password: "secret") }
+
   subject(:instance) { described_class.new }
 
   describe "#call" do
     subject { instance.call(email: email, password: password) }
 
     context "when given valid credentials" do
-      let!(:user) { create(:user, email: email, password: password) }
-
       it { is_expected.to be true }
 
       context 'instance' do
@@ -24,12 +24,41 @@ RSpec.describe SolidusGraphqlApi::Services::User::SignIn do
     end
 
     context "when given invalid credentials" do
-      it { is_expected.to be false }
+      context 'with wrong email' do
+        let(:email) { 'wrongemail@example.com' }
 
-      context 'instance' do
-        before { subject }
+        it { is_expected.to be false }
 
-        it { expect(instance.user).to be_nil }
+        context 'instance' do
+          before { subject }
+
+          it { expect(instance.user).to be_nil }
+        end
+      end
+
+      context 'with wrong password' do
+        let(:password) { 'wrongpassword' }
+
+        it { is_expected.to be false }
+
+        context 'instance' do
+          before { subject }
+
+          it { expect(instance.user).to be_nil }
+        end
+      end
+
+      context 'with wrong email and password' do
+        let(:email) { 'wrongemail@example.com' }
+        let(:password) { 'wrongpassword' }
+
+        it { is_expected.to be false }
+
+        context 'instance' do
+          before { subject }
+
+          it { expect(instance.user).to be_nil }
+        end
       end
     end
   end
