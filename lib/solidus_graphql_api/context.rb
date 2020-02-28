@@ -35,12 +35,29 @@ module SolidusGraphqlApi
       @current_store ||= Spree::Config.current_store_selector_class.new(request).store
     end
 
+    def current_order
+      return @current_order if instance_variable_defined?(:@current_order)
+
+      @current_order = current_order_by_current_user || current_order_by_guest_token
+    end
+
     private
 
     def bearer_token
       @bearer_token ||= headers[AUTHORIZATION_HEADER].to_s.match(TOKEN_PATTERN) do |match_data|
         match_data[:token]
       end
+    end
+
+    def current_order_by_current_user
+      current_user&.last_incomplete_spree_order(store: current_store)
+    end
+
+    def current_order_by_guest_token
+      incomplete_orders = Spree::Order.incomplete
+      incomplete_orders = incomplete_orders.where(store: current_store) if current_store
+
+      incomplete_orders.find_by(guest_token: order_token)
     end
   end
 end
