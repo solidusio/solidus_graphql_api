@@ -1,0 +1,14 @@
+mutation ($input: RemoveFromAddressBookInput!) {
+  removeFromAddressBook(input: $input) {
+    user {
+      defaultAddress {
+        id
+      }
+      addresses {
+        nodes {
+          id
+        }
+      }
+    }
+  }
+}
