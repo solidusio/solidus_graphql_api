@@ -110,4 +110,97 @@ RSpec.describe SolidusGraphqlApi::Context do
 
     it { is_expected.to eq order_token }
   end
+
+  describe '#current_order' do
+    subject { schema_context.current_order }
+
+    let(:current_store) { create :store, default: true }
+
+    before do
+      allow(schema_context).to receive(:current_user).and_return(current_user)
+    end
+
+    context 'when there is a current user' do
+      let(:current_user) { create :user }
+
+      before do
+        allow(schema_context).to receive(:current_user).and_return(current_user)
+      end
+
+      context 'when the current user has one incompleted order in the current store' do
+        let!(:order) { create :order, user: current_user, store: current_store }
+
+        it { is_expected.to eq order }
+
+        context 'when is provided an order token for an incompleted order in the current store' do
+          let(:other_order) { create :order, store: current_store }
+          let(:order_token) { other_order.guest_token }
+
+          it { is_expected.to eq order }
+        end
+      end
+
+      context 'when the current user has many incompleted orders in the current store' do
+        let!(:first_created_order) { create :order, user: current_user, store: current_store, created_at: Time.zone.yesterday }
+        let!(:last_created_order) { create :order, user: current_user, store: current_store, created_at: Time.zone.today }
+
+        it { is_expected.to eq last_created_order }
+      end
+
+      context 'when the current user has one completed order in the current store' do
+        let!(:order) { create :completed_order_with_totals, user: current_user, store: current_store }
+
+        it { is_expected.to be_nil }
+      end
+
+      context 'when the current user has one incompleted order in another store' do
+        let(:other_store) { create :store, default: false }
+        let(:order) { create :order, user: current_user, store: other_store }
+
+        before do
+          current_store
+          order
+        end
+
+        it { is_expected.to be_nil }
+      end
+
+      context 'when the current user does not have any orders' do
+        it { is_expected.to be_nil }
+      end
+    end
+
+    context 'when there is no current user' do
+      let(:current_user) {}
+      let(:order_token) {}
+
+      context 'when is provided an order token for an incompleted order in the current store' do
+        let(:order) { create :order, store: current_store }
+        let(:order_token) { order.guest_token }
+
+        it { is_expected.to eq order }
+      end
+
+      context 'when is provided an order token for a completed order in the current store' do
+        let(:order) { create :completed_order_with_totals, store: current_store }
+        let(:order_token) { order.guest_token }
+
+        it { is_expected.to be_nil }
+      end
+
+      context 'when is provided an order token for an incompleted order in another store' do
+        let(:other_store) { create :store, default: false }
+        let(:order) { create :order, user: current_user, store: other_store }
+        let(:order_token) { order.guest_token }
+
+        before { current_store }
+
+        it { is_expected.to be_nil }
+      end
+
+      context 'when is provided no order token' do
+        it { is_expected.to be_nil }
+      end
+    end
+  end
 end

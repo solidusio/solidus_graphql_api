@@ -39,6 +39,10 @@ module SolidusGraphqlApi
             null: true,
             description: 'Current Store.'
 
+      field :current_order, Types::Order,
+            null: true,
+            description: 'Current Order.'
+
       def countries
         Queries::CountriesQuery.new.call
       end
@@ -65,6 +69,10 @@ module SolidusGraphqlApi
 
       def current_store
         context[:current_store]
+      end
+
+      def current_order
+        context[:current_order]
       end
     end
   end
