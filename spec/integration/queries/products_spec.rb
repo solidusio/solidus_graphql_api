@@ -2,56 +2,37 @@
 
 require 'spec_helper'
 
-RSpec.describe "Products" do
-  include_examples 'query is successful', :products do
-    let(:product_nodes) { subject.dig(:data, :products, :nodes) }
-    let(:master_variant_nodes) { product_nodes.map { |node| node[:masterVariant] } }
-    let(:master_variant_images_nodes) { master_variant_nodes.map { |node| node[:images] } }
-    let(:option_type_nodes) { product_nodes.map { |node| node.dig(:optionTypes, :nodes) }.flatten }
-    let(:option_value_nodes) { option_type_nodes.map { |node| node.dig(:optionValues, :nodes) }.flatten }
-    let(:product_properties_nodes) { product_nodes.map { |node| node.dig(:productProperties, :nodes) }.flatten }
-    let(:product_properties_property_nodes) { product_properties_nodes.map { |node| node[:property] } }
-    let(:variant_nodes) { product_nodes.map { |node| node.dig(:variants, :nodes) }.flatten }
-    let(:variant_default_price_nodes) { variant_nodes.map { |node| node[:defaultPrice] } }
-    let(:default_price_currency_nodes) { variant_default_price_nodes.map { |node| node[:currency] } }
-    let(:variant_option_value_nodes) { variant_nodes.map { |node| node.dig(:optionValues, :nodes) }.flatten }
-    let(:variant_price_nodes) { variant_nodes.map { |variant_node| variant_node.dig(:prices, :nodes) }.flatten }
-    let(:price_currency_nodes) { variant_price_nodes.map { |node| node[:currency] } }
+RSpec.describe_query :products, query: :products, freeze_date: true do
+  connection_field :products do
+    subject { query_response.dig(:data, :products, :nodes) }
 
-    let(:product) { create(:product_with_option_types) }
-
-    before do
-      product.option_types.each do |option_type|
-        create(:option_value, option_type: option_type)
-      end
-      create_list(:variant, 2, product: product)
-      create(:product_property, product: product)
+    let(:current_user) { create :user }
+    let(:current_pricing_options) { Spree::Config.pricing_options_class.new }
+    let(:query_context) do
+      { current_user: current_user,
+        current_pricing_options: current_pricing_options }
     end
 
-    it { expect(product_nodes).to be_present }
+    context 'when products do not exist' do
+      it { is_expected.to eq [] }
+    end
 
-    it { expect(master_variant_nodes).to be_present }
+    context 'when products exist' do
+      let!(:solidus_t_shirt) { create(:product, name: 'Solidus T-Shirt', id: 1, price: 19.99) }
+      let!(:ruby_mug) { create(:product, name: 'Ruby Mug', id: 2, price: 9.99) }
+      let!(:solidus_mug) { create(:product, name: 'Solidus Mug ', id: 3, price: 9.99) }
+      let!(:solidus_tote) { create(:product, name: 'Solidus Tote', id: 4, price: 15.99) }
 
-    it { expect(master_variant_images_nodes).to be_present }
+      context 'when no query is passed' do
+        it { is_expected.to match_array([{ id: solidus_t_shirt.id }, { id: ruby_mug.id }, { id: solidus_mug.id }, { id: solidus_tote.id }]) }
+      end
 
-    it { expect(option_type_nodes).to be_present }
+      context 'when a query is passed' do
+        let(:search) { { price_range_any: ["Under $10.00", "$15.00 - $18.00"] } }
+        let(:query_variables) { { query: { keywords: "Solidus", search: search } } }
 
-    it { expect(option_value_nodes).to be_present }
-
-    it { expect(product_properties_nodes).to be_present }
-
-    it { expect(product_properties_property_nodes).to be_present }
-
-    it { expect(variant_nodes).to be_present }
-
-    it { expect(variant_default_price_nodes).to be_present }
-
-    it { expect(default_price_currency_nodes).to be_present }
-
-    it { expect(variant_option_value_nodes).to be_present }
-
-    it { expect(variant_price_nodes).to be_present }
-
-    it { expect(price_currency_nodes).to be_present }
+        it { is_expected.to match_array([{ id: solidus_mug.id }, { id: solidus_tote.id }]) }
+      end
+    end
   end
 end
