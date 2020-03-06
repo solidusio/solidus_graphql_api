@@ -16,6 +16,7 @@ module SolidusGraphqlApi
       { current_user: current_user,
         current_ability: current_ability,
         current_store: current_store,
+        current_order: current_order,
         order_token: order_token }
     end
 
