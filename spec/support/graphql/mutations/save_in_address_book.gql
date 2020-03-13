@@ -1,0 +1,57 @@
+mutation ($input: SaveInAddressBookInput!) {
+  saveInAddressBook(input: $input) {
+    user {
+      email
+      defaultAddress {
+        address1
+        address2
+        alternativePhone
+        city
+        company
+        country {
+          id
+          name
+        }
+        createdAt
+        firstname
+        lastname
+        phone
+        stateName
+        state {
+          id
+          name
+        }
+        updatedAt
+        zipcode
+      }
+      addresses {
+        nodes {
+          address1
+          address2
+          alternativePhone
+          city
+          company
+          country {
+            id
+            name
+          }
+          createdAt
+          firstname
+          lastname
+          phone
+          stateName
+          state {
+            id
+            name
+          }
+          updatedAt
+          zipcode
+        }
+      }
+    }
+    errors {
+      path
+      message
+    }
+  }
+}
