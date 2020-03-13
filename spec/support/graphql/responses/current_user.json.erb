@@ -168,7 +168,65 @@
       },
       "signInCount": 0,
       "spreeApiKey": "123",
-      "updatedAt": "2012-12-21T12:00:00Z"
+      "updatedAt": "2012-12-21T12:00:00Z",
+      "wallet": {
+        "nodes": [
+          {
+            "createdAt": "2012-12-21T12:00:00Z",
+            "default": true,
+            "id": <%= wallet.default_wallet_payment_source.id %>,
+            "paymentSource": {
+              "address": {
+                "address1": "A Different Road",
+                "address2": "Northwest",
+                "alternativePhone": "555-555-0199",
+                "city": "Herndon",
+                "company": "Company",
+                "country": {
+                  "isoName": "UNITED STATES",
+                  "iso": "US",
+                  "iso3": "USA",
+                  "name": "United States",
+                  "numcode": 840,
+                  "statesRequired": false,
+                  "createdAt": "2012-12-21T12:00:00Z",
+                  "updatedAt": "2012-12-21T12:00:00Z"
+                },
+                "createdAt": "2012-12-21T12:00:00Z",
+                "firstname": "John",
+                "id": 1,
+                "lastname": null,
+                "phone": "555-555-0199",
+                "state": {
+                  "name": "Alabama",
+                  "abbr": "AL",
+                  "createdAt": "2012-12-21T12:00:00Z",
+                  "updatedAt": "2012-12-21T12:00:00Z"
+                },
+                "stateName": null,
+                "updatedAt": "2012-12-21T12:00:00Z",
+                "zipcode": "10001"
+              },
+              "ccType": "visa",
+              "lastDigits": "1111",
+              "month": "12",
+              "name": "Spree Commerce",
+              "year": "2013",
+              "createdAt": "2012-12-21T12:00:00Z",
+              "updatedAt": "2012-12-21T12:00:00Z",
+              "paymentMethod": {
+                "createdAt": "2012-12-21T12:00:00Z",
+                "description": null,
+                "id": 1,
+                "name": "Credit Card",
+                "position": "1",
+                "updatedAt": "2012-12-21T12:00:00Z"
+              }
+            },
+            "updatedAt": "2012-12-21T12:00:00Z"
+          }
+        ]
+      }
     }
   }
 }
