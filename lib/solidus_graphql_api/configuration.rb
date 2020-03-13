@@ -9,5 +9,11 @@ module SolidusGraphqlApi
     @configuration ||= Configuration.new
   end
 
-  class Configuration; end
+  class Configuration
+    attr_accessor :payment_sources
+
+    def initialize
+      @payment_sources = [SolidusGraphqlApi::Types::CreditCard]
+    end
+  end
 end

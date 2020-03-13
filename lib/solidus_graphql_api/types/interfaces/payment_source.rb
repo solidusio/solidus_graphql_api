@@ -6,6 +6,8 @@ module SolidusGraphqlApi
       module PaymentSource
         include Types::Base::Interface
 
+        orphan_types(*SolidusGraphqlApi.configuration.payment_sources)
+
         description "Payment Source."
 
         field :created_at, GraphQL::Types::ISO8601DateTime, null: true
