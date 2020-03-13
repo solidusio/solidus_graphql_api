@@ -7,6 +7,10 @@ module SolidusGraphqlApi
 
     use ::BatchLoader::GraphQL
 
+    rescue_from CanCan::AccessDenied do |exception|
+      raise GraphQL::ExecutionError, exception.message
+    end
+
     # Relay Object Identification:
     class << self
       # Return a string UUID for object
