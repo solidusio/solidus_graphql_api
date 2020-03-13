@@ -28,19 +28,12 @@ RSpec.describe SolidusGraphqlApi::Queries::ProductsQuery do
 
     context 'when a query is passed' do
       let(:taxonomy) { create(:taxonomy, name: 'Categories') }
-      let(:t_shirts_taxon) { create(:taxon, name: 'T-Shirts', taxonomy: taxonomy) }
-      let(:mugs_taxon) { create(:taxon, name: 'Mugs', taxonomy: taxonomy) }
-      let(:totes_taxon) { create(:taxon, name: 'Totes', taxonomy: taxonomy) }
+      let(:t_shirts_taxon) { create(:taxon, name: 'T-Shirts', taxonomy: taxonomy, products: [solidus_t_shirt]) }
+      let(:mugs_taxon) { create(:taxon, name: 'Mugs', taxonomy: taxonomy, products: [ruby_mug, solidus_mug]) }
+      let(:totes_taxon) { create(:taxon, name: 'Totes', taxonomy: taxonomy, products: [solidus_tote]) }
 
       let(:search) { { price_range_any: ["Under $10.00", "$15.00 - $18.00"] } }
-      let(:query) { { taxon: totes_taxon.id, keywords: "Solidus", search: search } }
-
-      before do
-        solidus_t_shirt.taxons << t_shirts_taxon
-        ruby_mug.taxons << mugs_taxon
-        solidus_mug.taxons << mugs_taxon
-        solidus_tote.taxons << totes_taxon
-      end
+      let(:query) { { taxon: totes_taxon, keywords: "Solidus", search: search } }
 
       it { is_expected.to match_array([solidus_tote]) }
 

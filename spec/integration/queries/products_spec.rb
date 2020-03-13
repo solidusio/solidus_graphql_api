@@ -28,10 +28,12 @@ RSpec.describe_query :products, query: :products, freeze_date: true do
       end
 
       context 'when a query is passed' do
+        let(:taxon) { create(:taxon, products: [solidus_tote]) }
         let(:search) { { price_range_any: ["Under $10.00", "$15.00 - $18.00"] } }
-        let(:query_variables) { { query: { keywords: "Solidus", search: search } } }
+        let(:taxon_id) { SolidusGraphqlApi::Schema.id_from_object(taxon, nil, nil) }
+        let(:query_variables) { { query: { taxon: taxon_id, keywords: "Solidus", search: search } } }
 
-        it { is_expected.to match_array([{ id: solidus_mug.id }, { id: solidus_tote.id }]) }
+        it { is_expected.to match_array([{ id: solidus_tote.id }]) }
       end
     end
   end
