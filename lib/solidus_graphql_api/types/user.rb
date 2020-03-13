@@ -17,6 +17,7 @@ module SolidusGraphqlApi
       field :sign_in_count, Integer, null: false
       field :spree_api_key, String, null: true
       field :updated_at, GraphQL::Types::ISO8601DateTime, null: true
+      field :wallet, Types::WalletPaymentSource.connection_type, method: :wallet_payment_sources, null: false
     end
   end
 end

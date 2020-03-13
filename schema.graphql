@@ -126,6 +126,22 @@ type CountryEdge {
 }
 
 """
+Credit Card.
+"""
+type CreditCard implements Node & PaymentSource {
+  address: Address!
+  ccType: String!
+  createdAt: ISO8601DateTime
+  id: ID!
+  lastDigits: String!
+  month: String!
+  name: String!
+  paymentMethod: PaymentMethod!
+  updatedAt: ISO8601DateTime
+  year: String!
+}
+
+"""
 Currency.
 """
 type Currency implements Node {
@@ -520,6 +536,27 @@ type PageInfo {
   When paginating backwards, the cursor to continue.
   """
   startCursor: String
+}
+
+"""
+Payment Method.
+"""
+type PaymentMethod implements Node {
+  createdAt: ISO8601DateTime
+  description: String
+  id: ID!
+  name: String!
+  position: String!
+  updatedAt: ISO8601DateTime
+}
+
+"""
+Payment Source.
+"""
+interface PaymentSource {
+  createdAt: ISO8601DateTime
+  paymentMethod: PaymentMethod!
+  updatedAt: ISO8601DateTime
 }
 
 """
@@ -1198,6 +1235,27 @@ type User implements Node {
   signInCount: Int!
   spreeApiKey: String
   updatedAt: ISO8601DateTime
+  wallet(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): WalletPaymentSourceConnection!
 }
 
 """
@@ -1313,4 +1371,50 @@ type VariantEdge {
   The item at the end of the edge.
   """
   node: Variant
+}
+
+"""
+Wallet Payment Source.
+"""
+type WalletPaymentSource implements Node {
+  createdAt: ISO8601DateTime
+  default: Boolean!
+  id: ID!
+  paymentSource: PaymentSource
+  updatedAt: ISO8601DateTime
+}
+
+"""
+The connection type for WalletPaymentSource.
+"""
+type WalletPaymentSourceConnection {
+  """
+  A list of edges.
+  """
+  edges: [WalletPaymentSourceEdge]
+
+  """
+  A list of nodes.
+  """
+  nodes: [WalletPaymentSource]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+An edge in a connection.
+"""
+type WalletPaymentSourceEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
+  node: WalletPaymentSource
 }
