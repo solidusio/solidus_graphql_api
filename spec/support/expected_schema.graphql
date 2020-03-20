@@ -1091,7 +1091,7 @@ Store.
 """
 type Store implements Node {
   cartTaxCountryIso: String
-  code: String
+  code: String!
   createdAt: ISO8601DateTime
   currencies(
     """
@@ -1117,13 +1117,13 @@ type Store implements Node {
   default: Boolean!
   defaultCurrency: String
   id: ID!
-  mailFromAddress: String
+  mailFromAddress: String!
   metaDescription: String
   metaKeywords: String
-  name: String
+  name: String!
   seoTitle: String
   updatedAt: ISO8601DateTime
-  url: String
+  url: String!
 }
 
 """
