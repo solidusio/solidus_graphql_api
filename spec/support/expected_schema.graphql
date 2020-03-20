@@ -2,21 +2,21 @@
 Address.
 """
 type Address implements Node {
-  address1: String
+  address1: String!
   address2: String
   alternativePhone: String
-  city: String
+  city: String!
   company: String
-  country: Country
+  country: Country!
   createdAt: ISO8601DateTime
-  firstname: String
+  firstname: String!
   id: ID!
   lastname: String
-  phone: String
+  phone: String!
   state: State
   stateName: String
   updatedAt: ISO8601DateTime
-  zipcode: String
+  zipcode: String!
 }
 
 """
@@ -1091,7 +1091,7 @@ Store.
 """
 type Store implements Node {
   cartTaxCountryIso: String
-  code: String
+  code: String!
   createdAt: ISO8601DateTime
   currencies(
     """
@@ -1117,13 +1117,13 @@ type Store implements Node {
   default: Boolean!
   defaultCurrency: String
   id: ID!
-  mailFromAddress: String
+  mailFromAddress: String!
   metaDescription: String
   metaKeywords: String
-  name: String
+  name: String!
   seoTitle: String
   updatedAt: ISO8601DateTime
-  url: String
+  url: String!
 }
 
 """

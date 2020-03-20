@@ -5,20 +5,20 @@ module SolidusGraphqlApi
     class Address < Base::RelayNode
       description 'Address.'
 
-      field :address1, String, null: true
+      field :address1, String, null: false
       field :address2, String, null: true
       field :alternative_phone, String, null: true
-      field :city, String, null: true
+      field :city, String, null: false
       field :company, String, null: true
-      field :country, Country, null: true
+      field :country, Country, null: false
       field :created_at, GraphQL::Types::ISO8601DateTime, null: true
-      field :firstname, String, null: true
+      field :firstname, String, null: false
       field :lastname, String, null: true
-      field :phone, String, null: true
+      field :phone, String, null: false
       field :state_name, String, null: true
       field :state, State, null: true
       field :updated_at, GraphQL::Types::ISO8601DateTime, null: true
-      field :zipcode, String, null: true
+      field :zipcode, String, null: false
 
       def state
         Queries::Address::StateQuery.new(address: object).call
