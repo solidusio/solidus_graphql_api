@@ -16,5 +16,9 @@ module SolidusGraphqlApi
     end
 
     config.autoload_paths << File.expand_path('..', __dir__)
+
+    initializer "solidus_graphql_api.setup_batch_loader_middleware" do |app|
+      app.middleware.use BatchLoader::Middleware
+    end
   end
 end
