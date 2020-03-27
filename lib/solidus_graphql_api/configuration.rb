@@ -13,7 +13,7 @@ module SolidusGraphqlApi
     attr_accessor :payment_sources
 
     def initialize
-      @payment_sources = [SolidusGraphqlApi::Types::CreditCard]
+      @payment_sources = ['SolidusGraphqlApi::Types::CreditCard']
     end
   end
 end
