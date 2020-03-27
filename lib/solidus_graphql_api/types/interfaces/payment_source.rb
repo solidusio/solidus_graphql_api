@@ -6,7 +6,7 @@ module SolidusGraphqlApi
       module PaymentSource
         include Types::Base::Interface
 
-        orphan_types(*SolidusGraphqlApi.configuration.payment_sources)
+        orphan_types(*SolidusGraphqlApi.configuration.payment_sources.map(&:constantize))
 
         description "Payment Source."
 
