@@ -11,6 +11,10 @@ module SolidusGraphqlApi
       raise GraphQL::ExecutionError, exception.message
     end
 
+    rescue_from ActiveRecord::RecordNotFound do
+      raise GraphQL::ExecutionError, I18n.t(:'activerecord.exceptions.not_found')
+    end
+
     # Relay Object Identification:
     class << self
       # Return a string UUID for object

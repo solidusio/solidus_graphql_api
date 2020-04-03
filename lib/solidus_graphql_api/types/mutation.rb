@@ -6,6 +6,7 @@ module SolidusGraphqlApi
       field :sign_in, mutation: Mutations::User::SignIn
       field :save_in_address_book, mutation: Mutations::User::SaveInAddressBook
       field :remove_from_address_book, mutation: Mutations::User::RemoveFromAddressBook
+      field :mark_default_address, mutation: Mutations::User::MarkDefaultAddress
     end
   end
 end
