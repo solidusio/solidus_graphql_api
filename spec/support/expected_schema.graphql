@@ -1697,6 +1697,7 @@ type Variant implements Node {
     """
     last: Int
   ): PriceConnection!
+  product: Product!
   sku: String!
   updatedAt: ISO8601DateTime
   weight: String!

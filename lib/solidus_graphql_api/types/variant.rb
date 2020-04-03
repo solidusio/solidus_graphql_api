@@ -18,6 +18,7 @@ module SolidusGraphqlApi
       field :updated_at, GraphQL::Types::ISO8601DateTime, null: true
       field :weight, String, null: false
       field :width, String, null: true
+      field :product, Types::Product, null: false
 
       def default_price
         Queries::Variant::DefaultPriceQuery.new(variant: object).call
