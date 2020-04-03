@@ -1,3 +1,6 @@
 en:
+  activerecord:
+    exceptions:
+      not_found: Record not found
   unauthorized:
     default: You are not authorized to access this resource.
