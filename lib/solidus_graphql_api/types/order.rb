@@ -25,6 +25,7 @@ module SolidusGraphqlApi
       field :promo_total, String, null: false
       field :shipment_state, String, null: false
       field :shipment_total, String, null: false
+      field :shipments, Shipment.connection_type, null: false
       field :shipping_address, Address, null: false
       field :special_instructions, String, null: true
       field :state, String, null: false
@@ -37,6 +38,10 @@ module SolidusGraphqlApi
 
       def line_items
         Queries::Order::LineItemsQuery.new(order: object).call
+      end
+
+      def shipments
+        Queries::Order::ShipmentsQuery.new(order: object).call
       end
 
       def shipping_address

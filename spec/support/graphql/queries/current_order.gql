@@ -2,5 +2,16 @@ query {
   currentOrder {
     id
     number
+    shipments {
+      nodes {
+        createdAt
+        number
+        shippedAt
+        state
+        tracking
+        trackingUrl
+        updatedAt
+      }
+    }
   }
 }
