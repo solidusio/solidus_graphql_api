@@ -14,6 +14,7 @@ module SolidusGraphqlApi
       field :complete_checkout, mutation: Mutations::Checkout::CompleteCheckout
       field :create_order, mutation: Mutations::Checkout::CreateOrder
       field :add_to_cart, mutation: Mutations::Checkout::AddToCart
+      field :remove_from_cart, mutation: Mutations::Checkout::RemoveFromCart
     end
   end
 end

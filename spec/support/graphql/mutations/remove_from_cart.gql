@@ -1,0 +1,17 @@
+mutation ($input: RemoveFromCartInput!){
+  removeFromCart(input: $input) {
+    order {
+      number
+      state
+      lineItems {
+        nodes {
+          id
+        }
+      }
+    },
+    errors {
+      path
+      message
+    }
+  }
+}
