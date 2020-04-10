@@ -23,7 +23,7 @@ module SolidusGraphqlApi
 
         errors.map do |attribute, message|
           {
-            path: ["input", *path, attribute.to_s.camelize(:lower)],
+            path: ["input", *path].concat(attribute.to_s.camelize(:lower).split('.')),
             message: message,
           }
         end
