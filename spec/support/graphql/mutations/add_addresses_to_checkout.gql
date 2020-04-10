@@ -1,0 +1,19 @@
+mutation ($input: AddAddressesToCheckoutInput!) {
+  addAddressesToCheckout(input: $input) {
+    order {
+      email
+      number
+      state
+      billingAddress {
+        firstname
+      }
+      shippingAddress {
+        firstname
+      }
+    },
+    errors {
+      path
+      message
+    }
+  }
+}
