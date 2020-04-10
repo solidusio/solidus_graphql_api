@@ -7,6 +7,15 @@ query {
         createdAt
         number
         shippedAt
+        shippingRates {
+          nodes {
+            cost
+            createdAt
+            currency
+            selected
+            updatedAt
+          }
+        }
         state
         tracking
         trackingUrl
