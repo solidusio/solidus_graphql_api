@@ -68,7 +68,7 @@ RSpec.describe SolidusGraphqlApi::Schema do
       class SolidusGraphqlApi::Types::Country < SolidusGraphqlApi::Types::Base::RelayNode; end
       # rubocop:enable Style/ClassAndModuleChildren
 
-      it { is_expected.to eq SolidusGraphqlApi::Types::Country.graphql_definition }
+      it { is_expected.to eq SolidusGraphqlApi::Types::Country }
     end
 
     context 'when graphql type does not exist' do
