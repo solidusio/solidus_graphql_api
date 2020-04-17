@@ -10,6 +10,14 @@ module SolidusGraphqlApi
 
       private
 
+      def guest_token
+        context[:order_token]
+      end
+
+      def current_order
+        context[:current_order]
+      end
+
       def current_user
         context[:current_user]
       end
@@ -23,7 +31,7 @@ module SolidusGraphqlApi
 
         errors.map do |attribute, message|
           {
-            path: ["input", *path, attribute.to_s.camelize(:lower)],
+            path: ["input", *path].concat(attribute.to_s.camelize(:lower).split('.')),
             message: message,
           }
         end
