@@ -1,0 +1,13 @@
+mutation ($input: UpdateCheckoutStateInput!) {
+  updateCheckoutState(input: $input) {
+    order {
+      email
+      number
+      state
+    },
+    errors {
+      path
+      message
+    }
+  }
+}
