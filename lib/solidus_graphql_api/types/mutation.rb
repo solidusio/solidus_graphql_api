@@ -8,6 +8,7 @@ module SolidusGraphqlApi
       field :remove_from_address_book, mutation: Mutations::User::RemoveFromAddressBook
       field :mark_default_address, mutation: Mutations::User::MarkDefaultAddress
       field :add_addresses_to_checkout, mutation: Mutations::Checkout::AddAddressesToCheckout
+      field :next_checkout_state, mutation: Mutations::Checkout::NextCheckoutState
     end
   end
 end
