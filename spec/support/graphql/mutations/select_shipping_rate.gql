@@ -1,0 +1,23 @@
+mutation ($input: SelectShippingRateInput!) {
+  selectShippingRate(input: $input) {
+    order {
+      number
+      state
+      shipments {
+        nodes {
+          id
+          shippingRates {
+            nodes {
+              id
+              selected
+            }
+          }
+        }
+      }
+    }
+    errors {
+      path
+      message
+    }
+  }
+}
