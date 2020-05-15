@@ -1,0 +1,11 @@
+mutation($input: CreateOrderInput!) {
+  createOrder(input: $input) {
+    order {
+      number
+      state
+    }
+    errors {
+      message
+    }
+  }
+}
