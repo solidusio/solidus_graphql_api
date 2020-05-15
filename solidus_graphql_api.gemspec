@@ -31,11 +31,11 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency 'batch-loader', '>= 1.4.1', '< 1.6.0'
-  s.add_dependency 'graphql', '~> 1.9.7'
+  s.add_dependency 'graphql', '~> 1.10.0'
   s.add_dependency 'solidus_core', ['>= 2.5', '< 3']
   s.add_dependency 'solidus_support', '~> 0.5'
 
-  s.add_development_dependency 'graphql-schema_comparator', '~> 0.6.1'
+  s.add_development_dependency 'graphql-schema_comparator', '~> 1.0.0'
   s.add_development_dependency 'pry', '~> 0.13.1'
   s.add_development_dependency 'simplecov', '~> 0.16.1'
   s.add_development_dependency 'solidus_dev_support', '~> 0.5.0'
