@@ -20,6 +20,7 @@ module SolidusGraphqlApi
       field :item_total, String, null: false
       field :line_items, LineItem.connection_type, null: false
       field :number, String, null: false
+      field :available_payment_methods, [PaymentMethod], null: false
       field :payment_state, String, null: false
       field :payment_total, String, null: false
       field :promo_total, String, null: false

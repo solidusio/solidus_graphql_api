@@ -1,0 +1,15 @@
+query {
+  completedOrders {
+    nodes {
+      id
+      availablePaymentMethods {
+        createdAt
+        description
+        id
+        name
+        position
+        updatedAt
+      }
+    }
+  }
+}

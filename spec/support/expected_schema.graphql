@@ -647,6 +647,7 @@ type Order implements Node {
   additionalTaxTotal: String!
   adjustmentTotal: String!
   approvedAt: ISO8601DateTime
+  availablePaymentMethods: [PaymentMethod!]!
   billingAddress: Address!
   canceledAt: ISO8601DateTime
   completedAt: ISO8601DateTime
