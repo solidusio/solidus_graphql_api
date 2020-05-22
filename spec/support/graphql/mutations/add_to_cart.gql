@@ -1,0 +1,21 @@
+mutation ($input: AddToCartInput!){
+  addToCart(input: $input) {
+    order {
+      number
+      state
+      lineItems {
+        nodes {
+          id
+          quantity
+          variant {
+            id
+          }
+        }
+      }
+    },
+    errors {
+      path
+      message
+    }
+  }
+}
