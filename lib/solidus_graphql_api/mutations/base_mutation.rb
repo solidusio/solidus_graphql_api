@@ -26,6 +26,10 @@ module SolidusGraphqlApi
         context[:current_ability]
       end
 
+      def current_store
+        context[:current_store]
+      end
+
       def user_errors(*path, errors)
         return [] if errors.empty?
 
