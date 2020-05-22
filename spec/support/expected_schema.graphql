@@ -264,7 +264,7 @@ Credit Card.
 """
 type CreditCard implements Node & PaymentSource {
   address: Address!
-  ccType: String!
+  ccType: String
   createdAt: ISO8601DateTime
   id: ID!
   lastDigits: String!
@@ -683,6 +683,7 @@ type Order implements Node {
   number: String!
   paymentState: String!
   paymentTotal: String!
+  payments: [Payment!]!
   promoTotal: String!
   shipmentState: String!
   shipmentTotal: String!
@@ -772,6 +773,17 @@ type PageInfo {
   When paginating backwards, the cursor to continue.
   """
   startCursor: String
+}
+
+"""
+Payment.
+"""
+type Payment implements Node {
+  amount: String
+  createdAt: ISO8601DateTime
+  id: ID!
+  paymentSource: PaymentSource
+  updatedAt: ISO8601DateTime
 }
 
 """

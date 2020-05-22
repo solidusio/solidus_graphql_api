@@ -8,7 +8,7 @@ module SolidusGraphqlApi
       description 'Credit Card.'
 
       field :address, Address, null: false
-      field :cc_type, String, null: false
+      field :cc_type, String, null: true
       field :last_digits, String, null: false
       field :month, String, null: false
       field :name, String, null: false

@@ -1,0 +1,22 @@
+query {
+  completedOrders {
+    nodes {
+      id
+      payments {
+        amount
+        createdAt
+        id
+        paymentSource {
+          ... on CreditCard {
+            ccType
+            lastDigits
+            month
+            name
+            year
+          }
+        }
+        updatedAt
+      }
+    }
+  }
+}
