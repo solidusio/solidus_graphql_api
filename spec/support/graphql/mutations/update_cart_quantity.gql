@@ -1,0 +1,18 @@
+mutation ($input: UpdateCartQuantityInput!){
+  updateCartQuantity(input: $input) {
+    order {
+      number
+      state
+      lineItems {
+        nodes {
+          id
+          quantity
+        }
+      }
+    },
+    errors {
+      path
+      message
+    }
+  }
+}
