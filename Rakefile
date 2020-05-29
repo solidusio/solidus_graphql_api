@@ -11,25 +11,40 @@ RuboCop::RakeTask.new
 task default: %w[rubocop extension:specs]
 
 namespace :schema do
-  desc 'Dump the schema to JSON and IDL'
+  desc 'Generates documentation from schema.graphql'
+  task :generate_docs do
+    doc_dir = "./lib/graphql_docs"
+    GraphQLDocs.build(
+      filename: "#{__dir__}/schema.graphql",
+      output_dir: 'docs',
+      base_url: '/solidus_graphql_api/docs',
+      landing_pages: { index: "#{doc_dir}/landing_pages/index.md" },
+      delete_output: true
+    )
+  end
+
+  desc 'Dump the schema to JSON and IDL and generate docs'
   task :dump do
     setup_graphql_rake_tasks
 
     Rake::Task['graphql:schema:dump'].invoke
+    Rake::Task['schema:generate_docs'].invoke
   end
 
-  desc 'Dump the schema to IDL in schema.graphql'
+  desc 'Dump the schema to IDL in schema.graphql and generate docs'
   task :idl do
     setup_graphql_rake_tasks
 
     Rake::Task['graphql:schema:idl'].invoke
+    Rake::Task['schema:generate_docs'].invoke
   end
 
-  desc 'Dump the schema to JSON in schema.json'
+  desc 'Dump the schema to JSON in schema.json and generate docs'
   task :json do
     setup_graphql_rake_tasks
 
     Rake::Task['graphql:schema:json'].invoke
+    Rake::Task['schema:generate_docs'].invoke
   end
 end
 
