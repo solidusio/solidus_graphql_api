@@ -1,0 +1,17 @@
+mutation ($input: EmptyCartInput!){
+  emptyCart(input: $input) {
+    order {
+      number
+      state
+      lineItems {
+        nodes {
+          id
+        }
+      }
+    },
+    errors {
+      path
+      message
+    }
+  }
+}
