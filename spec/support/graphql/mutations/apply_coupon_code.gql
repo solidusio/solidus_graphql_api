@@ -1,0 +1,13 @@
+mutation ($input: ApplyCouponCodeInput!) {
+  applyCouponCode(input: $input) {
+    order {
+      email
+      number
+      adjustmentTotal
+    },
+    errors {
+      path
+      message
+    }
+  }
+}
