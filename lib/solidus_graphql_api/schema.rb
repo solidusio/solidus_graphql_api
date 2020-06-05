@@ -31,7 +31,9 @@ module SolidusGraphqlApi
 
       # Object Resolution
       def resolve_type(_type_definition, object, _query_ctx)
-        Types.const_get(object.class.name.demodulize)
+        class_name = object.is_a?(Spree::PaymentMethod) ? "PaymentMethod" : object.class.name.demodulize
+
+        Types.const_get(class_name)
       end
     end
   end

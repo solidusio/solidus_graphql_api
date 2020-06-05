@@ -9,6 +9,7 @@ module SolidusGraphqlApi
       field :mark_default_address, mutation: Mutations::User::MarkDefaultAddress
       field :add_addresses_to_checkout, mutation: Mutations::Checkout::AddAddressesToCheckout
       field :select_shipping_rate, mutation: Mutations::Checkout::SelectShippingRate
+      field :add_payment_to_checkout, mutation: Mutations::Checkout::AddPaymentToCheckout
       field :next_checkout_state, mutation: Mutations::Checkout::NextCheckoutState
       field :advance_checkout, mutation: Mutations::Checkout::AdvanceCheckout
       field :complete_checkout, mutation: Mutations::Checkout::CompleteCheckout
