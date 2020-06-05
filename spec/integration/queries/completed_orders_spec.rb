@@ -120,5 +120,13 @@ RSpec.describe_query :completed_orders do
 
       it { is_expected.to match_response('completed_orders/line_items').with_args(line_items: order.line_items) }
     end
+
+    connection_field :available_payment_methods, query: 'completed_orders/available_payment_methods' do
+      let!(:order) do
+        create :completed_order_with_pending_payment, id: 1, user: current_user
+      end
+
+      it { is_expected.to match_response('completed_orders/available_payment_methods').with_args(available_payment_methods: order.available_payment_methods) }
+    end
   end
 end
