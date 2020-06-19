@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency 'batch-loader', '>= 1.4.1', '< 1.6.0'
-  s.add_dependency 'graphql', '~> 1.10.0'
+  s.add_dependency 'graphql', '>= 1.10', '< 1.12'
   s.add_dependency 'solidus_core', ['>= 2.5', '< 3']
   s.add_dependency 'solidus_support', '~> 0.5'
 
