@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+warn %{
+DEPRECATION: bin/r has been replaced by bin/rails-engine, please use that
+command instead.
+}.strip
+
+exec "#{__dir__}/rails-engine"

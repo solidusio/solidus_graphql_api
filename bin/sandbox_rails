@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+warn %{
+DEPRECATION: bin/sandbox_rails has been replaced by bin/rails-sandbox, please
+use that command instead.
+}.strip
+
+exec "#{__dir__}/rails-engine"
