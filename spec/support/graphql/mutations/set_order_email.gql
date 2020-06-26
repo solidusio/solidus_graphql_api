@@ -1,0 +1,13 @@
+mutation ($input: SetOrderEmailInput!){
+  setOrderEmail(input: $input) {
+    order {
+      number
+      state
+      email
+    },
+    errors {
+      path
+      message
+    }
+  }
+}
