@@ -8,7 +8,7 @@ module SolidusGraphqlApi
       field :additional_tax_total, String, null: false
       field :adjustment_total, String, null: false
       field :approved_at, GraphQL::Types::ISO8601DateTime, null: true
-      field :billing_address, Address, null: false
+      field :billing_address, Address, null: true
       field :canceled_at, GraphQL::Types::ISO8601DateTime, null: true
       field :completed_at, GraphQL::Types::ISO8601DateTime, null: true
       field :confirmation_delivered, Boolean, null: false
@@ -28,7 +28,7 @@ module SolidusGraphqlApi
       field :shipment_state, String, null: false
       field :shipment_total, String, null: false
       field :shipments, Shipment.connection_type, null: false
-      field :shipping_address, Address, null: false
+      field :shipping_address, Address, null: true
       field :special_instructions, String, null: true
       field :state, String, null: false
       field :total, String, null: false

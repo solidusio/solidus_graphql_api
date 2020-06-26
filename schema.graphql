@@ -705,7 +705,7 @@ type Order implements Node {
   adjustmentTotal: String!
   approvedAt: ISO8601DateTime
   availablePaymentMethods: [PaymentMethod!]!
-  billingAddress: Address!
+  billingAddress: Address
   canceledAt: ISO8601DateTime
   completedAt: ISO8601DateTime
   confirmationDelivered: Boolean!
@@ -765,7 +765,7 @@ type Order implements Node {
     """
     last: Int
   ): ShipmentConnection!
-  shippingAddress: Address!
+  shippingAddress: Address
   specialInstructions: String
   state: String!
   total: String!
