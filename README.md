@@ -159,6 +159,29 @@ query productBySlug ($slug: String!) {
 }
 ```
 
+### Adding a new Query
+
+```ruby
+module Graphql
+  module Types
+    module QueryDecorator
+      def self.prepended(base)
+        base.field :taxons, SolidusGraphqlApi::Types::Taxon.connection_type, null: false
+      end
+
+      def taxons
+        Spree::Taxon.all
+      end
+
+      SolidusGraphqlApi::Types::Query.prepend self
+    end
+  end
+end
+```
+
+In your application you probably want to create a query object to retrieves the taxons.
+Check `SolidusGraphqlApi::Types::Query` for examples.
+
 ## Development
 
 ### Testing the extension
