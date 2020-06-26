@@ -6,11 +6,7 @@ SolidusDevSupport::RakeTasks.install
 require 'rubocop/rake_task'
 RuboCop::RakeTask.new
 
-task default: %w[first_run rubocop extension:specs]
-
-task :first_run do
-  Rake::Task['extension:test_app'].invoke if Dir['spec/dummy'].empty?
-end
+task default: %w[rubocop extension:specs]
 
 namespace :schema do
   desc 'Dump the schema to JSON and IDL'
@@ -32,21 +28,6 @@ namespace :schema do
     setup_graphql_rake_tasks
 
     Rake::Task['graphql:schema:json'].invoke
-  end
-end
-
-namespace :dev do
-  desc 'Setup development app'
-  task :setup do
-    Rake::Task['extension:test_app'].invoke
-    puts "Setting up dummy development database..."
-
-    sh "bin/rails db:drop db:setup spree_sample:load VERBOSE=false RAILS_ENV=development"
-  end
-
-  desc 'Start development app'
-  task :start do
-    sh "./spec/dummy/bin/rails s", verbose: false
   end
 end
 

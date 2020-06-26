@@ -23,8 +23,11 @@ else
   gem 'sqlite3'
 end
 
-# Add your own local gems
-local_gemfile = File.expand_path('.Gemfile', __dir__)
-instance_eval File.read local_gemfile if File.exist? local_gemfile
-
 gemspec
+
+# Use a local Gemfile to include development dependencies that might not be
+# relevant for the project or for other contributors, e.g. pry-byebug.
+#
+# We use `send` instead of calling `eval_gemfile` to work around an issue with
+# how Dependabot parses projects: https://github.com/dependabot/dependabot-core/issues/1658.
+send(:eval_gemfile, 'Gemfile-local') if File.exist? 'Gemfile-local'
