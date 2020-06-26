@@ -61,6 +61,17 @@ RSpec.describe_mutation :add_payment_to_checkout, mutation: :add_payment_to_chec
         it { expect(subject[:errors].first[:message]).to eq I18n.t(:'activerecord.exceptions.not_found') }
       end
 
+      context "when there are errors during payment method selection" do
+        let(:payment_method_id) { SolidusGraphqlApi::Schema.id_from_object(payment_method, nil, nil) }
+
+        before do
+          order_updater = instance_double('Spree::OrderUpdateAttributes', apply: false)
+          allow(Spree::OrderUpdateAttributes).to receive(:new).and_return(order_updater)
+        end
+
+        it { expect(subject[:data][:addPaymentToCheckout]).to have_key(:errors) }
+      end
+
       context "when the given payment method id is correct" do
         let(:payment_method_id) { SolidusGraphqlApi::Schema.id_from_object(payment_method, nil, nil) }
 

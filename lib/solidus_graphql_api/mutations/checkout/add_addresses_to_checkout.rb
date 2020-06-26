@@ -22,9 +22,14 @@ module SolidusGraphqlApi
             use_billing: ship_to_billing_address
           }
 
-          Spree::OrderUpdateAttributes.new(current_order, update_params).apply
+          if Spree::OrderUpdateAttributes.new(current_order, update_params).apply
+            current_order.recalculate
+            errors = []
+          else
+            errors = current_order.errors
+          end
 
-          { errors: user_errors('order', current_order.errors), order: current_order.reload }
+          { errors: user_errors('order', errors), order: current_order }
         end
 
         def ready?(*)
