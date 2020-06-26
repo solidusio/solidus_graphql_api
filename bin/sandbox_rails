@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# frozen_string_literal: true
+
 warn %{
 DEPRECATION: bin/sandbox_rails has been replaced by bin/rails-sandbox, please
 use that command instead.

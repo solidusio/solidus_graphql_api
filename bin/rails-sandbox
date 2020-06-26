@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# frozen_string_literal: true
+
 app_root = 'sandbox'
 
 unless File.exist? "#{app_root}/bin/rails"
