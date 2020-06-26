@@ -105,6 +105,59 @@ module Graphql
 end
 ```
 
+### Adding a new Type
+
+Let's say we want the Product type to return its stock_items:
+
+First we create a StockItem type:
+
+```ruby
+module Graphql
+  module Types
+    class StockItem < SolidusGraphqlApi::Types::Base::RelayNode
+      description 'StockItem.'
+
+      field :count_on_hand, Integer, null: false
+    end
+  end
+end
+```
+
+And in the product decorator type:
+
+```ruby
+require_relative 'stock_item'
+
+module Graphql
+  module Types
+    module ProductDecorator
+      def self.prepended(base)
+        base.field :stock_items, Graphql::Types::StockItem.connection_type, null: false
+      end
+
+      def stock_items
+        object.stock_items
+      end
+
+      SolidusGraphqlApi::Types::Product.prepend self
+    end
+  end
+end
+```
+
+The query may look something like:
+
+```ruby
+query productBySlug ($slug: String!) {
+  productBySlug (slug: $slug) {
+    stockItems {
+      nodes {
+        countOnHand
+      }
+    }
+  }
+}
+```
 
 ## Development
 
