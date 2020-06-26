@@ -14,7 +14,7 @@ module SolidusGraphqlApi
       field :confirmation_delivered, Boolean, null: false
       field :created_at, GraphQL::Types::ISO8601DateTime, null: true
       field :currency, String, null: false
-      field :email, String, null: false
+      field :email, String, null: true
       field :guest_token, String, null: true
       field :included_tax_total, String, null: false
       field :item_total, String, null: false

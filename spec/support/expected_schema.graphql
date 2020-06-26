@@ -710,7 +710,7 @@ type Order implements Node {
   confirmationDelivered: Boolean!
   createdAt: ISO8601DateTime
   currency: String!
-  email: String!
+  email: String
   guestToken: String
   id: ID!
   includedTaxTotal: String!
