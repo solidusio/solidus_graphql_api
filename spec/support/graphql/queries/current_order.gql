@@ -16,6 +16,12 @@ query {
             updatedAt
           }
         }
+        manifest {
+          variant {
+            sku
+          }
+          quantity
+        }
         state
         tracking
         trackingUrl

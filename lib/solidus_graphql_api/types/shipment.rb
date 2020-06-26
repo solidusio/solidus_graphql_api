@@ -12,6 +12,7 @@ module SolidusGraphqlApi
       field :state, String, null: false
       field :tracking, String, null: true
       field :tracking_url, String, null: true
+      field :manifest, [Types::ManifestItem], null: false
       field :updated_at, GraphQL::Types::ISO8601DateTime, null: true
 
       def shipping_rates
