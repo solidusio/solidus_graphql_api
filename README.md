@@ -4,7 +4,7 @@
 
 # SolidusGraphqlApi
 
-[Explain what your extension does.]
+Provides a [graphql](https://graphql.org/) api for the [Solidus](https://github.com/solidusio/solidus) ecommerce framework.
 
 ## Installation
 
@@ -21,9 +21,90 @@ bundle
 bundle exec rails g solidus_graphql_api:install
 ```
 
-## Usage
+## Customizations
 
-[Explain how to use your extension once it's been installed.]
+You can extend the gem functionality through decorators, just like Solidus.
+
+For example, assuming we are placing our grapqhl decorators in `app/graphql/types`:
+
+### Adding a new field
+
+```ruby
+module Graphql
+  module Types
+    module ProductDecorator
+      def self.prepended(base)
+        base.field :test, GraphQL::Types::String, null: true
+      end
+
+      def test
+        'test'
+      end
+
+      SolidusGraphqlApi::Types::Product.prepend self
+    end
+  end
+end
+```
+
+or also, if we want to add the taxon relation to the type product:
+
+```ruby
+module Graphql
+  module Types
+    module ProductDecorator
+      def self.prepended(base)
+        base.field :taxons, SolidusGraphqlApi::Types::Taxon.connection_type, null: true
+      end
+
+      def taxons
+        SolidusGraphqlApi::BatchLoader.for(object, :taxons)
+      end
+
+      SolidusGraphqlApi::Types::Product.prepend self
+    end
+  end
+end
+```
+
+### Modifying an existing field
+
+Like for adding a new field, we modify the `name` field in the same way:
+
+```ruby
+module Graphql
+  module Types
+    module ProductDecorator
+      def self.prepended(base)
+        base.field :name, GraphQL::Types::String, null: true
+      end
+
+      def name
+        object.concat(' ', 'Graphql')
+      end
+
+      SolidusGraphqlApi::Types::Product.prepend self
+    end
+  end
+end
+```
+
+### Removing a field
+
+```ruby
+module Graphql
+  module Types
+    module ProductDecorator
+      def self.prepended(base)
+        base.remove_field :name
+      end
+
+      SolidusGraphqlApi::Types::Product.prepend self
+    end
+  end
+end
+```
+
 
 ## Development
 
