@@ -840,6 +840,7 @@ type Payment implements Node {
   createdAt: ISO8601DateTime
   id: ID!
   paymentSource: PaymentSource
+  state: String!
   updatedAt: ISO8601DateTime
 }
 

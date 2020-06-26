@@ -4,6 +4,7 @@ query {
       id
       payments {
         amount
+        state
         createdAt
         id
         paymentSource {
