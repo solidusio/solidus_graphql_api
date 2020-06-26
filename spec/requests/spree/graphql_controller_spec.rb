@@ -7,7 +7,7 @@ RSpec.describe Spree::GraphqlController do
 
   before { allow_any_instance_of(SolidusGraphqlApi::Context).to receive(:to_h).and_return(context) }
 
-  after { post '/', headers: headers }
+  after { post '/graphql', headers: headers }
 
   it 'passes the right context to the schema' do
     expect(SolidusGraphqlApi::Schema).to receive(:execute).with(
