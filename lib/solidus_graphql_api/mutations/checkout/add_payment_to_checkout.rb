@@ -8,7 +8,7 @@ module SolidusGraphqlApi
 
         argument :payment_method_id, ID, required: true, loads: Types::PaymentMethod
         argument :amount, Float, required: false
-        argument :source, GraphQL::Types::JSON, required: false
+        argument :source, Types::Json, required: false
 
         field :order, Types::Order, null: true
         field :errors, [Types::UserError], null: false

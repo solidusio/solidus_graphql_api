@@ -35,7 +35,7 @@ input AddPaymentToCheckoutInput {
   """
   clientMutationId: String
   paymentMethodId: ID!
-  source: JSON
+  source: Json
 }
 
 """
@@ -493,11 +493,6 @@ type ImageEdge {
   """
   node: Image
 }
-
-"""
-Represents untyped JSON
-"""
-scalar JSON
 
 """
 Represents untyped JSON
