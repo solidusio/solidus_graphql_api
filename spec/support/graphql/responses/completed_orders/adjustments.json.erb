@@ -1,0 +1,34 @@
+{
+  "data": {
+    "completedOrders": {
+      "nodes": [
+        {
+          "id": 1,
+          "adjustments": {
+            "nodes": [
+              {
+                "__typename": "TaxAdjustment",
+                "amount": "100.0",
+                "createdAt": "2012-12-21T12:00:00Z",
+                "eligible": true,
+                "label": "Shipping",
+                "updatedAt": "2012-12-21T12:00:00Z",
+                "id": <%= adjustments[0].id %>
+              },
+              {
+                "__typename": "PromotionAdjustment",
+                "amount": "-10.0",
+                "createdAt": "2012-12-21T12:00:00Z",
+                "eligible": true,
+                "label": "Promotion (Promo)",
+                "updatedAt": "2012-12-21T12:00:00Z",
+                "id": <%= adjustments[1].id %>,
+                "promotionCode": "solidus"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

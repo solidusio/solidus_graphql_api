@@ -7,6 +7,7 @@ module SolidusGraphqlApi
 
       field :additional_tax_total, String, null: false
       field :adjustment_total, String, null: false
+      field :adjustments, Types::Interfaces::Adjustment.connection_type, null: false
       field :approved_at, GraphQL::Types::ISO8601DateTime, null: true
       field :billing_address, Address, null: true
       field :canceled_at, GraphQL::Types::ISO8601DateTime, null: true
@@ -33,6 +34,10 @@ module SolidusGraphqlApi
       field :state, String, null: false
       field :total, String, null: false
       field :updated_at, GraphQL::Types::ISO8601DateTime, null: true
+
+      def adjustments
+        Queries::Order::AdjustmentsQuery.new(order: object).call
+      end
 
       def billing_address
         Queries::Order::BillingAddressQuery.new(order: object).call
