@@ -5,8 +5,8 @@ require_relative 'lib/solidus_graphql_api/version'
 Gem::Specification.new do |spec|
   spec.name = 'solidus_graphql_api'
   spec.version = SolidusGraphqlApi::VERSION
-  spec.authors = ['Christian Rimondi, Alessio Rocco']
-  spec.email = '["christianrimondi@nabulab.it", "alessiorocco@nebulab.it"]'
+  spec.authors = ['Christian Rimondi', 'Alessio Rocco', 'Rainer Dema']
+  spec.email = 'contact@solidus.io'
 
   spec.summary = 'Solidus GraphQL API'
   spec.description = 'GraphQL comes to Solidus'
