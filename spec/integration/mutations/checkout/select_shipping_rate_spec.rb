@@ -61,6 +61,18 @@ RSpec.describe_mutation :select_shipping_rate, mutation: :select_shipping_rate d
         it { expect(subject[:errors].first[:message]).to eq I18n.t(:'activerecord.exceptions.not_found') }
       end
 
+      context "when there are errors during shipping rate selection" do
+        let(:selected_shipping_rate_id) { SolidusGraphqlApi::Schema.id_from_object(shipping_rate, nil, nil) }
+        let(:shipping_rate_id) { selected_shipping_rate_id }
+
+        before do
+          order_updater = instance_double('Spree::OrderUpdateAttributes', apply: false)
+          allow(Spree::OrderUpdateAttributes).to receive(:new).and_return(order_updater)
+        end
+
+        it { expect(subject[:data][:selectShippingRate]).to have_key(:errors) }
+      end
+
       context "when the given shipping rate id is correct" do
         let(:selected_shipping_rate_id) { SolidusGraphqlApi::Schema.id_from_object(shipping_rate, nil, nil) }
         let(:shipping_rate_id) { selected_shipping_rate_id }
