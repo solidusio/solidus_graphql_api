@@ -134,5 +134,25 @@ RSpec.describe_query :completed_orders do
 
       it { is_expected.to match_response('completed_orders/payments').with_args(payments: order.payments) }
     end
+
+    connection_field :adjustments, query: 'completed_orders/adjustments' do
+      let(:promotion) { create :promotion_with_order_adjustment, code: 'solidus' }
+      let(:promotion_code) { promotion.codes.first }
+
+      let(:tax_rate) { create :tax_rate }
+      let!(:tax_adjustment) { create :adjustment, source: tax_rate, order: order }
+
+      let!(:order) { create :completed_order_with_pending_payment, id: 1, user: current_user }
+
+      before do
+        promotion.actions.first.perform(
+          order: order,
+          promotion: promotion,
+          promotion_code: promotion_code
+        )
+      end
+
+      it { is_expected.to match_response('completed_orders/adjustments').with_args(adjustments: order.adjustments) }
+    end
   end
 end
