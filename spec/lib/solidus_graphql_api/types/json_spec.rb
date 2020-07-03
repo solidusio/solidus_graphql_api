@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe SolidusGraphqlApi::Types::RansackJson do
+RSpec.describe SolidusGraphqlApi::Types::Json do
   describe '.coerce_input' do
     subject { described_class.coerce_input(value, nil) }
 

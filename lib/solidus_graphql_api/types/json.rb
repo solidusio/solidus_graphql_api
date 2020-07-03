@@ -2,7 +2,7 @@
 
 module SolidusGraphqlApi
   module Types
-    class RansackJson < GraphQL::Types::JSON
+    class Json < GraphQL::Types::JSON
       def self.coerce_input(value, _ctx)
         value.each do |key, field|
           case field
