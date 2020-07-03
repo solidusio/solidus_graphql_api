@@ -2,14 +2,16 @@
 
 module SolidusGraphqlApi
   module Types
-    class RansackJson < GraphQL::Types::JSON
-      def self.coerce_input(value, _ctx)
+    class Json < GraphQL::Types::JSON
+      def self.coerce_input(value, ctx)
         value.each do |key, field|
           case field
           when String
             value[key] = decode(field)
           when Array
-            value[key] = decode_array(field)
+            value[key] = decode_array(field, ctx)
+          when Hash, ActionController::Parameters
+            value[key] = coerce_input(field, ctx)
           end
         end
         value
@@ -23,9 +25,15 @@ module SolidusGraphqlApi
         to_i_or_nil(item_id) || value
       end
 
-      def self.decode_array(array)
+      def self.decode_array(array, ctx)
         array.map do |value|
-          value.is_a?(String) ? decode(value) : value
+          if value.is_a?(Hash) || value.is_a?(ActionController::Parameters)
+            coerce_input(value, ctx)
+          elsif value.is_a?(String)
+            decode(value)
+          else
+            value
+          end
         end
       end
 

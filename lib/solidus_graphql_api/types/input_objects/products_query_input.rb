@@ -8,7 +8,7 @@ module SolidusGraphqlApi
 
         argument :taxon, ID, "Taxon", required: false, loads: Types::Taxon
         argument :keywords, String, "Keywords", required: false
-        argument :search, Types::RansackJson, "Search", required: false
+        argument :search, Types::Json, "Search", required: false
       end
     end
   end
