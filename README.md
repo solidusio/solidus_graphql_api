@@ -4,7 +4,7 @@
 
 # SolidusGraphqlApi
 
-[Explain what your extension does.]
+Provides a [graphql](https://graphql.org/) api for the [Solidus](https://github.com/solidusio/solidus) ecommerce framework.
 
 ## Installation
 
@@ -14,16 +14,181 @@ Add solidus_graphql_api to your Gemfile:
 gem 'solidus_graphql_api'
 ```
 
-Bundle your dependencies and run the installation generator:
+Bundle your dependencies:
 
 ```shell
 bundle
-bundle exec rails g solidus_graphql_api:install
 ```
 
-## Usage
+Unlike the REST API which has a variety of endpoints, the GraphQL API has a
+single endpoint accessible under `/graphql`.
 
-[Explain how to use your extension once it's been installed.]
+For example in development you can use:
+
+```
+POST http://localhost:3000/graphql
+```
+
+## Customizations
+
+You can extend the gem functionality through decorators, just like Solidus.
+
+For example, assuming we are placing our grapqhl decorators in `app/graphql/types`:
+
+### Adding a new field
+
+```ruby
+module Graphql
+  module Types
+    module ProductDecorator
+      def self.prepended(base)
+        base.field :test, GraphQL::Types::String, null: true
+      end
+
+      def test
+        'test'
+      end
+
+      SolidusGraphqlApi::Types::Product.prepend self
+    end
+  end
+end
+```
+
+or also, if we want to add the taxon relation to the type product:
+
+```ruby
+module Graphql
+  module Types
+    module ProductDecorator
+      def self.prepended(base)
+        base.field :taxons, SolidusGraphqlApi::Types::Taxon.connection_type, null: true
+      end
+
+      def taxons
+        SolidusGraphqlApi::BatchLoader.for(object, :taxons)
+      end
+
+      SolidusGraphqlApi::Types::Product.prepend self
+    end
+  end
+end
+```
+
+### Modifying an existing field
+
+Like for adding a new field, we modify the `name` field in the same way:
+
+```ruby
+module Graphql
+  module Types
+    module ProductDecorator
+      def self.prepended(base)
+        base.field :name, GraphQL::Types::String, null: true
+      end
+
+      def name
+        object.concat(' ', 'Graphql')
+      end
+
+      SolidusGraphqlApi::Types::Product.prepend self
+    end
+  end
+end
+```
+
+### Removing a field
+
+```ruby
+module Graphql
+  module Types
+    module ProductDecorator
+      def self.prepended(base)
+        base.remove_field :name
+      end
+
+      SolidusGraphqlApi::Types::Product.prepend self
+    end
+  end
+end
+```
+
+### Adding a new Type
+
+Let's say we want the Product type to return its stock_items:
+
+First we create a StockItem type:
+
+```ruby
+module Graphql
+  module Types
+    class StockItem < SolidusGraphqlApi::Types::Base::RelayNode
+      description 'StockItem.'
+
+      field :count_on_hand, Integer, null: false
+    end
+  end
+end
+```
+
+And in the product decorator type:
+
+```ruby
+require_relative 'stock_item'
+
+module Graphql
+  module Types
+    module ProductDecorator
+      def self.prepended(base)
+        base.field :stock_items, Graphql::Types::StockItem.connection_type, null: false
+      end
+
+      def stock_items
+        object.stock_items
+      end
+
+      SolidusGraphqlApi::Types::Product.prepend self
+    end
+  end
+end
+```
+
+The query may look something like:
+
+```ruby
+query productBySlug ($slug: String!) {
+  productBySlug (slug: $slug) {
+    stockItems {
+      nodes {
+        countOnHand
+      }
+    }
+  }
+}
+```
+
+### Adding a new Query
+
+```ruby
+module Graphql
+  module Types
+    module QueryDecorator
+      def self.prepended(base)
+        base.field :taxons, SolidusGraphqlApi::Types::Taxon.connection_type, null: false
+      end
+
+      def taxons
+        Spree::Taxon.all
+      end
+
+      SolidusGraphqlApi::Types::Query.prepend self
+    end
+  end
+end
+```
+
+In your application you probably want to create a query object to retrieves the taxons.
+Check `SolidusGraphqlApi::Types::Query` for examples.
 
 ## Development
 
