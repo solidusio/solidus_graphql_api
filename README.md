@@ -30,6 +30,10 @@ For example in development you can use:
 POST http://localhost:3000/graphql
 ```
 
+## Documentation
+
+The Solidus GraphQL API documentation can be found [here](https://solidusio-contrib.github.io/solidus_graphql_api/docs/).
+
 ## Customizations
 
 You can extend the gem functionality through decorators, just like Solidus.
