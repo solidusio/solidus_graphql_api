@@ -28,8 +28,10 @@ module Spree
         else
           {}
         end
-      when Hash, ActionController::Parameters
+      when Hash
         ambiguous_param
+      when ActionController::Parameters
+        ambiguous_param.permit!
       when nil
         {}
       else
