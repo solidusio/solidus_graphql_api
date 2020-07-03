@@ -14,11 +14,19 @@ Add solidus_graphql_api to your Gemfile:
 gem 'solidus_graphql_api'
 ```
 
-Bundle your dependencies and run the installation generator:
+Bundle your dependencies:
 
 ```shell
 bundle
-bundle exec rails g solidus_graphql_api:install
+```
+
+Unlike the REST API which has a variety of endpoints, the GraphQL API has a
+single endpoint accessible under `/graphql`.
+
+For example in development you can use:
+
+```
+POST http://localhost:3000/graphql
 ```
 
 ## Customizations
