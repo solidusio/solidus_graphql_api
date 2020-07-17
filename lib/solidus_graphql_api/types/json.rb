@@ -46,7 +46,8 @@ module SolidusGraphqlApi
       def self.class_exists?(value)
         return false if value.nil?
 
-        Object.const_defined?(value)
+        Object.const_get(value)
+        true
       rescue NameError
         false
       end
