@@ -52,7 +52,7 @@ RSpec/LetSetup:
 RSpec/HookArgument:
   Enabled: false
 
-Layout/AlignArguments:
+Layout/ArgumentAlignment:
   Enabled: false
 
 Rails/RakeEnvironment:
