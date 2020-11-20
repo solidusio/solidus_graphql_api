@@ -20,7 +20,9 @@ require 'timecop'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
+# rubocop:disable Lint/NonDeterministicRequireOrder
 Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].each { |f| require f }
+# rubocop:enable Lint/NonDeterministicRequireOrder
 
 # Requires factories defined in lib/solidus_graphql_api/factories.rb
 require 'solidus_graphql_api/factories'

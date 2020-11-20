@@ -10,6 +10,9 @@ Metrics/LineLength:
 Performance/RegexpMatch:
   Enabled: false
 
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
 RSpec/MessageSpies:
   Enabled: false
 
@@ -52,7 +55,7 @@ RSpec/LetSetup:
 RSpec/HookArgument:
   Enabled: false
 
-Layout/AlignArguments:
+Layout/ArgumentAlignment:
   Enabled: false
 
 Rails/RakeEnvironment:
