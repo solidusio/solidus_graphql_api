@@ -39,7 +39,8 @@ module SolidusGraphqlApi
 
       def self.decode_if_relay_id(value)
         GraphQL::Schema::UniqueWithinType.decode(value)
-      rescue ArgumentError
+      # As of graphql v1.10.8 a GraphQL::ExecutionError is raised instead of an ArgumentError
+      rescue ArgumentError, GraphQL::ExecutionError
         [nil, nil]
       end
 
