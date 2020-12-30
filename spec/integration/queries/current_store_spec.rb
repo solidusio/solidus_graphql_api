@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe_query :currentStore, query: :current_store, freeze_date: true do
-  let!(:store) { create(:store, :with_defaults) }
+  let!(:store) { create(:store, :with_defaults, mail_from_address: 'solidus_graphql_api@example.org') }
 
   before { Spree::Config.available_currencies = ::Money::Currency.first(2) }
 
