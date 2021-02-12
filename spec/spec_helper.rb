@@ -6,24 +6,23 @@ ENV['RAILS_ENV'] = 'test'
 # Run Coverage report
 require 'solidus_dev_support/rspec/coverage'
 
-require(File.expand_path('dummy/config/environment.rb', __dir__).tap { |file|
-  # Create the dummy app if it's still missing.
-  system 'bin/rake extension:test_app' unless File.exist? file
-})
+# Create the dummy app if it's still missing.
+dummy_env = "#{__dir__}/dummy/config/environment.rb"
+system 'bin/rake extension:test_app' unless File.exist? dummy_env
+require dummy_env
 
 # Requires factories and other useful helpers defined in spree_core.
-require 'solidus_dev_support/rspec/rails_helper'
-require 'pry'
+require 'solidus_dev_support/rspec/feature_helper'
 require "graphql/schema_comparator"
 require 'with_model'
 require 'timecop'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
-Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].each { |f| require f }
+Dir["#{__dir__}/support/**/*.rb"].sort.each { |f| require f }
 
-# Requires factories defined in lib/solidus_graphql_api/factories.rb
-require 'solidus_graphql_api/factories'
+# Requires factories defined in lib/solidus_graphql_api/testing_support/factories.rb
+SolidusDevSupport::TestingSupport::Factories.load_for(SolidusGraphqlApi::Engine)
 
 RSpec.configure do |config|
   config.add_setting :default_freeze_date, default: "21/12/2012 12:00:00"

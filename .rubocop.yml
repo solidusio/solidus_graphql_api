@@ -4,9 +4,6 @@ require:
 Style/ExpandPathArguments:
   Enabled: false
 
-Metrics/LineLength:
-  Enabled: false
-
 Performance/RegexpMatch:
   Enabled: false
 
