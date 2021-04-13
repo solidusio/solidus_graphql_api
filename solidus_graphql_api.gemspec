@@ -36,7 +36,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'graphql-docs', '~> 2.0.1'
   spec.add_development_dependency 'graphql-schema_comparator', '~> 1.0.0'
-  spec.add_development_dependency 'pry', '~> 0.13.1'
+  spec.add_development_dependency 'pry', '~> 0.14.1'
   spec.add_development_dependency 'simplecov', '~> 0.16.1'
   spec.add_development_dependency 'solidus_dev_support', '~> 1.5.0'
   spec.add_development_dependency 'timecop', '~> 0.9.1'
