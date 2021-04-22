@@ -31,7 +31,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'batch-loader', '>= 1.4.1', '< 1.6.0'
   spec.add_dependency 'graphql', '>= 1.10', '< 1.12'
-  spec.add_dependency 'solidus_core', ['>= 2.5', '< 3']
+  spec.add_dependency 'solidus_core', '>= 2.5', '< 4'
   spec.add_dependency 'solidus_support', '~> 0.5'
 
   spec.add_development_dependency 'graphql-docs', '~> 2.0.1'
