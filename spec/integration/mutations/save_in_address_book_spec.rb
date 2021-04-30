@@ -5,7 +5,9 @@ require 'spec_helper'
 RSpec.describe_mutation :save_in_address_book, mutation: :save_in_address_book do
   let(:default) { false }
   let(:country_states_required) { false }
-  let(:address) { create(:address, firstname: "Jane", country: create(:country, states_required: country_states_required)) }
+  let(:address) {
+    create(:address, firstname: "Jane", country: create(:country, states_required: country_states_required))
+  }
   let(:address_attributes) {
     {
       firstname: address.firstname,

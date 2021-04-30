@@ -126,7 +126,9 @@ RSpec.describe_query :completed_orders do
         create :completed_order_with_pending_payment, id: 1, user: current_user
       end
 
-      it { is_expected.to match_response('completed_orders/available_payment_methods').with_args(available_payment_methods: order.available_payment_methods) }
+      it {
+        expect(subject).to match_response('completed_orders/available_payment_methods').with_args(available_payment_methods: order.available_payment_methods)
+      }
     end
 
     connection_field :payments, query: 'completed_orders/payments' do
