@@ -22,7 +22,11 @@ module SolidusGraphqlApi
     end
 
     def current_user
-      @current_user ||= Spree.user_class.find_by(spree_api_key: bearer_token)
+      @current_user ||= begin
+        return nil unless bearer_token&.present?
+
+        Spree.user_class.find_by(spree_api_key: bearer_token)
+      end
     end
 
     def current_ability

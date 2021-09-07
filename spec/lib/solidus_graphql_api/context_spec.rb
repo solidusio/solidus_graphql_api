@@ -58,8 +58,62 @@ RSpec.describe SolidusGraphqlApi::Context do
   describe '#current_user' do
     subject { schema_context.current_user }
 
-    context 'when headers do not contains the authorization token' do
-      it { is_expected.to be_nil }
+    context 'when headers do not contain the authorization token' do
+      context "and there's no user with nil or empty spree_api_key" do
+        it { is_expected.to be_nil }
+      end
+
+      context "and there's a user with nil spree_api_key" do
+        before { FactoryBot.create(:user, spree_api_key: nil) }
+
+        it { is_expected.to be_nil }
+      end
+
+      context "and there's a user with empty string as spree_api_key" do
+        before { FactoryBot.create(:user, spree_api_key: '') }
+
+        it { is_expected.to be_nil }
+      end
+    end
+
+    context 'when headers contain an empty authorization token' do
+      let(:authorization_token) { '' }
+
+      context "and there's no user with nil or empty spree_api_key" do
+        it { is_expected.to be_nil }
+      end
+
+      context "and there's a user with nil spree_api_key" do
+        before { FactoryBot.create(:user, spree_api_key: nil) }
+
+        it { is_expected.to be_nil }
+      end
+
+      context "and there's a user with empty string as spree_api_key" do
+        before { FactoryBot.create(:user, spree_api_key: '') }
+
+        it { is_expected.to be_nil }
+      end
+    end
+
+    context "when headers contain a authorization header that doesn't match" do
+      let(:headers) { { 'Authorization' => 'abc' } }
+
+      context "and there's no user with nil or empty spree_api_key" do
+        it { is_expected.to be_nil }
+      end
+
+      context "and there's a user with nil spree_api_key" do
+        before { FactoryBot.create(:user, spree_api_key: nil) }
+
+        it { is_expected.to be_nil }
+      end
+
+      context "and there's a user with empty string as spree_api_key" do
+        before { FactoryBot.create(:user, spree_api_key: '') }
+
+        it { is_expected.to be_nil }
+      end
     end
 
     context 'when headers contains the authorization token' do
