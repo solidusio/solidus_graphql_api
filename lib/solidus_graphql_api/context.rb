@@ -60,6 +60,8 @@ module SolidusGraphqlApi
     end
 
     def current_order_by_guest_token
+      return if order_token.blank?
+
       incomplete_orders = Spree::Order.incomplete
       incomplete_orders = incomplete_orders.where(store: current_store) if current_store
 
