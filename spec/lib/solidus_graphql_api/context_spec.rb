@@ -289,9 +289,61 @@ RSpec.describe SolidusGraphqlApi::Context do
         it { is_expected.to be_nil }
       end
 
+      # Need to bypass application layer to reproduce race database state
+      # rubocop:disable Rails/SkipsModelValidations
       context 'when is provided no order token' do
-        it { is_expected.to be_nil }
+        context "and there's no order with nil or empty guest_token" do
+          it { is_expected.to be_nil }
+        end
+
+        context "and there's an order with nil guest_token" do
+          before do
+            order = FactoryBot.create(:order)
+            order.update_column(:guest_token, nil)
+          end
+
+          it { is_expected.to be_nil }
+        end
+
+        context "and there's an order with empty string as guest_token" do
+          before do
+            order = FactoryBot.create(:order)
+            order.update_column(:guest_token, '')
+          end
+
+          it { is_expected.to be_nil }
+        end
       end
+      # rubocop:enable Rails/SkipsModelValidations
+
+      # Need to bypass application layer to reproduce race database state
+      # rubocop:disable Rails/SkipsModelValidations
+      context 'when is provided an empty order token' do
+        let(:order_token) { '' }
+
+        context "and there's no order with nil or empty guest_token" do
+          it { is_expected.to be_nil }
+        end
+
+        context "and there's an order with nil guest_token" do
+          before do
+            order = FactoryBot.create(:order)
+            order.update_column(:guest_token, nil)
+          end
+
+          it { is_expected.to be_nil }
+        end
+
+        context "and there's an order with empty string as guest_token" do
+          before do
+            order = FactoryBot.create(:order)
+            order.update_column(:guest_token, '')
+          end
+
+          it { is_expected.to be_nil }
+        end
+      end
+      # rubocop:enable Rails/SkipsModelValidations
     end
   end
 end
