@@ -788,6 +788,7 @@ type OptionValue implements Node {
   createdAt: ISO8601DateTime
   id: ID!
   name: String!
+  optionType: OptionType!
   position: String!
   presentation: String!
   updatedAt: ISO8601DateTime
