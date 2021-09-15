@@ -24,6 +24,7 @@ module SolidusGraphqlApi
         base_relation
           .joins(through_reflection.name)
           .where("#{through_reflection.table_name}.#{through_reflection.foreign_key}" => object_ids)
+          .distinct
       end
 
       def group_records_by_parent(records)
