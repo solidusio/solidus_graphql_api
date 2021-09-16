@@ -4,16 +4,22 @@ module SolidusGraphqlApi
   module Mutations
     module User
       class SaveInAddressBook < BaseMutation
+        class AddressTypeInput < Types::Base::Enum
+          value "shipping"
+          value "billing"
+        end
+
         null true
 
         argument :address, Types::InputObjects::AddressInput, required: true
         argument :default, Boolean, required: false
+        argument :address_type, AddressTypeInput, required: false, default_value: "shipping"
 
         field :user, Types::User, null: true
         field :errors, [Types::UserError], null: false
 
-        def resolve(address:, default: false)
-          address = current_user.save_in_address_book(address, default)
+        def resolve(address:, address_type:, default: false)
+          address = current_user.save_in_address_book(address, default, address_type.to_sym)
 
           {
             user: current_user,
