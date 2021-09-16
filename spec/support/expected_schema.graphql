@@ -1604,6 +1604,23 @@ type ShipmentEdge {
 }
 
 """
+Shipping Method.
+"""
+type ShippingMethod implements Node {
+  adminName: String
+  availableToAll: Boolean!
+  availableToUsers: Boolean!
+  carrier: String
+  code: String
+  createdAt: ISO8601DateTime
+  id: ID!
+  name: String!
+  serviceLevel: String
+  trackingUrl: String
+  updatedAt: ISO8601DateTime
+}
+
+"""
 Shipping Rate.
 """
 type ShippingRate implements Node {
@@ -1612,6 +1629,7 @@ type ShippingRate implements Node {
   currency: String!
   id: ID!
   selected: Boolean!
+  shippingMethod: ShippingMethod!
   updatedAt: ISO8601DateTime
 }
 
