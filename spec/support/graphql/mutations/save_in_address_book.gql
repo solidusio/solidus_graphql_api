@@ -23,6 +23,9 @@ mutation ($input: SaveInAddressBookInput!) {
         updatedAt
         zipcode
       }
+      billAddress {
+        name
+      }
       addresses {
         nodes {
           address1

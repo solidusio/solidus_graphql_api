@@ -4,6 +4,7 @@ require 'spec_helper'
 
 RSpec.describe_mutation :save_in_address_book, mutation: :save_in_address_book do
   let(:default) { false }
+  let(:address_type) { "shipping" }
   let(:country_states_required) { false }
   let(:address) {
     create(:address, name: "Jane Von Doe", country: create(:country, states_required: country_states_required))
@@ -23,7 +24,8 @@ RSpec.describe_mutation :save_in_address_book, mutation: :save_in_address_book d
     {
       input: {
         address: address_attributes,
-        default: default
+        default: default,
+        addressType: address_type
       }
     }
   }
@@ -38,15 +40,24 @@ RSpec.describe_mutation :save_in_address_book, mutation: :save_in_address_book d
   context "when current user is present" do
     let(:current_user) { create(:user) }
     let(:ship_address) { subject[:data][:saveInAddressBook][:user][:shipAddress] }
+    let(:bill_address) { subject[:data][:saveInAddressBook][:user][:billAddress] }
     let(:user_addresses) { subject[:data][:saveInAddressBook][:user][:addresses][:nodes] }
     let(:user_errors) { subject[:data][:saveInAddressBook][:errors] }
 
     context "when user doesn't have addresses" do
       context "and given attributes are correct" do
         it { expect(ship_address[:name]).to eq(address[:name]) }
+        it { expect(bill_address).to be(nil) }
         it { expect(user_addresses.count).to eq 1 }
         it { expect(user_addresses.first[:name]).to eq(address[:name]) }
         it { expect(user_errors).to be_empty }
+
+        context "when address_type is billing" do
+          let(:address_type) { "billing" }
+
+          it { expect(bill_address[:name]).to eq(address[:name]) }
+          it { expect(ship_address).to be(nil) }
+        end
       end
 
       context "and given attributes are incorrect" do
