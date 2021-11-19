@@ -4,7 +4,7 @@ module SolidusGraphqlApi
   module Types
     module Base
       class RelayNode < Base::Object
-        implements GraphQL::Relay::Node.interface
+        implements GraphQL::Types::Relay::Node
 
         global_id_field :id
       end
