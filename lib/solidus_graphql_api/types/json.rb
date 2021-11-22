@@ -4,6 +4,7 @@ module SolidusGraphqlApi
   module Types
     class Json < GraphQL::Types::JSON
       def self.coerce_input(value, ctx)
+        value = value.is_a?(ActionController::Parameters) ? value.permit!.to_h : value.to_h
         value.each do |key, field|
           case field
           when String
