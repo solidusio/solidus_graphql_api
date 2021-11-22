@@ -3,7 +3,11 @@
 require 'spec_helper'
 
 RSpec.describe SolidusGraphqlApi::Types::Base::Object do
-  subject { Class.new(described_class) }
+  subject do
+    Class.new(described_class) do
+      graphql_name :test
+    end
+  end
 
   describe '.remove_field' do
     context 'when the field is defined' do
