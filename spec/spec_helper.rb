@@ -21,9 +21,6 @@ require 'timecop'
 # in spec/support/ and its subdirectories.
 Dir["#{__dir__}/support/**/*.rb"].sort.each { |f| require f }
 
-# Requires factories defined in lib/solidus_graphql_api/testing_support/factories.rb
-SolidusDevSupport::TestingSupport::Factories.load_for(SolidusGraphqlApi::Engine)
-
 RSpec.configure do |config|
   config.add_setting :default_freeze_date, default: "21/12/2012 12:00:00"
   config.add_setting :graphql_queries_dir, default: "spec/support/graphql/queries"
