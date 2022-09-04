@@ -30,13 +30,13 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency 'batch-loader', '~> 2.0'
-  spec.add_dependency 'graphql', '>= 1.10', '< 1.13'
-  spec.add_dependency 'rails', '~> 6.1'
+  spec.add_dependency 'graphql', '>= 1.10', '< 2.1'
+  spec.add_dependency 'rails', '>= 6.1', '< 8.0'
   spec.add_dependency 'solidus_core', ['>= 2.10', '< 4']
   spec.add_dependency 'solidus_support', '~> 0.6'
 
-  spec.add_development_dependency 'graphql-docs', '~> 2.0.1'
-  spec.add_development_dependency 'graphql-schema_comparator', '~> 1.0.0'
+  spec.add_development_dependency 'graphql-docs', '~> 2.1.0'
+  spec.add_development_dependency 'graphql-schema_comparator', '~> 1.1.1'
   spec.add_development_dependency 'pry', '~> 0.14'
   spec.add_development_dependency 'simplecov', '~> 0.21'
   spec.add_development_dependency 'solidus_dev_support', '~> 2.4'
