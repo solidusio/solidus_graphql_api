@@ -108,7 +108,7 @@ module SolidusGraphqlApi
     end
 
     def graphql_loader_for(object_id, options = {}, &block)
-      ::BatchLoader::GraphQL.for(object_id).batch(default_options.merge(options), &block)
+      ::BatchLoader::GraphQL.for(object_id).batch(**default_options.merge(options), &block)
     end
   end
 end

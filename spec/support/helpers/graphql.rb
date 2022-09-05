@@ -14,12 +14,12 @@ module Helpers
       JSON.parse(result.to_json, object_class: object_class, symbolize_names: true)
     end
 
-    def execute_query(*args)
-      execute(RSpec.configuration.graphql_queries_dir, *args)
+    def execute_query(*args, **kwargs)
+      execute(RSpec.configuration.graphql_queries_dir, *args, **kwargs)
     end
 
-    def execute_mutation(*args)
-      execute(RSpec.configuration.graphql_mutations_dir, *args)
+    def execute_mutation(*args, **kwargs)
+      execute(RSpec.configuration.graphql_mutations_dir, *args, **kwargs)
     end
 
     def decode_field_ids(field)
