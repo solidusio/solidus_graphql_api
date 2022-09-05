@@ -12,8 +12,9 @@ system 'bin/rake extension:test_app' unless File.exist? dummy_env
 require dummy_env
 
 # Requires factories and other useful helpers defined in spree_core.
+
 require 'solidus_dev_support/rspec/feature_helper'
-require "graphql/schema_comparator"
+require 'graphql/schema_comparator'
 require 'with_model'
 require 'timecop'
 
@@ -35,7 +36,7 @@ RSpec.configure do |config|
 
   if defined?(ActiveStorage::Current)
     config.before(:all) do
-      ActiveStorage::Current.host = 'https://www.example.com'
+      ActiveStorage::Current.url_options = { host: 'https://www.example.com' }
     end
   end
 
