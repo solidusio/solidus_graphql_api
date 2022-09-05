@@ -4,10 +4,10 @@ module SolidusGraphqlApi
   module Types
     class Query < Base::Object
       # Used by Relay to lookup objects by UUID:
-      add_field(GraphQL::Types::Relay::NodeField)
+      add_field(GraphQL::Types::Relay::HasNodeField)
 
       # Fetches a list of objects given a list of UUIDs
-      add_field(GraphQL::Types::Relay::NodesField)
+      add_field(GraphQL::Types::Relay::HasNodesField)
 
       field :countries, Country.connection_type,
             null: false,
