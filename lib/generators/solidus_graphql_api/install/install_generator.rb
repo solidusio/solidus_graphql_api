@@ -21,7 +21,7 @@ module SolidusGraphqlApi
             mount SolidusGraphqlApi::Engine, at: '/graphql'
 
             # Enable playground in development
-            # requires gem 'graphql_playground' to be installed
+            # requires gem 'graphql_playground-rails' to be installed
             # if Rails.env.development?
             #   mount GraphqlPlayground::Rails::Engine, at: '/playground', graphql_path: '/graphql'
             # end
