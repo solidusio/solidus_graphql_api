@@ -17,12 +17,15 @@ module SolidusGraphqlApi
       def mount_engine
         insert_into_file File.join('config', 'routes.rb'), after: "Rails.application.routes.draw do\n" do
           <<-HEREDOC.strip_heredoc.indent(2)
+            # Solidus GraphQL API
             mount SolidusGraphqlApi::Engine, at: '/graphql'
 
+            # Enable playground in development
+            # requires gem 'graphql_playground' to be installed
             # if Rails.env.development?
-              # Add gem 'graphql_playground-rails' inside your Gemfile to enable playground
-              # mount GraphqlPlayground::Rails::Engine, at: '/playground', graphql_path: '/graphql'
+            #   mount GraphqlPlayground::Rails::Engine, at: '/playground', graphql_path: '/graphql'
             # end
+
           HEREDOC
         end
       end
