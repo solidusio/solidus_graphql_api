@@ -50,6 +50,7 @@ jobs:
     executor: solidusio_extensions/postgres
     steps:
       - checkout
+      - libvips
       - solidusio_extensions/run-tests-solidus-current
       - solidusio_extensions/store-test-results
       - solidusio_extensions/run-tests-solidus-master
@@ -66,6 +67,7 @@ jobs:
     executor: solidusio_extensions/mysql
     steps:
       - checkout
+      - libvips
       - solidusio_extensions/run-tests-solidus-current
       - solidusio_extensions/store-test-results
       - solidusio_extensions/run-tests-solidus-master
