@@ -22,6 +22,14 @@ commands:
           paths:
             - ~/project/vendor/bundle
 
+  # TODO: Integrate with `setup` when we deprecate support
+  # for Rails 6.1 (vips is the default from Rails 7)
+  libvips:
+    steps:
+      - run:
+          name: Install libvips
+          command: sudo apt-get install -y libvips
+
 jobs:
   verify-schema-updated:
     docker:
@@ -42,6 +50,7 @@ jobs:
     executor: solidusio_extensions/postgres
     steps:
       - checkout
+      - libvips
       - solidusio_extensions/run-tests-solidus-current
       - solidusio_extensions/store-test-results
       - solidusio_extensions/run-tests-solidus-master
@@ -58,6 +67,7 @@ jobs:
     executor: solidusio_extensions/mysql
     steps:
       - checkout
+      - libvips
       - solidusio_extensions/run-tests-solidus-current
       - solidusio_extensions/store-test-results
       - solidusio_extensions/run-tests-solidus-master

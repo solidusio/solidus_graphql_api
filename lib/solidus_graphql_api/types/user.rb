@@ -13,7 +13,6 @@ module SolidusGraphqlApi
       field :email, String, null: false
       field :last_sign_in_at, GraphQL::Types::ISO8601DateTime, null: true
       field :login, String, null: true
-      field :ship_address, Types::Address, null: true
       field :sign_in_count, Integer, null: false
       field :spree_api_key, String, null: true
       field :updated_at, GraphQL::Types::ISO8601DateTime, null: true

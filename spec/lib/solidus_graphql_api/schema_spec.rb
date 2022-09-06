@@ -59,7 +59,7 @@ RSpec.describe SolidusGraphqlApi::Schema do
   end
 
   describe '.resolve_type' do
-    subject { described_class.resolve_type(nil, object, nil) }
+    subject { described_class.resolve_type(nil, object, nil)[0] }
 
     context 'when graphql type exists' do
       let(:object) { build(:country) }

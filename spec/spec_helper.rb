@@ -9,11 +9,19 @@ require 'solidus_dev_support/rspec/coverage'
 # Create the dummy app if it's still missing.
 dummy_env = "#{__dir__}/dummy/config/environment.rb"
 system 'bin/rake extension:test_app' unless File.exist? dummy_env
+
+# TODO: tmp hack to fix problem with config.cache_classes being set to true in test
+filename = "#{__dir__}/dummy/config/environments/test.rb"
+text = File.read(filename) 
+content = text.gsub(/config.cache_classes = true/, "config.cache_classes = false")
+File.open(filename, "w") { |file| file << content }
+
 require dummy_env
 
 # Requires factories and other useful helpers defined in spree_core.
+
 require 'solidus_dev_support/rspec/feature_helper'
-require "graphql/schema_comparator"
+require 'graphql/schema_comparator'
 require 'with_model'
 require 'timecop'
 
@@ -35,7 +43,7 @@ RSpec.configure do |config|
 
   if defined?(ActiveStorage::Current)
     config.before(:all) do
-      ActiveStorage::Current.host = 'https://www.example.com'
+      ActiveStorage::Current.url_options = { host: 'https://www.example.com' }
     end
   end
 
