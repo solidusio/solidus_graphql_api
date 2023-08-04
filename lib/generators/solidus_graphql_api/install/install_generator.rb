@@ -5,6 +5,9 @@ module SolidusGraphqlApi
     class InstallGenerator < Rails::Generators::Base
       class_option :auto_run_migrations, type: :boolean, default: false
       source_root File.expand_path('templates', __dir__)
+      argument :app_path, type: :string, default: Rails.root
+
+      MOUNT_GRAPHQL_ENGINE = "mount SolidusGraphqlApi::Engine, at: '/graphql'"
 
       def copy_initializer
         template 'initializer.rb', 'config/initializers/solidus_graphql_api.rb'
@@ -20,6 +23,18 @@ module SolidusGraphqlApi
           run 'bin/rails db:migrate'
         else
           puts 'Skipping bin/rails db:migrate, don\'t forget to run it!' # rubocop:disable Rails/Output
+        end
+      end
+
+      def install_routes
+        if Pathname(app_path).join('config', 'routes.rb').read.include? MOUNT_GRAPHQL_ENGINE
+          say_status :route_exist, MOUNT_GRAPHQL_ENGINE, :blue
+        else
+          route <<~RUBY
+            # This line installs graphql's main route to execute queries
+
+            mount SolidusGraphqlApi::Engine, at: '/graphql'
+          RUBY
         end
       end
     end
