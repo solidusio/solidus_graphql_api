@@ -9,9 +9,12 @@ RSpec.describe_query :taxonomies do
     end
 
     context 'when taxonomies exists' do
-      let!(:brand_taxonomy) { create(:taxonomy, :with_taxon_meta, :with_root_icon, id: 1, root_taxon_id: 1) }
+      let!(:brand_taxonomy) do
+        create(:taxonomy, :with_taxon_meta, :with_root_icon, id: 1, name: "Brand", root_taxon_id: 1)
+      end
       let!(:category_taxonomy) { create(:taxonomy, :with_root_icon, id: 2, name: 'Category', root_taxon_id: 2) }
-      let!(:taxon) { create(:taxon, :with_icon, id: 3, name: 'Solidus', taxonomy: brand_taxonomy) }
+      # Need to reload taxon to get the correct icon url, because the icon is attached after the taxon is created
+      let!(:taxon) { create(:taxon, :with_icon, id: 3, name: 'Solidus', taxonomy: brand_taxonomy).tap(&:reload) }
 
       before do
         taxon.update(parent: brand_taxonomy.root)

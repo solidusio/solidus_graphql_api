@@ -3,9 +3,12 @@
 require 'spec_helper'
 
 RSpec.describe SolidusGraphqlApi::Queries::Taxonomy::TaxonsQuery do
-  let(:taxons) { build_list(:taxon, 2) }
+  it do
+    taxonomy = create(:taxonomy)
+    root_taxon = taxonomy.root
+    taxon = create(:taxon, taxonomy: taxonomy, parent: root_taxon)
+    create(:taxon)
 
-  let(:taxonomy) { create(:taxonomy, taxons: taxons) }
-
-  it { expect(described_class.new(taxonomy: taxonomy).call.sync).to match_array(taxons) }
+    expect(described_class.new(taxonomy: taxonomy).call.sync).to match_array([root_taxon, taxon])
+  end
 end
