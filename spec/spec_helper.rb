@@ -14,7 +14,6 @@ require dummy_env
 # Requires factories and other useful helpers defined in spree_core.
 require 'solidus_dev_support/rspec/feature_helper'
 require "graphql/schema_comparator"
-require 'with_model'
 require 'timecop'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
@@ -63,6 +62,4 @@ RSpec.configure do |config|
       example.run
     end
   end
-
-  config.extend WithModel
 end

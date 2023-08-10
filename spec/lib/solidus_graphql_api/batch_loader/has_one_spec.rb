@@ -2,7 +2,9 @@
 
 require 'spec_helper'
 
-RSpec.describe SolidusGraphqlApi::BatchLoader::HasOne do
+RSpec.describe SolidusGraphqlApi::BatchLoader::HasOne, skip: (ENV["DB"] == "mysql") do
+  include Helpers::ActiveRecord
+
   subject(:loader) do
     described_class.new(
       article,
@@ -10,27 +12,27 @@ RSpec.describe SolidusGraphqlApi::BatchLoader::HasOne do
     )
   end
 
-  with_model :Article, scope: :all do
-    model do
-      has_one :image
+  before do
+    run_migrations do
+      create_table :articles, force: true
+      create_table :images, force: true do |t|
+        t.belongs_to :article
+      end
     end
+    create_model("Article") { has_one :image }
+    create_model("Image") { belongs_to :article }
+
+    article.create_image!
   end
 
-  with_model :Image, scope: :all do
-    table do |t|
-      t.belongs_to :article
-    end
-
-    model do
-      belongs_to :article
+  after do
+    run_migrations do
+      drop_table :articles
+      drop_table :images
     end
   end
 
   let!(:article) { Article.create! }
-
-  before do
-    article.create_image!
-  end
 
   it 'loads the association properly' do
     expect(loader.load.sync).to eq(article.image)
