@@ -10,12 +10,12 @@ Gem::Specification.new do |spec|
 
   spec.summary = 'Solidus GraphQL API'
   spec.description = 'GraphQL comes to Solidus'
-  spec.homepage = 'https://github.com/solidusio-contrib/solidus_graphql_api'
+  spec.homepage = 'https://github.com/solidusio/solidus_graphql_api'
   spec.license = 'BSD-3-Clause'
 
   spec.metadata['homepage_uri'] = spec.homepage
-  spec.metadata['source_code_uri'] = 'https://github.com/solidusio-contrib/solidus_graphql_api'
-  spec.metadata['changelog_uri'] = 'https://github.com/solidusio-contrib/solidus_graphql_api/releases'
+  spec.metadata['source_code_uri'] = 'https://github.com/solidusio/solidus_graphql_api'
+  spec.metadata['changelog_uri'] = 'https://github.com/solidusio/solidus_graphql_api/releases'
 
   spec.required_ruby_version = Gem::Requirement.new('~> 3.0')
 
