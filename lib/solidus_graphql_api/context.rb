@@ -3,7 +3,7 @@
 module SolidusGraphqlApi
   class Context
     AUTHORIZATION_HEADER = "Authorization"
-    TOKEN_PATTERN = /^Bearer (?<token>.*)/.freeze
+    TOKEN_PATTERN = /^Bearer (?<token>.*)/
 
     attr_reader :request, :headers
 
@@ -23,7 +23,7 @@ module SolidusGraphqlApi
 
     def current_user
       @current_user ||= begin
-        return nil unless bearer_token&.present?
+        return nil if bearer_token.blank?
 
         Spree.user_class.find_by(spree_api_key: bearer_token)
       end
