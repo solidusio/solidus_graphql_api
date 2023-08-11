@@ -34,7 +34,12 @@ RSpec.configure do |config|
 
   if defined?(ActiveStorage::Current)
     config.before(:all) do
-      ActiveStorage::Current.host = 'https://www.example.com'
+      test_host = 'https://www.example.com'
+      if Rails.gem_version >= Gem::Version.new(7)
+        ActiveStorage::Current.url_options = { host: test_host }
+      else
+        ActiveStorage::Current.host = test_host
+      end
     end
   end
 
