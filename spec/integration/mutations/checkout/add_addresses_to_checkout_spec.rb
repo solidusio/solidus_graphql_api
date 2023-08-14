@@ -13,7 +13,7 @@ RSpec.describe_mutation :add_addresses_to_checkout, mutation: :add_addresses_to_
     ]
   }
 
-  let(:country_id) { SolidusGraphqlApi::Schema.id_from_object(create(:country), nil, nil) }
+  let(:country_id) { SolidusGraphqlApi::Schema.id_from_object(create(:country, states_required: false), nil, nil) }
   let(:address) {
     address = build_stubbed(:address).slice(:address1, :city, :phone, :zipcode)
     address[:countryId] = country_id

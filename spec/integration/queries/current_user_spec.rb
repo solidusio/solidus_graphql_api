@@ -12,8 +12,13 @@ RSpec.describe_query :current_user, query: :current_user, freeze_date: true do
            bill_address: bill_address)
   }
 
-  let(:ship_address) { create(:ship_address, id: 1, zipcode: 10_001) }
-  let(:bill_address) { create(:bill_address, id: 2, zipcode: 10_002) }
+  # Previos to Solidus v3.3, states_required was always false and the state was
+  # always automatically assigned. We force the behavior here to have the same
+  # response for any Solidus version.
+  let(:country) { create(:country, states_required: false) }
+  let(:state) { create(:state, name: "Alabama", abbr: "AL", country: country) }
+  let(:ship_address) { create(:ship_address, id: 1, zipcode: 10_001, country: country, state: state) }
+  let(:bill_address) { create(:bill_address, id: 2, zipcode: 10_002, country: country, state: state) }
   let(:credit_card) {
     create(:credit_card,
            user: user,
