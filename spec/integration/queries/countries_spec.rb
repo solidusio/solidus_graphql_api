@@ -9,8 +9,8 @@ RSpec.describe_query :countries, query: :countries, freeze_date: true do
     end
 
     context 'when countries exists' do
-      let!(:us_country) { create(:country, :with_states, id: 1) }
-      let!(:it_country) { create(:country, id: 2, iso: 'IT') }
+      let!(:us_country) { create(:country, :with_states, id: 1, states_required: false) }
+      let!(:it_country) { create(:country, id: 2, iso: 'IT', states_required: false) }
 
       it { is_expected.to match_response(:countries) }
     end

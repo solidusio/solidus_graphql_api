@@ -10,14 +10,14 @@ Gem::Specification.new do |spec|
 
   spec.summary = 'Solidus GraphQL API'
   spec.description = 'GraphQL comes to Solidus'
-  spec.homepage = 'https://github.com/solidusio-contrib/solidus_graphql_api'
+  spec.homepage = 'https://github.com/solidusio/solidus_graphql_api'
   spec.license = 'BSD-3-Clause'
 
   spec.metadata['homepage_uri'] = spec.homepage
-  spec.metadata['source_code_uri'] = 'https://github.com/solidusio-contrib/solidus_graphql_api'
-  spec.metadata['changelog_uri'] = 'https://github.com/solidusio-contrib/solidus_graphql_api/blob/master/CHANGELOG.md'
+  spec.metadata['source_code_uri'] = 'https://github.com/solidusio/solidus_graphql_api'
+  spec.metadata['changelog_uri'] = 'https://github.com/solidusio/solidus_graphql_api/releases'
 
-  spec.required_ruby_version = Gem::Requirement.new('~> 2.5')
+  spec.required_ruby_version = Gem::Requirement.new('~> 3.0')
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
@@ -31,8 +31,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'batch-loader', '~> 2.0'
   spec.add_dependency 'graphql', '>= 1.10', '< 1.13'
-  spec.add_dependency 'rails', '~> 6.1'
-  spec.add_dependency 'solidus_core', ['>= 2.10', '< 4']
+  spec.add_dependency 'solidus_core', ['>= 3.2', '< 5']
   spec.add_dependency 'solidus_support', '~> 0.6'
 
   spec.add_development_dependency 'graphql-docs', '~> 2.0.1'
@@ -41,5 +40,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'simplecov', '~> 0.21'
   spec.add_development_dependency 'solidus_dev_support', '~> 2.4'
   spec.add_development_dependency 'timecop', '~> 0.9.1'
-  spec.add_development_dependency 'with_model', '~> 2.1.2'
 end

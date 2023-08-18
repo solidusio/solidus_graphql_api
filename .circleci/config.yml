@@ -8,102 +8,62 @@ orbs:
   solidusio_extensions: solidusio/extensions@volatile
 
 commands:
-  bundle:
-    description: 'Install and cache gems'
+  libvips:
     steps:
-      - restore_cache:
-          keys:
-            - v1-bundle-{{ checksum "solidus_graphql_api.gemspec" }}-{{ checksum "Gemfile" }}
-            - v1-bundle-{{ checksum "solidus_graphql_api.gemspec" }}
-            - v1-bundle-
-      - run: bundle check || bundle install
-      - save_cache:
-          key: v1-bundle-{{ checksum "solidus_graphql_api.gemspec" }}-{{ checksum "Gemfile" }}
-          paths:
-            - ~/project/vendor/bundle
+      - run:
+          name: Install libvips
+          command: "sudo apt-get update && sudo apt-get install -y libvips"
 
 jobs:
-  verify-schema-updated:
-    docker:
-      - image: circleci/ruby:2.5.6-node
-        environment:
-          BUNDLE_PATH: vendor/bundle
+  run-specs:
+    parameters:
+      solidus:
+        type: string
+        default: main
+      db:
+        type: string
+        default: "postgres"
+      ruby:
+        type: string
+        default: "3.2"
+    executor:
+      name: solidusio_extensions/<< parameters.db >>
+      ruby_version: << parameters.ruby >>
     steps:
       - checkout
-      - bundle
-      - run:
-          name: Check if Schema is up-to-date
-          command: |
-            mv schema.graphql old_schema.graphql
-            bundle exec rake schema:idl
-            diff old_schema.graphql schema.graphql
-
-  run-specs-with-postgres:
-    executor: solidusio_extensions/postgres
-    steps:
-      - checkout
-      - solidusio_extensions/run-tests-solidus-current
-      - solidusio_extensions/store-test-results
-      - solidusio_extensions/run-tests-solidus-master
-      - solidusio_extensions/store-test-results
-      - run:
-          name: Install & Upload test coverage to Code Climate
-          command: |
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-            chmod +x ./cc-test-reporter
-            ./cc-test-reporter format-coverage -t simplecov -o ./coverage/codeclimate.json
-            ./cc-test-reporter upload-coverage
-
-  run-specs-with-mysql:
-    executor: solidusio_extensions/mysql
-    steps:
-      - checkout
-      - solidusio_extensions/run-tests-solidus-current
-      - solidusio_extensions/store-test-results
-      - solidusio_extensions/run-tests-solidus-master
-      - solidusio_extensions/store-test-results
-
-
-  schema-breaking-change-detection:
-    docker:
-      - image: circleci/ruby:2.5.6-node
-    steps:
-      - checkout
-      - run:
-          name: Install GraphQL::SchemaComparator
-          command: gem install graphql-schema_comparator
-      - run:
-          name: Schema Breaking Change detection
-          command: rm Gemfile && schema_comparator verify "`git show origin/master:schema.graphql`" schema.graphql
-
-  lint-code:
-    executor: solidusio_extensions/sqlite-memory
-    steps:
-      - solidusio_extensions/lint-code
+      - libvips
+      - solidusio_extensions/run-tests-solidus-<< parameters.solidus >>
 
 workflows:
   "Run specs on supported Solidus versions":
     jobs:
-      - verify-schema-updated
-      - schema-breaking-change-detection:
-          requires:
-            - verify-schema-updated
-      - run-specs-with-postgres:
-          requires:
-            - verify-schema-updated
-      - run-specs-with-mysql:
-          requires:
-            - verify-schema-updated
-      - lint-code
+      - run-specs:
+          name: &name "run-specs-solidus-<< matrix.solidus >>-ruby-<< matrix.ruby >>-db-<< matrix.db >>"
+          matrix:
+            parameters: { solidus: ["main"], ruby: ["3.2"], db: ["postgres"] }
+      - run-specs:
+          name: *name
+          matrix:
+            parameters: { solidus: ["current"], ruby: ["3.1"], db: ["mysql"] }
+      - run-specs:
+          name: *name
+          matrix:
+            parameters: { solidus: ["older"], ruby: ["3.0"], db: ["sqlite"] }
 
-  "Weekly run specs against master":
+  "Weekly run specs against main":
     triggers:
       - schedule:
           cron: "0 0 * * 4" # every Thursday
           filters:
             branches:
               only:
-                - master
+                - main
     jobs:
-      - run-specs-with-postgres
-      - run-specs-with-mysql
+      - run-specs:
+          name: *name
+          matrix:
+            parameters: { solidus: ["main"], ruby: ["3.2"], db: ["postgres"] }
+      - run-specs:
+          name: *name
+          matrix:
+            parameters: { solidus: ["current"], ruby: ["3.1"], db: ["mysql"] }

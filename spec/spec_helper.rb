@@ -14,7 +14,6 @@ require dummy_env
 # Requires factories and other useful helpers defined in spree_core.
 require 'solidus_dev_support/rspec/feature_helper'
 require "graphql/schema_comparator"
-require 'with_model'
 require 'timecop'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
@@ -35,7 +34,12 @@ RSpec.configure do |config|
 
   if defined?(ActiveStorage::Current)
     config.before(:all) do
-      ActiveStorage::Current.host = 'https://www.example.com'
+      test_host = 'https://www.example.com'
+      if Rails.gem_version >= Gem::Version.new(7)
+        ActiveStorage::Current.url_options = { host: test_host }
+      else
+        ActiveStorage::Current.host = test_host
+      end
     end
   end
 
@@ -63,6 +67,4 @@ RSpec.configure do |config|
       example.run
     end
   end
-
-  config.extend WithModel
 end

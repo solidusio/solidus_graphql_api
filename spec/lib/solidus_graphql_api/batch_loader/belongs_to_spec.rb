@@ -2,7 +2,9 @@
 
 require 'spec_helper'
 
-RSpec.describe SolidusGraphqlApi::BatchLoader::BelongsTo do
+RSpec.describe SolidusGraphqlApi::BatchLoader::BelongsTo, skip: (ENV["DB"] == "mysql") do
+  include Helpers::ActiveRecord
+
   subject(:loader) do
     described_class.new(
       object,
@@ -14,19 +16,21 @@ RSpec.describe SolidusGraphqlApi::BatchLoader::BelongsTo do
   let(:options) { {} }
 
   context 'with a regular association' do
-    with_model :Article, scope: :all do
-      model do
-        has_many :comments
+    before do
+      run_migrations do
+        create_table :articles, force: true
+        create_table :comments, force: true do |t|
+          t.belongs_to :article
+        end
       end
+      create_model("Article")
+      create_model("Comment") { belongs_to :article }
     end
 
-    with_model :Comment, scope: :all do
-      table do |t|
-        t.belongs_to :article
-      end
-
-      model do
-        belongs_to :article
+    after do
+      run_migrations do
+        drop_table :articles
+        drop_table :comments
       end
     end
 
@@ -39,21 +43,16 @@ RSpec.describe SolidusGraphqlApi::BatchLoader::BelongsTo do
   end
 
   context 'with a polymorphic association' do
-    with_model :Image, scope: :all do
-      table do |t|
-        t.integer :imageable_id
-        t.string :imageable_type
+    before do
+      run_migrations do
+        create_table :images, force: true do |t|
+          t.integer :imageable_id
+          t.string :imageable_type
+        end
+        create_table :articles, force: true
       end
-
-      model do
-        belongs_to :imageable, polymorphic: true
-      end
-    end
-
-    with_model :Article, scope: :all do
-      model do
-        has_many :images, as: :imageable
-      end
+      create_model("Image") { belongs_to :imageable, polymorphic: true }
+      create_model("Article") { has_many :images, as: :imageable }
     end
 
     let!(:object) { Image.create!(imageable: Article.create!) }

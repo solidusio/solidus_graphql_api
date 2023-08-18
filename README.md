@@ -1,8 +1,8 @@
 # SolidusGraphqlApi
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/8ea7739ad6726ad8cfa7/maintainability)](https://codeclimate.com/github/solidusio-contrib/solidus_graphql_api/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/8ea7739ad6726ad8cfa7/test_coverage)](https://codeclimate.com/github/solidusio-contrib/solidus_graphql_api/test_coverage)
-[![CircleCI](https://circleci.com/gh/solidusio-contrib/solidus_graphql_api.svg?style=shield)](https://circleci.com/gh/solidusio-contrib/solidus_graphql_api)
+[![Maintainability](https://api.codeclimate.com/v1/badges/8ea7739ad6726ad8cfa7/maintainability)](https://codeclimate.com/github/solidusio/solidus_graphql_api/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/8ea7739ad6726ad8cfa7/test_coverage)](https://codeclimate.com/github/solidusio/solidus_graphql_api/test_coverage)
+[![CircleCI](https://circleci.com/gh/solidusio/solidus_graphql_api.svg?style=shield)](https://circleci.com/gh/solidusio/solidus_graphql_api)
 [![Gem Version](https://badge.fury.io/rb/solidus_graphql_api.svg)](https://badge.fury.io/rb/solidus_graphql_api)
 
 Provides a [graphql](https://graphql.org/) api for the [Solidus](https://github.com/solidusio/solidus) ecommerce framework.
@@ -36,7 +36,7 @@ POST http://localhost:3000/graphql
 
 ## Documentation
 
-The Solidus GraphQL API documentation can be found [here](https://solidusio-contrib.github.io/solidus_graphql_api/docs/).
+The Solidus GraphQL API documentation can be found [here](https://solidusio.github.io/solidus_graphql_api/docs/).
 
 ## Customizations
 
