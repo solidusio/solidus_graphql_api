@@ -26,7 +26,8 @@ bin/rails generate solidus_graphql_api:install
 ```
 
 Unlike the REST API which has a variety of endpoints, the GraphQL API has a
-single endpoint accessible under `/graphql`.
+single endpoint accessible under `/graphql`. It will be automatically 
+inserted into your `routes.rb` file after running the generator.
 
 For example in development you can use:
 
