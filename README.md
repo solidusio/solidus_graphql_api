@@ -219,13 +219,6 @@ To run [Rubocop](https://github.com/bbatsov/rubocop) static code analysis run
 bundle exec rubocop
 ```
 
-When testing your application's integration with this extension you may use its factories.
-Simply add this require statement to your spec_helper:
-
-```ruby
-require 'solidus_graphql_api/factories'
-```
-
 ## Running the sandbox
 
 To run this extension in a sandboxed Solidus application, you can run `bin/sandbox`. The path for
